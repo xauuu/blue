@@ -369,10 +369,13 @@
                             _token: _token
                         },
                         success: function(data) {
-                            $('#search-list').fadeIn(200);
+                            $('#search-list').fadeIn();
                             $('#search-list').html(data);
                         }
                     });
+                }
+                else{
+                    $('#search-list').fadeOut();
                 }
             });
         });

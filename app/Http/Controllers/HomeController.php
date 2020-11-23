@@ -113,8 +113,16 @@ class HomeController extends Controller
     }
     public function search(Request $request)
     {
-        $output = '<ul class="dropdown-menu" style="display:block;">';
-        $output .= '<li><a href="data">' . $request->search . '</a></li>';
+        $search = Product::where('product_name', 'like', "%{$request->search}%")->get();
+        $output = '<ul class="dropdown-menu search">';
+        foreach ($search as $item) {
+            $output .= '
+            <li>
+                <a class="dropdown-item" href="' . url('/product-detail/' . $item->product_id) . '">' . $item->product_name . '
+                <span class="search-price">'.number_format($item->product_discount).' VND</span>
+                </a>
+            </li>';
+        }
         $output .= '</ul>';
         echo $output;
     }
