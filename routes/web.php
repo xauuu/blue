@@ -111,3 +111,4 @@ Route::group(['prefix' => 'admin'], function () {
     });
 });
 Route::get('/send-mail', [MailController::class, 'send_mail']);
+//hello
