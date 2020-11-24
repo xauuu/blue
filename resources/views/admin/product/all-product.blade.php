@@ -26,12 +26,12 @@
                         <th scope="col">Tên sản phẩm</th>
                         <th scope="col">Ảnh</th>
                         <th scope="col">Gallery</th>
-                        <th scope="col">Mô tả</th>
+                        <th scope="col">Mô tả sản phẩm</th>
                         <th scope="col">Giá</th>
                         <th scope="col">Trạng thái</th>
                         <th scope="col">Bình luận</th>
                         <th scope="col">Chi tiết</th>
-                        <th scope="col">Thao tác</th>
+                        <th scope="col">Thao tác (*)</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -41,7 +41,8 @@
                             <td><img width="150" src="{{ URL::to('uploads/product/' . $value1->product_img) }}"
                                     alt="{{ $value1->product_name }}"></td>
                             <td>
-                                <a href="{{ URL::to('admin/product/gallery/'.$value1->product_id) }}">
+                                <a class="btn btn-outline-success" title="Thêm thư viên ảnh cho sản phẩm"
+                                    href="{{ URL::to('admin/product/gallery/' . $value1->product_id) }}">
                                     <i class="align-middle" data-feather="image"></i>
                                 </a>
                             </td>
@@ -56,13 +57,14 @@
                                 @endif
                             </td>
                             <td>
-                                <a href="{{ URL::to('admin/product/comment/'.$value1->product_id) }}">
+                                <a class="btn btn-outline-secondary" title="Xem bình luận của sản phẩm"
+                                    href="{{ URL::to('admin/product/comment/' . $value1->product_id) }}">
                                     <i class="align-middle" data-feather="message-square"></i>
                                 </a>
                             </td>
                             <td>
-                                <button type="button" class="btn btn-primary" data-toggle="modal"
-                                    data-target="#sanpham{{ $value1->product_id }}">
+                                <button type="button" class="btn btn-outline-primary" data-toggle="modal"
+                                    data-target="#sanpham{{ $value1->product_id }}" title="Xem chi tiết sản phẩm">
                                     Xem
                                 </button>
                                 <div class="modal fade" id="sanpham{{ $value1->product_id }}" tabindex="-1" role="dialog"
@@ -86,10 +88,12 @@
                                 </div>
                             </td>
                             <td>
-                                <a onclick="return confirm('Xoá sản phẩm này')"
+                                <a class="btn btn-outline-danger" title="Xoá sản phẩm"
+                                    onclick="return confirm('Xoá sản phẩm: {{ $value1->product_name }}')"
                                     href="{{ URL::to('/admin/product/delete-product/' . $value1->product_id) }}">
-                                    <i class="align-middle mr-3" data-feather="trash-2"></i></a>
-                                <a href="{{ URL::to('/admin/product/edit-product/' . $value1->product_id) }}">
+                                    <i class="align-middle" data-feather="trash-2"></i></a>
+                                <a class="btn btn-outline-warning" title="Sửa sản phẩm"
+                                    href="{{ URL::to('/admin/product/edit-product/' . $value1->product_id) }}">
                                     <i class="align-middle" data-feather="edit"></i></a>
                             </td>
                         </tr>

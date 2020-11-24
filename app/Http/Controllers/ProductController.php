@@ -115,6 +115,13 @@ class ProductController extends Controller
         Session::flash('success', 'Đã cập nhập sản phẩm ' . $product->product_name);
         return Redirect::to('admin/product/all-product');
     }
+    public function comment($product_id)
+    {
+        $comment = Comment::join('customers', 'customers.id', 'comments.customer_id')
+            ->select('customers.customer_name', 'comments.*')
+            ->where('product_id', $product_id)->get();
+        return view('admin.product.comment', compact('comment'));
+    }
     // end backend
     //
 

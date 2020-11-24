@@ -6,6 +6,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CategoryPostController;
 use App\Http\Controllers\CheckOutController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\MailController;
@@ -103,11 +104,21 @@ Route::group(['prefix' => 'admin'], function () {
         Route::get('/gallery/{product_id}', [GalleryController::class, 'gallery']);
         Route::post('/add-gallery', [GalleryController::class, 'add_gallery']);
         Route::get('/delete-ga/{gallery_id}', [GalleryController::class, 'delete_ga']);
+        Route::get('/comment/{product_id}', [ProductController::class, 'gallery']);
 
     });
     Route::group(['prefix' => 'order'], function () {
         Route::get('/confirm-order', [CheckOutController::class, 'confirm_order']);
         Route::get('/detail-order/{order_id}', [CheckOutController::class, 'detail_order']);
+    });
+    Route::group(['prefix' => 'post'], function () {
+        Route::get('/add-category-post', [CategoryPostController::class, 'add_category_post']);
+        Route::get('/all-category-post', [CategoryPostController::class, 'all_category_post']);
+        Route::post('/save-category-post', [CategoryPostController::class, 'save_category_post']);
+        Route::get('/edit-category-post/{category_post_id}', [CategoryPostController::class, 'edit_category_post']);
+        Route::post('/update-category-post', [CategoryPostController::class, 'update_category_post']);
+        Route::get('/delete-category-post/{category_post_id}', [CategoryPostController::class, 'delete_category_post']);
+        Route::get('/status-category-post/{category_post_id}', [CategoryPostController::class, 'status_category_post']);
     });
 });
 Route::get('/send-mail', [MailController::class, 'send_mail']);

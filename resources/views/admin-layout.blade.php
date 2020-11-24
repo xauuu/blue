@@ -32,7 +32,7 @@
 
                 <ul class="sidebar-nav">
                     <li class="sidebar-header">
-                        Pages
+                        Dashboard
                     </li>
 
                     <li class="sidebar-item {{ Request::is('admin/dashboard') ? 'active' : '' }}">
@@ -42,23 +42,11 @@
                         </a>
                     </li>
 
-                    <li class="sidebar-item">
-                        <a class="sidebar-link" href="{{ URL::to('/admin/dashboard') }}">
-                            <i class="align-middle" data-feather="user"></i> <span class="align-middle">Thông tin</span>
-                        </a>
-                    </li>
-
-                    <li class="sidebar-item">
-                        <a href="#auth" data-toggle="collapse" class="sidebar-link collapsed">
-                            <i class="align-middle" data-feather="users"></i> <span class="align-middle">Tài
+                    <li class="sidebar-item {{ Request::is('admin/user') ? 'active' : '' }}">
+                        <a class="sidebar-link" href="{{ URL::to('/admin/user') }}">
+                            <i class="align-middle" data-feather="users"></i> <span class="align-middle">Danh sách tài
                                 khoản</span>
                         </a>
-                        <ul id="auth" class="sidebar-dropdown list-unstyled collapse " data-parent="#sidebar">
-                            <li class="sidebar-item"><a class="sidebar-link"
-                                    href="{{ URL::to('/admin/dashboard') }}">Đăng nhập</a></li>
-                            <li class="sidebar-item"><a class="sidebar-link"
-                                    href="{{ URL::to('/admin/dashboard') }}">Đăng xuất</a></li>
-                        </ul>
                     </li>
 
                     <li class="sidebar-header">
@@ -118,20 +106,22 @@
                         </ul>
                     </li>
                     <li class="sidebar-header">
-                        Plugins & Addons
+                        Bài viết
                     </li>
-
-                    <li class="sidebar-item">
-                        <a class="sidebar-link" href="charts-chartjs.html">
-                            <i class="align-middle" data-feather="bar-chart-2"></i> <span
-                                class="align-middle">Charts</span>
+                    <li class="sidebar-item {{ Request::is('admin/post/*') ? 'active' : '' }}">
+                        <a data-target="#post" data-toggle="collapse" class="sidebar-link collapsed">
+                            <i class="align-middle" data-feather="file-text"></i> <span class="align-middle">Danh
+                                mục bài viết</span>
                         </a>
-                    </li>
-
-                    <li class="sidebar-item">
-                        <a class="sidebar-link" href="maps-google.html">
-                            <i class="align-middle" data-feather="map"></i> <span class="align-middle">Maps</span>
-                        </a>
+                        <ul id="post" class="sidebar-dropdown list-unstyled collapse " data-parent="#sidebar">
+                            <li class="sidebar-item"><a class="sidebar-link"
+                                    href="{{ URL::to('/admin/post/add-category-post') }}">Thêm danh mục bài viết</a>
+                            </li>
+                            <li class="sidebar-item"><a class="sidebar-link"
+                                    href="{{ URL::to('/admin/post/all-category-post') }}">Xem
+                                    danh mục bài viết</a>
+                            </li>
+                        </ul>
                     </li>
                 </ul>
 
