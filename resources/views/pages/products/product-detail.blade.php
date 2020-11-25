@@ -141,14 +141,14 @@
                 <div class="blog__details__comment">
                     <h4 class="mb-4">BÌNH LUẬN</h4>
                     <a href="#cmt" class="leave-btn">Để lại bình luận</a>
-                    @foreach ($comment as $item => $cmt)
+                    @foreach ($detail->comment as $item => $cmt)
                         @if ($cmt->reply_id == 0)
                             <div class="blog__comment__item">
                                 <div class="blog__comment__item__pic">
-                                    <div class="cmt-avt">{{ $cmt->customer_name[0] }}</div>
+                                    <div class="cmt-avt">{{ $cmt->customer->customer_name[0] }}</div>
                                 </div>
                                 <div class="blog__comment__item__text">
-                                    <h6>{{ $cmt->customer_name }}</h6>
+                                    <h6>{{ $cmt->customer->customer_name }}</h6>
                                     <p>{{ $cmt->comment_content }}</p>
                                     <ul>
                                         <li><i class="fa fa-clock-o"></i> {{ $cmt->comment_time }}</li>
@@ -157,14 +157,14 @@
                                                 Trả lời</button></li>
                                     </ul>
                                     <div class="mt-3" id="reply-comment{{ $cmt->comment_id }}">
-                                        @foreach ($comment as $item => $reply)
+                                        @foreach ($detail->comment as $item => $reply)
                                             @if ($cmt->comment_id == $reply->reply_id)
                                                 <div class="blog__comment__item__text mt-4">
                                                     <div class="blog__comment__item__pic">
-                                                        <div class="reply-avt">{{ $reply->customer_name[0] }}</div>
+                                                        <div class="reply-avt">{{ $reply->customer->customer_name[0] }}</div>
                                                     </div>
                                                     <div class="blog__comment__item__text">
-                                                        <h6>{{ $reply->customer_name }}</h6>
+                                                        <h6>{{ $reply->customer->customer_name }}</h6>
                                                         <p>{{ $reply->comment_content }}</p>
                                                         <ul>
                                                             <li><i class="fa fa-clock-o"></i> {{ $reply->comment_time }}
@@ -190,20 +190,6 @@
                             </div>
                         @endif
                     @endforeach
-
-                    {{-- <div class="blog__comment__item blog__comment__item--reply">
-                        <div class="blog__comment__item__pic">
-                            <img width="90" src="{{ URL::asset('uploads/xau.jpg') }}" alt="">
-                        </div>
-                        <div class="blog__comment__item__text">
-                            <h6>Brandon Kelley</h6>
-                            <p>Consequat consetetur dissentiet, ceteros commune perpetua mei et. Simul viderer
-                                facilisis egimus ulla mcorper.</p>
-                            <ul>
-                                <li><i class="fa fa-clock-o"></i> Seb 17, 2019</li>
-                            </ul>
-                        </div>
-                    </div> --}}
                 </div>
                 @if (session('customer_id'))
                     <div class="mt-5">

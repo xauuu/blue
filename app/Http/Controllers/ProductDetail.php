@@ -19,10 +19,7 @@ class ProductDetail extends Controller
         $category = Category::where('category_status', 1)->get();
         $detail = Product::find($product_id);
         $related = Product::where('category_id', $detail->category_id)->get();
-        $comment = Comment::join('customers', 'customers.id', 'comments.customer_id')
-            ->select('customers.customer_name', 'comments.*')
-            ->where('product_id', $product_id)->get();
-        return view('pages.products.product-detail', compact('category', 'detail', 'related', 'comment'));
+        return view('pages.products.product-detail', compact('category', 'detail', 'related'));
     }
     public function add_comment(Request $request)
     {

@@ -16,7 +16,8 @@ class HomeController extends Controller
     public function home()
     {
         $category = Category::all();
-        return view('pages.home', compact('category'));
+        $product_latest = Product::latest()->limit(8)->get();
+        return view('pages.home', compact('category', 'product_latest'));
     }
     public function shop()
     {
@@ -105,14 +106,19 @@ class HomeController extends Controller
     {
         $search = Product::where('product_name', 'like', "%{$request->search}%")->get();
         $output = '<ul class="dropdown-menu search">';
-        foreach ($search as $item) {
-            $output .= '
-            <li>
-                <a class="dropdown-item" href="' . url('/product-detail/' . $item->product_id) . '">' . $item->product_name . '
-                <span class="search-price">'.number_format($item->product_discount).' VND</span>
-                </a>
-            </li>';
+        if (count($search)) {
+            foreach ($search as $item) {
+                $output .= '
+                    <li>
+                        <a class="dropdown-item" href="' . url('/product-detail/' . $item->product_id) . '">' . $item->product_name . '
+                        <span class="search-price">' . number_format($item->product_discount) . ' VND</span>
+                        </a>
+                    </li>';
+            }
+        }else{
+            $output .= '<li>Không có kết quả</li>';
         }
+
         $output .= '</ul>';
         echo $output;
     }

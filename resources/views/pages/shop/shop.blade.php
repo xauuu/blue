@@ -133,7 +133,7 @@
                         <h2 class="fw-title">Thương hiệu</h2>
                         <ul class="category-menu">
                             @foreach ($brand as $item)
-                                <li><a href="{{ URL::to('brand/'.$item->brand_id) }}">{{ $item->brand_name }} <span>(2)</span></a></li>
+                                <li><a href="{{ URL::to('brand/'.$item->brand_id) }}">{{ $item->brand_name }} <span>({{ count($item->count_brand) }})</span></a></li>
                             @endforeach
                         </ul>
                     </div>

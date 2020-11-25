@@ -18,4 +18,8 @@ class Brand extends Model
         'brand_status'
     ];
     public $timestamps = true;
+    public function count_brand()
+    {
+        return $this->hasMany(Product::class, 'brand_id');
+    }
 }

@@ -61,7 +61,7 @@
                         <div class="feature-icon">
                             <img src="{{ asset('frontend/img/icons/1.png') }}" alt="#">
                         </div>
-                        <h2>Fast Secure Payments</h2>
+                        <h2>THANH TOÁN AN TOÀN NHANH CHÓNG</h2>
                     </div>
                 </div>
                 <div class="col-md-4 p-0 feature">
@@ -69,7 +69,7 @@
                         <div class="feature-icon">
                             <img src="{{ asset('frontend/img/icons/2.png') }}" alt="#">
                         </div>
-                        <h2>Premium Products</h2>
+                        <h2>SẢN PHẨM CAO CẤP</h2>
                     </div>
                 </div>
                 <div class="col-md-4 p-0 feature">
@@ -77,7 +77,7 @@
                         <div class="feature-icon">
                             <img src="{{ asset('frontend/img/icons/3.png') }}" alt="#">
                         </div>
-                        <h2>Free & fast Delivery</h2>
+                        <h2>GIAO HÀNG MIỄN PHÍ VÀ NHANH CHÓNG</h2>
                     </div>
                 </div>
             </div>
@@ -90,75 +90,33 @@
     <section class="top-letest-product-section">
         <div class="container">
             <div class="section-title">
-                <h2>LATEST PRODUCTS</h2>
+                <h2>SẢN PHẨM MỚI</h2>
             </div>
             <div class="product-slider owl-carousel">
-                <div class="product-item">
-                    <div class="pi-pic">
-                        <img src="{{ asset('frontend/./img/product/1.jpg') }}" alt="">
-                        <div class="pi-links">
-                            <a href="#" class="add-card"><i class="flaticon-bag"></i><span>ADD TO CART</span></a>
-                            <a href="#" class="wishlist-btn"><i class="flaticon-heart"></i></a>
+                @foreach ($product_latest as $item => $pro)
+                    <form>
+                        {{ csrf_field() }}
+                        <div class="product-item">
+                            <div class="pi-pic">
+                                <a href="{{ URL::to('product-detail/' . $pro->product_id) }}">
+                                    <img src="{{ asset('uploads/product/' . $pro->product_img) }}" alt="">
+                                </a>
+                                <div class="pi-links">
+                                    <button data-id="{{ $pro->product_id }}" type="button" name="add-cart" class="add-card">
+                                        <i class="flaticon-bag"></i><span>Add to cart</span>
+                                    </button>
+                                    <a href="#" class="wishlist-btn"><i class="flaticon-heart"></i></a>
+                                </div>
+                            </div>
+                            <div class="pi-text">
+                                <h6>{{ number_format($pro->product_discount) }} VND</h6>
+                                <a href="{{ URL::to('product-detail/' . $pro->product_id) }}">
+                                    <p>{{ $pro->product_name }}</p>
+                                </a>
+                            </div>
                         </div>
-                    </div>
-                    <div class="pi-text">
-                        <h6>$35,00</h6>
-                        <p>Flamboyant Pink Top </p>
-                    </div>
-                </div>
-                <div class="product-item">
-                    <div class="pi-pic">
-                        <div class="tag-new">New</div>
-                        <img src="{{ asset('frontend/./img/product/2.jpg') }}" alt="">
-                        <div class="pi-links">
-                            <a href="#" class="add-card"><i class="flaticon-bag"></i><span>ADD TO CART</span></a>
-                            <a href="#" class="wishlist-btn"><i class="flaticon-heart"></i></a>
-                        </div>
-                    </div>
-                    <div class="pi-text">
-                        <h6>$35,00</h6>
-                        <p>Black and White Stripes Dress</p>
-                    </div>
-                </div>
-                <div class="product-item">
-                    <div class="pi-pic">
-                        <img src="{{ asset('frontend/./img/product/3.jpg') }}" alt="">
-                        <div class="pi-links">
-                            <a href="#" class="add-card"><i class="flaticon-bag"></i><span>ADD TO CART</span></a>
-                            <a href="#" class="wishlist-btn"><i class="flaticon-heart"></i></a>
-                        </div>
-                    </div>
-                    <div class="pi-text">
-                        <h6>$35,00</h6>
-                        <p>Flamboyant Pink Top </p>
-                    </div>
-                </div>
-                <div class="product-item">
-                    <div class="pi-pic">
-                        <img src="{{ asset('frontend/./img/product/4.jpg') }}" alt="">
-                        <div class="pi-links">
-                            <a href="#" class="add-card"><i class="flaticon-bag"></i><span>ADD TO CART</span></a>
-                            <a href="#" class="wishlist-btn"><i class="flaticon-heart"></i></a>
-                        </div>
-                    </div>
-                    <div class="pi-text">
-                        <h6>$35,00</h6>
-                        <p>Flamboyant Pink Top </p>
-                    </div>
-                </div>
-                <div class="product-item">
-                    <div class="pi-pic">
-                        <img src="{{ asset('frontend/./img/product/6.jpg') }}" alt="">
-                        <div class="pi-links">
-                            <a href="#" class="add-card"><i class="flaticon-bag"></i><span>ADD TO CART</span></a>
-                            <a href="#" class="wishlist-btn"><i class="flaticon-heart"></i></a>
-                        </div>
-                    </div>
-                    <div class="pi-text">
-                        <h6>$35,00</h6>
-                        <p>Flamboyant Pink Top </p>
-                    </div>
-                </div>
+                    </form>
+                @endforeach
             </div>
         </div>
     </section>
@@ -312,17 +270,4 @@
     </section>
     <!-- Product filter section end -->
 
-
-    <!-- Banner section -->
-    <section class="banner-section">
-        <div class="container">
-            <div class="banner set-bg" data-setbg="{{ asset('frontend/img/banner-bg.jpg') }}">
-                <div class="tag-new">NEW</div>
-                <span>New Arrivals</span>
-                <h2>STRIPED SHIRTS</h2>
-                <a href="#" class="site-btn">SHOP NOW</a>
-            </div>
-        </div>
-    </section>
-    <!-- Banner section end  -->
 @endsection
