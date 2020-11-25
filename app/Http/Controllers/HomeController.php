@@ -25,16 +25,6 @@ class HomeController extends Controller
         $product = Product::where('product_status', 1)->paginate(6);
         return view('pages.categories.show-product', compact('product', 'category', 'brand'));
     }
-    public function blog()
-    {
-        $category = Category::all();
-        return view('pages.blog.blog', compact('category'));
-    }
-    public function blog_detail()
-    {
-        $category = Category::all();
-        return view('pages.blog.blog-detail', compact('category'));
-    }
     public function category($category_id)
     {
         $category = Category::where('category_status', 1)->get();

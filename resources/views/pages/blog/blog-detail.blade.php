@@ -9,37 +9,21 @@
                         <div class="blog__details__item">
                             <img src="img/blog/details/blog-details.jpg" alt="">
                             <div class="blog__details__item__title">
-                                <span class="tip">Street style</span>
-                                <h4>Being seen: how is age diversity effecting change in fashion and beauty?</h4>
+                                <span class="tip">{{ $post_detail->category->category_post_name }}</span>
+                                <h4>{{ $post_detail->post_title }}</h4>
                                 <ul>
-                                    <li>by <span>Ema Timahe</span></li>
-                                    <li>Seb 17, 2019</li>
+                                    <li>by <span>Xau</span></li>
+                                    <li>{{ date('d F, Y', strtotime($post_detail->created_at)) }}</li>
                                     <li>39 Comments</li>
                                 </ul>
                             </div>
                         </div>
-                        <div class="blog__details__desc">
-                            <p>Afashion season can be defined as much by the people on the catwalk as it can by the
-                                clothes they are wearing. This time around, a key moment came at the end of Marc Jacobs’
-                                New York show, when an almost makeup-free Christy Turlington made a rare return to the
-                                catwalk, aged 50 (she also stars, with the designer himself, in the label’s AW ad
-                                campaign), where the average catwalk model is around 18.</p>
-                            <p>A few days later, Simone Rocha arguably upped the ante. The 32-year-old’s show – in part
-                                inspired by Louise Bourgeois, who lived until she was 98 – featured models in their 30s
-                                and 40s, including cult favourite Jeny Howorth and actor Chloë Sevigny.</p>
-                        </div>
                         <div class="blog__details__quote">
                             <div class="icon"><i class="fa fa-quote-left"></i></div>
-                            <p>Consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore dolore magna
-                                aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-                                aliquip ex ea commodo consequat.</p>
+                            <p>{{ $post_detail->post_desc }}</p>
                         </div>
                         <div class="blog__details__desc">
-                            <p>Occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
-                                laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                                exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
-                                dolor in reprehenderit in voluptate.</p>
+                            {!! $post_detail->post_detail !!}
                         </div>
                         <div class="blog__details__tags">
                             <a href="#">Fashion</a>
@@ -51,12 +35,19 @@
                             <div class="row">
                                 <div class="col-lg-6 col-md-6 col-sm-6">
                                     <div class="blog__details__btn__item">
-                                        <h6><a href="#"><i class="fa fa-angle-left"></i> Previous posts</a></h6>
+                                        @isset($post_detail->prev)
+                                        <h6><a href="{{ URL::to('/blog-detail/' . $post_detail->prev->post_slug) }}"><i class="fa fa-angle-left"></i> Previous posts</a></h6>
+                                        @endisset
+
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-md-6 col-sm-6">
                                     <div class="blog__details__btn__item blog__details__btn__item--next">
-                                        <h6><a href="#">Next posts <i class="fa fa-angle-right"></i></a></h6>
+                                        @isset($post_detail->next)
+                                            <h6><a href="{{ URL::to('/blog-detail/' . $post_detail->next->post_slug) }}">Next
+                                                    posts <i class="fa fa-angle-right"></i></a></h6>
+                                        @endisset
+
                                     </div>
                                 </div>
                             </div>
@@ -116,47 +107,36 @@
                     <div class="blog__sidebar">
                         <div class="blog__sidebar__item">
                             <div class="section-title">
-                                <h4>Categories</h4>
+                                <h4>Danh mục bài viết</h4>
                             </div>
                             <ul>
-                                <li><a href="#">All <span>(250)</span></a></li>
-                                <li><a href="#">Fashion week <span>(80)</span></a></li>
-                                <li><a href="#">Street style <span>(75)</span></a></li>
-                                <li><a href="#">Lifestyle <span>(35)</span></a></li>
-                                <li><a href="#">Beauty <span>(60)</span></a></li>
+                                @foreach ($category_post as $item)
+                                    <li><a href="#">{{ $item->category_post_name }}
+                                            <span>({{ count($item->count_post) }})</span></a></li>
+                                @endforeach
                             </ul>
                         </div>
                         <div class="blog__sidebar__item">
                             <div class="section-title">
-                                <h4>Feature posts</h4>
+                                <h4>Bài viết mới nhất</h4>
                             </div>
-                            <a href="#" class="blog__feature__item">
-                                <div class="blog__feature__item__pic">
-                                    <img src="img/blog/sidebar/fp-1.jpg" alt="">
-                                </div>
-                                <div class="blog__feature__item__text">
-                                    <h6>Amf Cannes Red Carpet Celebrities Kend...</h6>
-                                    <span>Seb 17, 2019</span>
-                                </div>
-                            </a>
-                            <a href="#" class="blog__feature__item">
-                                <div class="blog__feature__item__pic">
-                                    <img src="img/blog/sidebar/fp-2.jpg" alt="">
-                                </div>
-                                <div class="blog__feature__item__text">
-                                    <h6>Amf Cannes Red Carpet Celebrities Kend...</h6>
-                                    <span>Seb 17, 2019</span>
-                                </div>
-                            </a>
-                            <a href="#" class="blog__feature__item">
-                                <div class="blog__feature__item__pic">
-                                    <img src="img/blog/sidebar/fp-3.jpg" alt="">
-                                </div>
-                                <div class="blog__feature__item__text">
-                                    <h6>Amf Cannes Red Carpet Celebrities Kend...</h6>
-                                    <span>Seb 17, 2019</span>
-                                </div>
-                            </a>
+                            @foreach ($recent_post as $item)
+                                <a href="{{ URL::to('/blog-detail/' . $item->post_slug) }}" class="blog__feature__item"
+                                    title="{{ $item->post_title }}">
+                                    <div class="blog__feature__item__pic">
+                                        <img src="{{ URL::asset('uploads/post-img/' . $item->post_img) }}" width="80"
+                                            alt="">
+                                    </div>
+                                    <div class="blog__feature__item__text">
+                                        <h6 style="white-space: nowrap;
+                                            width: 200px;
+                                            overflow: hidden;
+                                            text-overflow: ellipsis;">{{ $item->post_title }}</h6>
+                                        <span>{{ date('d F, Y', strtotime($item->created_at)) }}</span>
+                                    </div>
+                                </a>
+                            @endforeach
+
                         </div>
                         <div class="blog__sidebar__item">
                             <div class="section-title">

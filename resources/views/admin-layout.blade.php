@@ -108,18 +108,31 @@
                     <li class="sidebar-header">
                         Bài viết
                     </li>
-                    <li class="sidebar-item {{ Request::is('admin/post/*') ? 'active' : '' }}">
-                        <a data-target="#post" data-toggle="collapse" class="sidebar-link collapsed">
-                            <i class="align-middle" data-feather="file-text"></i> <span class="align-middle">Danh
+                    <li class="sidebar-item">
+                        <a data-target="#catepost" data-toggle="collapse" class="sidebar-link collapsed">
+                            <i class="align-middle" data-feather="list"></i> <span class="align-middle">Danh
                                 mục bài viết</span>
                         </a>
-                        <ul id="post" class="sidebar-dropdown list-unstyled collapse " data-parent="#sidebar">
+                        <ul id="catepost" class="sidebar-dropdown list-unstyled collapse " data-parent="#sidebar">
                             <li class="sidebar-item"><a class="sidebar-link"
                                     href="{{ URL::to('/admin/post/add-category-post') }}">Thêm danh mục bài viết</a>
                             </li>
                             <li class="sidebar-item"><a class="sidebar-link"
                                     href="{{ URL::to('/admin/post/all-category-post') }}">Xem
                                     danh mục bài viết</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-item {{ Request::is('admin/category-post/*') ? 'active' : '' }}">
+                        <a data-target="#post" data-toggle="collapse" class="sidebar-link collapsed">
+                            <i class="align-middle" data-feather="file-text"></i> <span class="align-middle">Bài viết</span>
+                        </a>
+                        <ul id="post" class="sidebar-dropdown list-unstyled collapse " data-parent="#sidebar">
+                            <li class="sidebar-item"><a class="sidebar-link"
+                                    href="{{ URL::to('/admin/post/add-post') }}">Thêm bài viết</a>
+                            </li>
+                            <li class="sidebar-item"><a class="sidebar-link"
+                                    href="{{ URL::to('/admin/post/all-post') }}">Xem bài viết</a>
                             </li>
                         </ul>
                     </li>
@@ -352,45 +365,16 @@
     <script src="{{ asset('backend/js/jquery.validate.min.js') }}"></script>
     <script src="{{ asset('backend/js/additional-methods.min.js') }}"></script>
     <script src="{{ asset('backend/js/validate.js') }}"></script>
-    <script>
-        $(document).ready(function() {
-            function load_gallery() {
-
-            }
-            $('#files').change(function(e) {
-                var err = '';
-                var files = $('#files')[0].files;
-                if (files.length > 6) {
-                    err = 'Tối đa chỉ chọn 6 ảnh';
-                } else if (files.length == '') {
-                    err = 'Bạn chưa chọn ảnh';
-                } else if (files.size > 2000000) {
-                    err = 'Ảnh phải bé hơn 2MB';
-                }
-
-                if (err == '') {
-                    $('#err-ga').html('');
-                } else {
-                    $('#files').val('');
-                    $('#err-ga').html(err);
-                }
-
-            });
-        });
-
-    </script>
+    <script src="{{ asset('backend/js/main.js') }}"></script>
     <script>
         CKEDITOR.replace('xau');
-        CKEDITOR.replace('xau1');
-
-    </script>
-    <script>
-        $(document).ready(function() {
-            window.setTimeout(function() {
-                $(".alert").fadeTo(500, 0).slideUp(500, function() {
-                    $(this).remove();
-                });
-            }, 2500);
+        CKEDITOR.replace('xau1', {
+        filebrowserBrowseUrl: '{{ asset('ckeditor/ckfinder/ckfinder.html') }}',
+        filebrowserImageBrowseUrl: '{{ asset('ckeditor/ckfinder/ckfinder.html?type=Images') }}',
+        filebrowserFlashBrowseUrl: '{{ asset('ckeditor/ckfinder/ckfinder.html?type=Flash') }}',
+        filebrowserUploadUrl: '{{ asset('ckeditor/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files') }}',
+        filebrowserImageUploadUrl: '{{ asset('ckeditor/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images') }}',
+        filebrowserFlashUploadUrl: '{{ asset('ckeditor/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Flash') }}'
         });
 
     </script>

@@ -18,4 +18,7 @@ class CategoryPost extends Model
         'category_post_status'
     ];
     public $timestamps = true;
+    public function count_post(){
+        return $this->hasMany(Post::class,'category_post_id');
+    }
 }
