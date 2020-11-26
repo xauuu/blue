@@ -105,6 +105,18 @@
                             </li>
                         </ul>
                     </li>
+                    <li class="sidebar-item {{ Request::is('admin/coupon/*') ? 'active' : '' }}">
+                        <a data-target="#coupon" data-toggle="collapse" class="sidebar-link collapsed">
+                            <i class="align-middle" data-feather="slack"></i> <span class="align-middle">Mã giảm giá</span>
+                        </a>
+                        <ul id="coupon" class="sidebar-dropdown list-unstyled collapse " data-parent="#sidebar">
+                            <li class="sidebar-item"><a class="sidebar-link"
+                                    href="{{ URL::to('/admin/coupon/add-coupon') }}">Thêm mã giảm giá</a>
+                            </li>
+                            <li class="sidebar-item"><a class="sidebar-link" href="{{ URL::to('/admin/coupon/all-coupon') }}">Xem mã giảm giá</a>
+                            </li>
+                        </ul>
+                    </li>
                     <li class="sidebar-header">
                         Bài viết
                     </li>

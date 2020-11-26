@@ -53,7 +53,7 @@
                         </a>
                     </div>
                     <div class="col-xl-6 col-lg-5">
-                        <form class="header-search-form">
+                        <form class="header-search-form" autocomplete="off">
                             @csrf
                             <input name="search" type="text" placeholder="Search on divisima ....">
                             <button type="submit"><i class="flaticon-search"></i></button>

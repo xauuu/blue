@@ -8,6 +8,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\CheckOutController;
+use App\Http\Controllers\CouponController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\MailController;
 use App\Http\Controllers\ProductController;
@@ -49,6 +50,9 @@ Route::get('/blog-detail/{post_slug}', [PostController::class, 'blog_detail']);
 Route::post('/add-cart-ajax', [CartController::class, 'add_cart_ajax']);
 Route::get('/cart', [CartController::class, 'show_cart']);
 Route::get('/delete-item/{rowId}', [CartController::class, 'delete_item']);
+Route::post('/update-cart', [CartController::class, 'update_cart']);
+Route::post('/check-coupon', [CartController::class, 'check_coupon']);
+
 // check-out
 Route::get('/check-out', [CheckOutController::class, 'check_out']);
 Route::post('/save-checkout', [CheckOutController::class, 'save_checkout']);
@@ -110,6 +114,16 @@ Route::group(['prefix' => 'admin'], function () {
         Route::get('/confirm-order', [CheckOutController::class, 'confirm_order']);
         Route::get('/detail-order/{order_id}', [CheckOutController::class, 'detail_order']);
     });
+    // coupon
+    Route::group(['prefix' => 'coupon'], function () {
+        Route::get('/add-coupon', [CouponController::class, 'add_coupon']);
+        Route::get('/all-coupon', [CouponController::class, 'all_coupon']);
+        Route::post('/save-coupon', [CouponController::class, 'save_coupon']);
+        Route::get('/edit-coupon/{coupon}', [CouponController::class, 'edit_coupon']);
+        Route::post('/update-coupon', [CouponController::class, 'update_coupon']);
+        Route::get('/delete-coupon/{brand_id}', [CouponController::class, 'delete_coupon']);
+    });
+    //post
     Route::group(['prefix' => 'post'], function () {
         // category post
         Route::get('/add-category-post', [PostController::class, 'add_category_post']);

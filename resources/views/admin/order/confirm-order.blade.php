@@ -34,16 +34,16 @@
                     @foreach ($all_order as $item)
                         <tr>
                             <td>{{ $item->customer_name }}</td>
-                            <td><a href="{{ URL::to('admin/order/detail-order/'.$item->order_id) }}">
-                                    <i class="align-middle mr-3" data-feather="eye"></i>
+                            <td><a class="btn btn-outline-success" href="{{ URL::to('admin/order/detail-order/'.$item->order_id) }}">
+                                    <i class="align-middle" data-feather="eye"></i>
                                 </a>
                             </td>
                             <td>{!! number_format($item->order_total) !!} VND</td>
                             <td>{{ $item->order_status }} </td>
                             <td>
-                                <a onclick="return confirm('Xoá đơn hàng này')"
+                                <a class="btn btn-outline-danger" onclick="return confirm('Xoá đơn hàng này')"
                                     href="{{ URL::to('/admin/order/delete-order/' . $item->order_id) }}">
-                                    <i class="align-middle mr-3" data-feather="trash-2"></i></a>
+                                    <i class="align-middle" data-feather="trash-2"></i></a>
                             </td>
                         </tr>
                     @endforeach

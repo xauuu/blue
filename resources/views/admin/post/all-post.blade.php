@@ -45,10 +45,10 @@
                                 @endif
                             </td>
                             <td>
-                                <a onclick="return confirm('Xoá danh mục này')"
+                                <a class="btn btn-outline-danger" onclick="return confirm('Xoá danh mục này')"
                                     href="{{ URL::to('/admin/post/delete-post/' . $value1->post_id) }}">
-                                    <i class="align-middle mr-3" data-feather="trash-2"></i></a>
-                                <a href="{{ URL::to('/admin/post/edit-post/' . $value1->post_id) }}">
+                                    <i class="align-middle" data-feather="trash-2"></i></a>
+                                <a class="btn btn-outline-warning" href="{{ URL::to('/admin/post/edit-post/' . $value1->post_id) }}">
                                     <i class="align-middle" data-feather="edit"></i></a>
                             </td>
                         </tr>

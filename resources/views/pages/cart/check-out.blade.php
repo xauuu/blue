@@ -107,9 +107,28 @@
 
                         </ul>
                         <ul class="price-list">
-                            <li>Tổng<span>{{ Cart::subtotal() }}</span></li>
+                            <li>Tổng<span>{{ number_format(Cart::subtotal(0, '', '')) }} VND</span></li>
                             <li>Phí vận chuyển<span>free</span></li>
-                            <li class="total">Tổng cộng<span>{{ number_format(Cart::subtotal(0, '', '')) }} VND</span></li>
+                            @if (session('coupon'))
+                                @foreach (session('coupon') as $item => $cou)
+                                    @if ($cou['coupon_feature'] == 1)
+                                        @php
+                                        $total_coupon = $cou['coupon_number']*Cart::subtotal(0, '', '')/100;
+                                        @endphp
+                                    @else
+                                        @php
+                                        $total_coupon = $cou['coupon_number'];
+                                        @endphp
+                                    @endif
+                                    <li>Mã giảm giá<span>-{{ number_format($total_coupon) }} VND</span></li>
+                                    <li class="total">Tổng
+                                        cộng<span>{{ number_format(Cart::subtotal(0, '', '') - $total_coupon) }} VND</span>
+                                    </li>
+                                @endforeach
+                            @else
+                                <li class="total">Tổng cộng<span>{{ number_format(Cart::subtotal(0, '', '')) }} VND</span>
+                                </li>
+                            @endif
                         </ul>
                     </div>
                 </div>

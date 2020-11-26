@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Redirect;
 use App\Models\Product;
 use App\Models\Category;
 use App\Models\Brand;
+use App\Models\Coupon;
 use App\Models\Shipping;
 use App\Models\Order;
 use App\Models\OrderDetail;
@@ -31,7 +32,8 @@ class CartController extends Controller
         echo Cart::content()->count();
     }
 
-    public function show_cart(){
+    public function show_cart()
+    {
         $category = Category::all();
         return view('pages.cart.show-cart', compact('category'));
     }
@@ -39,5 +41,39 @@ class CartController extends Controller
     {
         Cart::remove($rowId);
         return Redirect::to('/cart');
+    }
+    public function update_cart(Request $request)
+    {
+        foreach ($request->qty as $rowId => $qty) {
+            Cart::update($rowId, $qty);
+        }
+        return Redirect::to('/cart');
+    }
+    public function check_coupon(Request $request)
+    {
+        $coupon = Coupon::where('coupon_code', $request->coupon_code)->first();
+        if ($coupon) {
+            if ($coupon->count() > 0) {
+                if (Session::get('coupon')) {
+                    $cou[] = array(
+                        'coupon_code' => $coupon->coupon_code,
+                        'coupon_feature' => $coupon->coupon_feature,
+                        'coupon_number' => $coupon->coupon_number,
+                    );
+                    Session::put('coupon', $cou);
+                } else {
+                    $cou[] = array(
+                        'coupon_code' => $coupon->coupon_code,
+                        'coupon_feature' => $coupon->coupon_feature,
+                        'coupon_number' => $coupon->coupon_number,
+                    );
+                    Session::put('coupon', $cou);
+                }
+                Session::save();
+                return redirect()->back()->with('success', 'Sử dụng mã giảm giá thành công');
+            }
+        } else {
+            return redirect()->back()->with('error', 'Không tồn tại mã giảm giá');
+        }
     }
 }

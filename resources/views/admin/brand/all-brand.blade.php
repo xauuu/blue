@@ -48,9 +48,9 @@
                                 @endif
                             </td>
                             <td>
-                                <a onclick="return confirm('Xoá thương hiệu này')" href="{{ URL::to('/admin/brand/delete-brand/' . $item->brand_id) }}">
-                                    <i class="align-middle mr-3" data-feather="trash-2"></i></a>
-                                <a href="{{ URL::to('/admin/brand/edit-brand/' . $item->brand_id) }}">
+                                <a class="btn btn-outline-danger" onclick="return confirm('Xoá thương hiệu này')" href="{{ URL::to('/admin/brand/delete-brand/' . $item->brand_id) }}">
+                                    <i class="align-middle" data-feather="trash-2"></i></a>
+                                <a class="btn btn-outline-warning" href="{{ URL::to('/admin/brand/edit-brand/' . $item->brand_id) }}">
                                     <i class="align-middle" data-feather="edit"></i></a>
                             </td>
                         </tr>
