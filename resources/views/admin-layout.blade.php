@@ -14,12 +14,7 @@
 
     <title>XAU - Dashboard</title>
     <link href="{{ asset('/backend/css/app.css') }}" rel="stylesheet">
-    <style>
-        .error {
-            color: red
-        }
-
-    </style>
+    <link href="{{ asset('/backend/css/style.css') }}" rel="stylesheet">
 </head>
 
 <body>
@@ -100,20 +95,28 @@
                             <li class="sidebar-item"><a class="sidebar-link"
                                     href="{{ URL::to('/admin/order/confirm-order') }}">Xác nhận đơn hàng</a>
                             </li>
-                            <li class="sidebar-item"><a class="sidebar-link" href="{{ URL::to('/admin/order') }}">Xem
-                                    đơn hàng</a>
+                            <li class="sidebar-item"><a class="sidebar-link"
+                                href="{{ URL::to('/admin/order/success-order') }}">Đơn hàng đã xác nhận</a>
+                        </li>
+                            <li class="sidebar-item"><a class="sidebar-link"
+                                    href="{{ URL::to('/admin/order/cancel-order') }}">Đơn hàng đã huỷ</a>
+                            </li>
+                            <li class="sidebar-item"><a class="sidebar-link"
+                                    href="{{ URL::to('/admin/order/all-order') }}">Xem tất cả đơn hàng</a>
                             </li>
                         </ul>
                     </li>
                     <li class="sidebar-item {{ Request::is('admin/coupon/*') ? 'active' : '' }}">
                         <a data-target="#coupon" data-toggle="collapse" class="sidebar-link collapsed">
-                            <i class="align-middle" data-feather="slack"></i> <span class="align-middle">Mã giảm giá</span>
+                            <i class="align-middle" data-feather="slack"></i> <span class="align-middle">Mã giảm
+                                giá</span>
                         </a>
                         <ul id="coupon" class="sidebar-dropdown list-unstyled collapse " data-parent="#sidebar">
                             <li class="sidebar-item"><a class="sidebar-link"
                                     href="{{ URL::to('/admin/coupon/add-coupon') }}">Thêm mã giảm giá</a>
                             </li>
-                            <li class="sidebar-item"><a class="sidebar-link" href="{{ URL::to('/admin/coupon/all-coupon') }}">Xem mã giảm giá</a>
+                            <li class="sidebar-item"><a class="sidebar-link"
+                                    href="{{ URL::to('/admin/coupon/all-coupon') }}">Xem mã giảm giá</a>
                             </li>
                         </ul>
                     </li>
@@ -137,7 +140,8 @@
                     </li>
                     <li class="sidebar-item {{ Request::is('admin/category-post/*') ? 'active' : '' }}">
                         <a data-target="#post" data-toggle="collapse" class="sidebar-link collapsed">
-                            <i class="align-middle" data-feather="file-text"></i> <span class="align-middle">Bài viết</span>
+                            <i class="align-middle" data-feather="file-text"></i> <span class="align-middle">Bài
+                                viết</span>
                         </a>
                         <ul id="post" class="sidebar-dropdown list-unstyled collapse " data-parent="#sidebar">
                             <li class="sidebar-item"><a class="sidebar-link"
@@ -381,12 +385,21 @@
     <script>
         CKEDITOR.replace('xau');
         CKEDITOR.replace('xau1', {
-        filebrowserBrowseUrl: '{{ asset('ckeditor/ckfinder/ckfinder.html') }}',
-        filebrowserImageBrowseUrl: '{{ asset('ckeditor/ckfinder/ckfinder.html?type=Images') }}',
-        filebrowserFlashBrowseUrl: '{{ asset('ckeditor/ckfinder/ckfinder.html?type=Flash') }}',
-        filebrowserUploadUrl: '{{ asset('ckeditor/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files') }}',
-        filebrowserImageUploadUrl: '{{ asset('ckeditor/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images') }}',
-        filebrowserFlashUploadUrl: '{{ asset('ckeditor/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Flash') }}'
+            filebrowserBrowseUrl: '{{ asset('
+            ckeditor / ckfinder / ckfinder.html ') }}',
+            filebrowserImageBrowseUrl: '{{ asset('
+            ckeditor / ckfinder / ckfinder.html ? type = Images ') }}',
+            filebrowserFlashBrowseUrl : '{{ asset('
+            ckeditor / ckfinder / ckfinder.html ? type = Flash ') }}',
+            filebrowserUploadUrl : '{{ asset('
+            ckeditor / ckfinder / core / connector / php / connector.php ? command = QuickUpload & type =
+            Files ') }}',
+            filebrowserImageUploadUrl : '{{ asset('
+            ckeditor / ckfinder / core / connector / php / connector.php ? command = QuickUpload & type =
+            Images ') }}',
+            filebrowserFlashUploadUrl : '{{ asset('
+            ckeditor / ckfinder / core / connector / php / connector.php ? command = QuickUpload & type =
+            Flash ') }}'
         });
 
     </script>

@@ -17,6 +17,10 @@
                                 required>
                         </div>
                         <div class="mb-3">
+                            <label class="form-label">Slug</label>
+                            <input type="text" class="form-control" name="product_slug" value="{{ $product->product_slug }}">
+                        </div>
+                        <div class="mb-3">
                             <label class="form-label">Mô tả</label>
                             <textarea id="xau" class="form-control" name="product_desc" rows="3">
                                                         {!!  $product->product_detail !!}

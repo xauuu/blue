@@ -16,7 +16,7 @@
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Slug</label>
-                            <input type="text" class="form-control" name="post_slug" required {{ $post->post_slug }}>
+                            <input type="text" class="form-control" name="post_slug" required value="{{ $post->post_slug }}">
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Hình ảnh bài viết</label>

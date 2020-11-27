@@ -110,9 +110,15 @@ Route::group(['prefix' => 'admin'], function () {
         Route::get('/delete-ga/{gallery_id}', [GalleryController::class, 'delete_ga']);
         Route::get('/comment/{product_id}', [ProductController::class, 'gallery']);
     });
+    // order
     Route::group(['prefix' => 'order'], function () {
         Route::get('/confirm-order', [CheckOutController::class, 'confirm_order']);
+        Route::get('/success-order', [CheckOutController::class, 'success_order']);
+        Route::get('/cancel-order', [CheckOutController::class, 'cancel_order']);
+        Route::get('/all-order', [CheckOutController::class, 'all_order']);
         Route::get('/detail-order/{order_id}', [CheckOutController::class, 'detail_order']);
+        Route::get('/agree-order/{order_id}', [CheckOutController::class, 'agree_order']);
+        Route::get('/xoa-order/{order_id}', [CheckOutController::class, 'xoa_order']);
     });
     // coupon
     Route::group(['prefix' => 'coupon'], function () {

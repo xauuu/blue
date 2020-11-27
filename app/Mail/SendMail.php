@@ -28,7 +28,8 @@ class SendMail extends Mailable
      */
     public function build()
     {
-        return $this->from('qdatqb@gmail.com')->markdown('emails.sendMail')
+        return $this->from('qdatqb@gmail.com')->subject('XXX SHOP. Đặt hàng thành công.')
+            ->markdown('emails.sendMail')
             ->with('details', $this->details);
     }
 }

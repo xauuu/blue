@@ -3,7 +3,7 @@
     <div class="card">
         <div class="card-header">
             <h2 class="mt-3">Đơn hàng chờ xác nhận</h2>
-            {{-- @if (session('success'))
+            @if (session('success'))
                 <div class="alert alert-primary alert-dismissible col-6" role="alert">
                     <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close"></button>
                     <div class="alert-icon">
@@ -13,7 +13,7 @@
                         {{ session('success') }}
                     </div>
                 </div>
-            @endif --}}
+            @endif
             <div>
 
             </div>
@@ -24,26 +24,33 @@
                 <thead>
                     <tr class="text-nowrap">
                         <th scope="col">Tên người đặt</th>
-                        <th scope="col">Chi tiết</th>
                         <th scope="col">Tổng tiền</th>
+                        <th scope="col">Thanh toán</th>
                         <th scope="col">Trạng thái</th>
-                        <th scope="col">Thao tác</th>
+                        <th scope="col">Chi tiết</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($all_order as $item)
                         <tr>
                             <td>{{ $item->customer_name }}</td>
-                            <td><a class="btn btn-outline-success" href="{{ URL::to('admin/order/detail-order/'.$item->order_id) }}">
+                            <td>{!! number_format($item->order_total) !!} VND</td>
+                            <td>{{ $item->order_payment }}</td>
+                            <td>
+                                @php
+                                if($item->order_status == 0){
+                                echo '<span class="badge bg-info">Đang chờ xác nhận</span>';
+                                }elseif ($item->order_status == 1){
+                                echo '<span class="badge bg-success">Đã xác nhận</span>';
+                                }else{
+                                echo '<span class="badge bg-danger">Đã huỷ</span>';
+                                }
+                                @endphp
+                            </td>
+                            <td><a class="btn btn-outline-info"
+                                    href="{{ URL::to('admin/order/detail-order/' . $item->order_id) }}">
                                     <i class="align-middle" data-feather="eye"></i>
                                 </a>
-                            </td>
-                            <td>{!! number_format($item->order_total) !!} VND</td>
-                            <td>{{ $item->order_status }} </td>
-                            <td>
-                                <a class="btn btn-outline-danger" onclick="return confirm('Xoá đơn hàng này')"
-                                    href="{{ URL::to('/admin/order/delete-order/' . $item->order_id) }}">
-                                    <i class="align-middle" data-feather="trash-2"></i></a>
                             </td>
                         </tr>
                     @endforeach

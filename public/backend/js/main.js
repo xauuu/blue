@@ -28,6 +28,21 @@ $(document).ready(function () {
         var slug = vn(slug);
         $('input[name=post_slug]').val(slug);
     });
+    $('input[name=brand_name]').keyup(function (e) {
+        var slug = $(this).val();
+        var slug = vn(slug);
+        $('input[name=brand_slug]').val(slug);
+    });
+    $('input[name=category_name]').keyup(function (e) {
+        var slug = $(this).val();
+        var slug = vn(slug);
+        $('input[name=category_slug]').val(slug);
+    });
+    $('input[name=product_name]').keyup(function (e) {
+        var slug = $(this).val();
+        var slug = vn(slug);
+        $('input[name=product_slug]').val(slug);
+    });
     function vn(str) {
         str = str.toLowerCase();
         str = str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g,"a");

@@ -15,6 +15,10 @@
                             <input type="text" class="form-control" name="product_name" required>
                         </div>
                         <div class="mb-3">
+                            <label class="form-label">Slug</label>
+                            <input type="text" class="form-control" name="product_slug" required>
+                        </div>
+                        <div class="mb-3">
                             <label class="form-label">Mô tả</label>
                             <textarea id="xau" class="form-control" name="product_desc" rows="2" required></textarea>
                         </div>

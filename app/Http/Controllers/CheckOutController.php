@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\SendMail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
@@ -36,9 +37,9 @@ class CheckOutController extends Controller
         $shipping->shipping_name = $all['firstname'] . ' ' . $all['lastname'];
         $shipping->shipping_email = $all['email'];
         $shipping->shipping_phone = $all['phone'];
-        $city = City::find($all['city']);
-        $district = District::find($all['district']);
-        $wards = Wards::find($all['wards']);
+        $city = City::findOrFail($all['city']);
+        $district = District::findOrFail($all['district']);
+        $wards = Wards::findOrFail($all['wards']);
         $address = $all['address'] . ', ' . $wards->name_wards . ', ' . $district->name_district . ', ' . $city->name_city;
         $shipping->shipping_address = $address;
 
@@ -46,10 +47,28 @@ class CheckOutController extends Controller
         $shipping_id = $shipping->shipping_id;
         $customer_id = session('customer_id');
 
+
         $order = new Order();
         $order->customer_id = $customer_id;
         $order->shipping_id = $shipping_id;
-        $order->order_total = Cart::subtotal(0, '', '');
+
+        if (session('coupon')) {
+            foreach (session('coupon') as $item => $cou) {
+                $coupon_code = $cou['coupon_code'];
+                $discount = 0;
+                if ($cou['coupon_feature'] == 1) {
+                    $discount = $cou['coupon_number'] * Cart::subtotal(0, '', '') / 100;
+                } else {
+                    $discount = $cou['coupon_number'];
+                }
+            }
+            $order->coupon_code = $coupon_code;
+            $order->discount = $discount;
+            $order->order_total = Cart::subtotal(0, '', '') - $discount;
+        } else {
+            $order->order_total = Cart::subtotal(0, '', '');
+        }
+
         $order->order_payment = $request->payment;
         $order->order_status = '0';
         $order->save();
@@ -64,39 +83,15 @@ class CheckOutController extends Controller
             $order_detail->product_price = $item->price;
             $order_detail->save();
         }
+        Mail::to($all['email'])->send(new SendMail($cart));
         Cart::destroy();
+        session()->forget('coupon');
         return Redirect::to('/check-out-success');
     }
     public function check_out_success()
     {
+        return dd('Đặt hàng thành công');
     }
-    public function confirm_order()
-    {
-        AuthLogin();
-        $all_order = Order::join('customers', 'orders.customer_id', 'customers.id')
-            ->select('orders.*', 'customers.customer_name')
-            ->orderby('orders.order_id', 'desc')->get();
-        return view('admin.order.confirm-order', compact('all_order'));
-    }
-    public function detail_order($order_id)
-    {
-        AuthLogin();
-
-        $detail_order = Order::findOrFail($order_id);
-
-        return view('admin.order.detail-order', compact('detail_order'));
-    }
-    // public function send_mail()
-    // {
-    //     $to_name = 'Xau';
-    //     $to_email = 'qdatqb@gmail.com';
-
-    //     $data = array("name" => "abc", "body" => "xyz");
-    //     Mail::send('mail',$data,function($message) use ($to_name,$to_email){
-    //         $message->to($to_email)->subject('test mail nhé');
-    //         $message->from($to_email,$to_name);
-    //     });
-    // }
     public function select(Request $request)
     {
         $data = $request->all();
@@ -118,4 +113,64 @@ class CheckOutController extends Controller
             echo $output;
         }
     }
+
+    // back end
+    public function confirm_order()
+    {
+        AuthLogin();
+        $all_order = Order::join('customers', 'orders.customer_id', 'customers.id')
+            ->select('orders.*', 'customers.customer_name')
+            ->where('order_status', 0)
+            ->orderby('orders.order_id', 'desc')->get();
+        return view('admin.order.confirm-order', compact('all_order'));
+    }
+    public function success_order()
+    {
+        AuthLogin();
+        $all_order = Order::join('customers', 'orders.customer_id', 'customers.id')
+            ->select('orders.*', 'customers.customer_name')
+            ->where('order_status', 1)
+            ->orderby('orders.order_id', 'desc')->get();
+        return view('admin.order.confirm-order', compact('all_order'));
+    }
+    public function cancel_order()
+    {
+        AuthLogin();
+        $all_order = Order::join('customers', 'orders.customer_id', 'customers.id')
+            ->select('orders.*', 'customers.customer_name')
+            ->where('order_status', 2)
+            ->orderby('orders.order_id', 'desc')->get();
+        return view('admin.order.confirm-order', compact('all_order'));
+    }
+    public function all_order()
+    {
+        AuthLogin();
+        $all_order = Order::join('customers', 'orders.customer_id', 'customers.id')
+            ->select('orders.*', 'customers.customer_name')
+            ->orderby('orders.order_id', 'desc')->get();
+        return view('admin.order.confirm-order', compact('all_order'));
+    }
+    public function detail_order($order_id)
+    {
+        AuthLogin();
+
+        $detail_order = Order::findOrFail($order_id);
+
+        return view('admin.order.detail-order', compact('detail_order'));
+    }
+    public function agree_order($order_id)
+    {
+        $order = Order::find($order_id);
+        $order->order_status = '1';
+        $order->save();
+        return redirect()->back();
+    }
+    public function xoa_order($order_id)
+    {
+        $order = Order::find($order_id);
+        $order->order_status = '2';
+        $order->save();
+        return redirect()->back();
+    }
+
 }
