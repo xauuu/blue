@@ -1,13 +1,130 @@
-.search{
-    display:block;
+.main-menu-us li span {
+    cursor: pointer;
+}
+.main-menu-us {
+    list-style: none;
+}
+
+.main-menu-us li {
+    display: inline-block;
+    position: relative;
+}
+
+.main-menu-us li a {
+    display: inline-block;
+    font-size: 16px;
+    color: #ffffff;
+    margin-right: 50px;
+    line-height: 1;
+    padding: 17px 0;
+    position: relative;
+}
+
+.main-menu-us li a .new {
+    position: absolute;
+    top: -8px;
+    font-size: 10px;
+    font-weight: 700;
+    color: #fff;
+    background: #f51167;
+    line-height: 1;
+    text-transform: uppercase;
+    left: calc(50% - 21px);
+    padding: 5px 9px 1px;
+    border-radius: 15px;
+    width: 42px;
+}
+
+.main-menu-us li:hover .sub-menu {
+    visibility: visible;
+    opacity: 1;
+    margin-top: 0;
+}
+
+.main-menu-us li:hover > a {
+    color: #f51167;
+}
+
+.main-menu-us .sub-menu {
+    position: absolute;
+    list-style: none;
+    width: 220px;
+    left: 0;
+    top: 100%;
+    padding: 20px 0;
+    visibility: hidden;
+    opacity: 0;
+    margin-top: 50px;
+    background: #fff;
+    z-index: 99;
+    -webkit-transition: all 0.4s;
+    -o-transition: all 0.4s;
+    transition: all 0.4s;
+    -webkit-box-shadow: 2px 7px 20px rgba(0, 0, 0, 0.05);
+    box-shadow: 2px 7px 20px rgba(0, 0, 0, 0.05);
+}
+
+.main-menu-us .sub-menu li {
+    display: block;
+}
+
+.main-menu-us .sub-menu li a {
+    display: block;
+    color: #000;
+    margin-right: 0;
+    padding: 8px 20px;
+}
+
+.main-menu-us .sub-menu li a:hover {
+    color: #f51167;
+}
+/* back to top */
+#backtotop {
+    display: inline-block;
+    background-color: #f51167;
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    border-radius: 4px;
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    transition: background-color 0.3s, opacity 0.5s, visibility 0.5s;
+    opacity: 0;
+    visibility: hidden;
+    z-index: 1000;
+}
+#backtotop::after {
+    position: relative;
+    left: 2px;
+    content: "\27A4";
+    display: inline-block;
+    transform: rotate(270deg);
+    font-size: 1.5em;
+    line-height: 50px;
+    color: #fff;
+}
+#backtotop:hover {
+    cursor: pointer;
+    background-color: #333;
+}
+#backtotop:active {
+    background-color: #555;
+}
+#backtotop.show {
+    opacity: 1;
+    visibility: visible;
+}
+.search {
+    display: block;
     padding: 0 20px;
     width: 89%;
     margin-left: 30px;
 }
-.search li{
-    border-bottom: solid 1px #eeacc3
+.search li {
+    border-bottom: solid 1px #eeacc3;
 }
-.search-price{
+.search-price {
     display: block;
     color: #d57eeb;
 }
@@ -578,4 +695,50 @@ textarea#cmt {
     text-align: center;
     color: white;
     background-image: linear-gradient(120deg, #fccb90 0%, #d57eeb 100%);
+}
+/* Tablet :768px. */
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+    .main-menu-us {
+        text-align: center;
+    }
+    .main-menu-us .sub-menu {
+        text-align: left;
+    }
+}
+
+/* Large Mobile :480px. */
+
+@media only screen and (max-width: 767px) {
+    .main-menu-us {
+        text-align: center;
+    }
+    .main-menu-us .sub-menu {
+        width: 100px;
+        text-align: left;
+    }
+    .main-menu-us .sub-menu li a {
+        padding: 8px 0 8px 10px;
+    }
+}
+
+/* Medium Mobile :480px. */
+
+@media only screen and (min-width: 576px) and (max-width: 766px) {
+    .main-menu-us {
+        text-align: center;
+    }
+    .main-menu-us .sub-menu {
+        width: 100px;
+        text-align: left;
+    }
+    .main-menu-us .sub-menu li a {
+        padding: 4px 5px;
+    }
+}
+
+/* Small Mobile :320px. */
+
+@media only screen and (max-width: 479px) {
+
 }

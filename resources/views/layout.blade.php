@@ -36,6 +36,7 @@
 
 <body>
     <!-- Page Preloder -->
+    <a id="backtotop"></a>
     <div id="preloder">
         <div class="loader"></div>
     </div>
@@ -55,7 +56,7 @@
                     <div class="col-xl-6 col-lg-5">
                         <form class="header-search-form" autocomplete="off">
                             @csrf
-                            <input name="search" type="text" placeholder="Search on divisima ....">
+                            <input name="search" type="text" placeholder="Nhập tên sản phẩm hoặc giá ....">
                             <button type="submit"><i class="flaticon-search"></i></button>
                         </form>
                         <div id="search-list"></div>
@@ -74,13 +75,23 @@
                                 <a href="{{ URL::to('/cart') }}">Giỏ hàng</a>
                             </div>
                             <div class="up-item">
-                                <i class="flaticon-profile"></i>
-                                @if (session('customer_id'))
-                                    <span>{{ session('customer_name') }}</span> / <a
-                                        href="{{ URL::to('/logout') }}">Đăng xuất</a>
-                                @else
-                                    <a href="{{ URL::to('/login-customer') }}">Đăng nhập</a> / <a href="#">Đăng kí</a>
-                                @endif
+                                <ul class="main-menu-us">
+                                    @if (session('customer_id'))
+                                        <li><i class="flaticon-profile"></i> <span>{{ session('customer_name') }}</span>
+                                            <ul class="sub-menu">
+                                                <li><a href="{{ URL::to('') }}">Đơn hàng</a></li>
+                                                <li><a href="{{ URL::to('/logout') }}">Đăng xuất</a></li>
+                                            </ul>
+                                        </li>
+                                    @else
+                                        <li><i class="flaticon-profile"></i> <span>Tài khoản</span>
+                                            <ul class="sub-menu">
+                                                <li><a href="{{ URL::to('/login-customer') }}">Đăng nhập</a></li>
+                                                <li><a href="{{ URL::to('/registration') }}">Đăng kí</a></li>
+                                            </ul>
+                                        </li>
+                                    @endif
+                                </ul>
                             </div>
                         </div>
                     </div>

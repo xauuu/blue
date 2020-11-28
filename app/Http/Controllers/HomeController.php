@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Redirect;
 use App\Models\Category;
 use App\Models\Customer;
 use App\Models\Product;
+use Illuminate\Support\Facades\Cookie;
 
 class HomeController extends Controller
 {
@@ -21,34 +22,37 @@ class HomeController extends Controller
     }
     public function shop()
     {
+        $cook = Cookie::get('page');
+        $page = isset($cook) ? $cook : 6;
         $category = Category::where('category_status', 1)->get();
         $brand = Brand::where('brand_status', 1)->get();
-        $product = Product::where('product_status', 1)->paginate(6);
+        $product = Product::where('product_status', 1)->paginate($page);
         return view('pages.categories.show-product', compact('product', 'category', 'brand'));
     }
     public function category($category_id)
     {
         $category = Category::where('category_status', 1)->get();
         $brand = Brand::where('brand_status', 1)->get();
-
+        $cook = Cookie::get('page');
+        $page = isset($cook) ? $cook : 6;
         $product = Product::join('categories', 'categories.category_id', 'products.category_id')
             // ->where('product_status', 0)->where('category_status', 0)
             ->where(function ($query) use ($category_id) {
                 return $query->where('products.category_id', $category_id)
                     ->orWhere('category_parent', $category_id);
-            })->where('product_quantity', '>', 0)->paginate(6);
+            })->where('product_quantity', '>', 0)->paginate($page);
 
-        // $product = Product::where('product_status', 1)
-        //     ->where('category_id', $category_id)->get();
         return view('pages.categories.show-product', compact('product', 'category', 'brand'));
     }
     public function brand($brand_id)
     {
+        $cook = Cookie::get('page');
+        $page = isset($cook) ? $cook : 6;
         $category = Category::where('category_status', 1)->get();
         $brand = Brand::where('brand_status', 1)->get();
         $product = Product::where('brand_id', $brand_id)
             ->where('product_status', 1)
-            ->paginate(6);
+            ->paginate($page);
         return view('pages.categories.show-product', compact('product', 'category', 'brand'));
     }
     public function login()
@@ -62,6 +66,7 @@ class HomeController extends Controller
     {
         Session::put('customer_id', null);
         Session::put('customer_name', null);
+        session()->forget('coupon');
         return Redirect::to('/home');
     }
     public function check_login(Request $request)
@@ -127,5 +132,10 @@ class HomeController extends Controller
 
         $output .= '</ul>';
         echo $output;
+    }
+    public function paginate(Request $request)
+    {
+        $page = $request->page;
+        Cookie::queue('page', $page, 3600);
     }
 }

@@ -2,7 +2,7 @@
 @section('content')
     <div class="card">
         <div class="card-header">
-            <h2 class="mt-3">Đơn hàng chờ xác nhận</h2>
+            <h2 class="mt-3">Danh sách đơn hàng</h2>
             @if (session('success'))
                 <div class="alert alert-primary alert-dismissible col-6" role="alert">
                     <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close"></button>

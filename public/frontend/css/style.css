@@ -110,7 +110,7 @@ ol {
 }
 
 .spad {
-	padding-top: 105px;
+	padding-top: 75px;
 	padding-bottom: 105px;
 }
 
@@ -822,11 +822,11 @@ ol {
 	left: -92px;
 }
 
+
 .product-item .pi-pic {
 	position: relative;
 	display: block;
 }
-
 .product-item .tag-new,
 .product-item .tag-sale {
 	position: absolute;

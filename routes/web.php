@@ -45,7 +45,6 @@ Route::get('/product-detail/{product_id}', [ProductDetail::class, 'product_detai
 // blog
 Route::get('/blog', [PostController::class, 'blog']);
 Route::get('/blog-detail/{post_slug}', [PostController::class, 'blog_detail']);
-
 // cart
 Route::post('/add-cart-ajax', [CartController::class, 'add_cart_ajax']);
 Route::get('/cart', [CartController::class, 'show_cart']);
@@ -65,6 +64,8 @@ Route::post('/reply-comment', [ProductDetail::class, 'reply_comment']);
 
 // search
 Route::post('/search', [HomeController::class, 'search']);
+// paginate
+Route::post('/paginate', [HomeController::class, 'paginate']);
 
 
 // Back end

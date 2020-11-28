@@ -1,5 +1,18 @@
 @extends('pages.shop.shop')
 @section('product')
+    <div class="row justify-content-end">
+        <div class="col-lg-4 mb-3">
+            <span>Hiển thị</span>
+            <select style="width:80px;" class="custom-select" name="pagination">
+                <option disabled selected value="0">Chọn</option>
+                <option value="3">3</option>
+                <option value="6">6</option>
+                <option value="9">9</option>
+                <option value="12">12</option>
+            </select>
+            <span>sản phẩm</span>
+        </div>
+    </div>
     <div class="row">
         @foreach ($product as $item => $pro)
             <div class="col-lg-4 col-sm-6">

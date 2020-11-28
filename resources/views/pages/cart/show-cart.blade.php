@@ -81,66 +81,71 @@
                     </form>
                 </div>
             </div>
-            <div class="row justify-content-between mt-3">
-                <div class="col-lg-4 card-right">
-                    <h5 class="text-center mb-2">MÃ GIẢM GIÁ</h5>
-                    <form action="{{ URL::to('/check-coupon') }}" class="promo-code-form" method="post">
-                        @csrf
-                        <input name="coupon_code" type="text" placeholder="Nhập mã giảm giá">
-                        <button type="submit">Gửi</button>
-                    </form>
-                    @if (Session::has('success'))
-                        <div class="alert alert-success">{!! Session::get('success') !!}</div>
-                    @endif
-                    @if (Session::has('error'))
-                        <div class="alert alert-danger">{!! Session::get('error') !!}</div>
-                    @endif
-                    @if (session('coupon'))
-                        <div class="checkout-cart">
+            @if (!$cart->isEmpty())
+                <div class="row justify-content-between mt-3">
+                    <div class="col-lg-4 card-right">
+                        <h5 class="text-center mb-2">MÃ GIẢM GIÁ</h5>
+                        <form action="{{ URL::to('/check-coupon') }}" class="promo-code-form" method="post">
+                            @csrf
+                            <input name="coupon_code" type="text" placeholder="Nhập mã giảm giá">
+                            <button type="submit">Gửi</button>
+                        </form>
+                        @if (Session::has('success'))
+                            <div class="alert alert-success">{!! Session::get('success') !!}</div>
+                        @endif
+                        @if (Session::has('error'))
+                            <div class="alert alert-danger">{!! Session::get('error') !!}</div>
+                        @endif
+                        @if (session('coupon'))
+                            <div class="checkout-cart">
+                                <ul class="price-list">
+                                    <li class="font-weight-bold">Đang sử dụng</li>
+                                    @foreach (session('coupon') as $item => $cou)
+                                        <li>Mã giảm giá <span>{{ $cou['coupon_code'] }}</span></li>
+                                        @if ($cou['coupon_feature'] == 1)
+                                            <li>Giảm <span>{{ $cou['coupon_number'] }}%</span></li>
+                                        @else
+                                            <li>Giảm <span>{{ number_format($cou['coupon_number']) }} VND</span></li>
+                                        @endif
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
+                    </div>
+                    <div class="col-lg-5 card-right">
+                        <div class="checkout-cart mb-3">
                             <ul class="price-list">
-                                <li class="font-weight-bold">Đang sử dụng</li>
-                                @foreach (session('coupon') as $item => $cou)
-                                    <li>Mã giảm giá <span>{{ $cou['coupon_code'] }}</span></li>
-                                    @if ($cou['coupon_feature'] == 1)
-                                        <li>Giảm <span>{{ $cou['coupon_number'] }}%</span></li>
-                                    @else
-                                        <li>Giảm <span>{{ number_format($cou['coupon_number']) }} VND</span></li>
-                                    @endif
-                                @endforeach
+                                <li>Tổng<span>{{ number_format(Cart::subtotal(0, '', '')) }} VND</span></li>
+                                <li>Phí vận chuyển<span>free</span></li>
+                                @if (session('coupon'))
+                                    @foreach (session('coupon') as $item => $cou)
+                                        @if ($cou['coupon_feature'] == 1)
+                                            @php
+                                            $total_coupon = $cou['coupon_number']*Cart::subtotal(0, '', '')/100;
+                                            @endphp
+                                        @else
+                                            @php
+                                            $total_coupon = $cou['coupon_number'];
+                                            @endphp
+                                        @endif
+                                        <li>Giá giảm<span>-{{ number_format($total_coupon) }} VND</span></li>
+                                        <li class="total">Tổng
+                                            cộng<span>{{ number_format(Cart::subtotal(0, '', '') - $total_coupon) }}
+                                                VND</span>
+                                        </li>
+                                    @endforeach
+                                @else
+                                    <li class="total">Tổng cộng<span>{{ number_format(Cart::subtotal(0, '', '')) }}
+                                            VND</span>
+                                    </li>
+                                @endif
                             </ul>
                         </div>
-                    @endif
-                </div>
-                <div class="col-lg-5 card-right">
-                    <div class="checkout-cart mb-3">
-                        <ul class="price-list">
-                            <li>Tổng<span>{{ number_format(Cart::subtotal(0, '', '')) }} VND</span></li>
-                            <li>Phí vận chuyển<span>free</span></li>
-                            @if (session('coupon'))
-                                @foreach (session('coupon') as $item => $cou)
-                                    @if ($cou['coupon_feature'] == 1)
-                                        @php
-                                        $total_coupon = $cou['coupon_number']*Cart::subtotal(0, '', '')/100;
-                                        @endphp
-                                    @else
-                                        @php
-                                        $total_coupon = $cou['coupon_number'];
-                                        @endphp
-                                    @endif
-                                    <li>Giá giảm<span>-{{ number_format($total_coupon) }} VND</span></li>
-                                    <li class="total">Tổng
-                                        cộng<span>{{ number_format(Cart::subtotal(0, '', '') - $total_coupon) }} VND</span>
-                                    </li>
-                                @endforeach
-                            @else
-                                <li class="total">Tổng cộng<span>{{ number_format(Cart::subtotal(0, '', '')) }} VND</span>
-                                </li>
-                            @endif
-                        </ul>
+                        <a href="{{ URL::to('/check-out') }}" class="site-btn">Thanh toán</a>
                     </div>
-                    <a href="{{ URL::to('/check-out') }}" class="site-btn">Thanh toán</a>
                 </div>
-            </div>
+            @endif
+
         </div>
     </section>
     <!-- cart section end -->

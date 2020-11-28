@@ -358,5 +358,36 @@ $(window).on('load', function () {
         }
     });
     // end search
+    // pagination
+    $('select[name=pagination]').change(function (e) {
+        var page = $(this).val();
+        var _token = $('input[name=_token]').val();
+        var url = $('input[name=this_url]').val() + '/paginate';
+        $.ajax({
+            type: "post",
+            url: url,
+            data: {
+                page: page,
+                _token: _token
+            },
+            success: function (data) {
+                location.reload();
+            }
+        });
+    });
+    // back to top
+    var btn = $('#backtotop');
 
+    $(window).scroll(function () {
+        if ($(window).scrollTop() > 300) {
+            btn.addClass('show');
+        } else {
+            btn.removeClass('show');
+        }
+    });
+
+    btn.on('click', function (e) {
+        e.preventDefault();
+        $('html, body').animate({ scrollTop: 0 }, '300');
+    });
 })(jQuery);

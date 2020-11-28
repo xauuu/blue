@@ -42,51 +42,51 @@ class CheckOutController extends Controller
         $wards = Wards::findOrFail($all['wards']);
         $address = $all['address'] . ', ' . $wards->name_wards . ', ' . $district->name_district . ', ' . $city->name_city;
         $shipping->shipping_address = $address;
+        echo $address;
+        // $shipping->save();
+        // $shipping_id = $shipping->shipping_id;
+        // $customer_id = session('customer_id');
 
-        $shipping->save();
-        $shipping_id = $shipping->shipping_id;
-        $customer_id = session('customer_id');
 
+        // $order = new Order();
+        // $order->customer_id = $customer_id;
+        // $order->shipping_id = $shipping_id;
 
-        $order = new Order();
-        $order->customer_id = $customer_id;
-        $order->shipping_id = $shipping_id;
+        // if (session('coupon')) {
+        //     foreach (session('coupon') as $item => $cou) {
+        //         $coupon_code = $cou['coupon_code'];
+        //         $discount = 0;
+        //         if ($cou['coupon_feature'] == 1) {
+        //             $discount = $cou['coupon_number'] * Cart::subtotal(0, '', '') / 100;
+        //         } else {
+        //             $discount = $cou['coupon_number'];
+        //         }
+        //     }
+        //     $order->coupon_code = $coupon_code;
+        //     $order->discount = $discount;
+        //     $order->order_total = Cart::subtotal(0, '', '') - $discount;
+        // } else {
+        //     $order->order_total = Cart::subtotal(0, '', '');
+        // }
 
-        if (session('coupon')) {
-            foreach (session('coupon') as $item => $cou) {
-                $coupon_code = $cou['coupon_code'];
-                $discount = 0;
-                if ($cou['coupon_feature'] == 1) {
-                    $discount = $cou['coupon_number'] * Cart::subtotal(0, '', '') / 100;
-                } else {
-                    $discount = $cou['coupon_number'];
-                }
-            }
-            $order->coupon_code = $coupon_code;
-            $order->discount = $discount;
-            $order->order_total = Cart::subtotal(0, '', '') - $discount;
-        } else {
-            $order->order_total = Cart::subtotal(0, '', '');
-        }
+        // $order->order_payment = $request->payment;
+        // $order->order_status = '0';
+        // $order->save();
+        // $order_id = $order->order_id;
 
-        $order->order_payment = $request->payment;
-        $order->order_status = '0';
-        $order->save();
-        $order_id = $order->order_id;
-
-        $cart = Cart::content();
-        foreach ($cart as $item) {
-            $order_detail = new OrderDetail();
-            $order_detail->order_id = $order_id;
-            $order_detail->product_id = $item->id;
-            $order_detail->quantity = $item->qty;
-            $order_detail->product_price = $item->price;
-            $order_detail->save();
-        }
-        Mail::to($all['email'])->send(new SendMail($cart));
-        Cart::destroy();
-        session()->forget('coupon');
-        return Redirect::to('/check-out-success');
+        // $cart = Cart::content();
+        // foreach ($cart as $item) {
+        //     $order_detail = new OrderDetail();
+        //     $order_detail->order_id = $order_id;
+        //     $order_detail->product_id = $item->id;
+        //     $order_detail->quantity = $item->qty;
+        //     $order_detail->product_price = $item->price;
+        //     $order_detail->save();
+        // }
+        // Mail::to($all['email'])->send(new SendMail($cart));
+        // Cart::destroy();
+        // session()->forget('coupon');
+        // return Redirect::to('/check-out-success');
     }
     public function check_out_success()
     {
@@ -113,7 +113,6 @@ class CheckOutController extends Controller
             echo $output;
         }
     }
-
     // back end
     public function confirm_order()
     {
@@ -163,6 +162,13 @@ class CheckOutController extends Controller
         $order = Order::find($order_id);
         $order->order_status = '1';
         $order->save();
+        foreach($order->order_detail as $item){
+            $product = Product::find($item->product->product_id);
+            $product_sold = $item->quantity;
+            $product_remain = $product->product_quantity - $product_sold;
+            $product->product_quantity = $product_remain;
+            $product->save();
+        }
         return redirect()->back();
     }
     public function xoa_order($order_id)
