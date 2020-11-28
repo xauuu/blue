@@ -6,131 +6,65 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!--===============================================================================================-->
-    <!-- <link rel="icon" type="image/png" href="images/icons/favicon.ico"/> -->
-    <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="{{ asset('login/vendor/bootstrap/css/bootstrap.min.css') }}">
     <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css"
-        href="{{ asset('login/fonts/font-awesome-4.7.0/css/font-awesome.min.css') }}">
-    <!--===============================================================================================-->
-    <!-- <link rel="stylesheet" type="text/css" href="vendor/animate/animate.css"> -->
-    <!-- ===============================================================================================	 -->
-    <!-- <link rel="stylesheet" type="text/css" href="vendor/css-hamburgers/hamburgers.min.css"> -->
-    <!--===============================================================================================-->
-    <!-- <link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css"> -->
-    <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="{{ asset('login/css/util.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('login/css/main.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('login/css/style.css') }}">
     <!--===============================================================================================-->
 </head>
 
 <body>
 
-    <div class="limiter">
-        <div class="container-login100">
-            <div class="wrap-login100">
-                <div class="login100-pic js-tilt" data-tilt>
-                    <img src="{{ asset('login/images/img-01.png') }}" alt="IMG">
-                </div>
-
-                <form method="post" action="{{ URL::to('check-login') }}" class="login100-form validate-form">
-                    {{ csrf_field() }}
-                    <span class="login100-form-title">
-                        ĐĂNG NHẬP
-                    </span>
-                    @if (session('error'))
-                        <div style="color: red">
-                            {{ session('error') }}
+    <main class="login-bg">
+        <!-- Register Area Start -->
+        <div class="register-form-area">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-xl-7 col-lg-8">
+                        <div class="register-form text-center mt-5">
+                            <!-- Login Heading -->
+                            <div class="register-heading">
+                                <span>ĐĂNG NHẬP</span>
+                            </div>
+                            <!-- Single Input Fields -->
+                            <form method="post" action="{{ URL::to('check-login') }}">
+                                @csrf
+                                <div class="input-box">
+                                    <div class="single-input-fields">
+                                        <label>Email</label>
+                                        <input type="email" placeholder="Nhập email" name="email">
+                                        @if (session('error'))
+                                            <label class="error">
+                                                {{ session('error') }}
+                                            </label>
+                                        @endif
+                                    </div>
+                                    <div class="single-input-fields mt-4">
+                                        <label>Mât khẩu</label>
+                                        <input id="pass" type="password" placeholder="Nhâp mật khẩu của bạn"
+                                            name="pass">
+                                    </div>
+                                    <div class="single-input-fields login-check">
+                                        <input type="checkbox" id="fruit1" name="keep-log">
+                                        <a href="#" class="f-right">Quên mật khẩu?</a>
+                                    </div>
+                                    <div class="login-footer mt-4">
+                                        <button class="submit-btn3">Đăng nhập</button>
+                                    </div>
+                                </div>
+                                <p>Bạn chưa có tài khoản? <a href="{{ URL::to('registration') }}">Đăng kí</a> ngay</p>
+                            </form>
                         </div>
-                    @endif
-                    <div class="wrap-input100 validate-input" data-validate="Bạn chưa nhập email">
-                        <input class="input100" type="text" name="email" placeholder="Email">
-                        <span class="focus-input100"></span>
-                        <span class="symbol-input100">
-                            <i class="fa fa-envelope" aria-hidden="true"></i>
-                        </span>
                     </div>
-
-                    <div class="wrap-input100 validate-input" data-validate="Bạn chưa nhập mật khẩu">
-                        <input class="input100" type="password" name="pass" placeholder="Mật khẩu">
-                        <span class="focus-input100"></span>
-                        <span class="symbol-input100">
-                            <i class="fa fa-lock" aria-hidden="true"></i>
-                        </span>
-                    </div>
-
-                    <div class="container-login100-form-btn">
-                        <button type="submit" class="login100-form-btn">
-                            Đăng nhập
-                        </button>
-                    </div>
-
-                    <div class="text-center p-t-12">
-                        <span class="txt1">
-                            Quên
-                        </span>
-                        <a class="txt2" href="#">
-                            mật khẩu?
-                        </a>
-                    </div>
-
-                    <div class="text-center p-t-136">
-                        <a class="txt2" href="{{ URL::to('/registration') }}">
-                            Tạo tài khoản
-                            <i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
-                        </a>
-                    </div>
-                </form>
+                </div>
             </div>
         </div>
-    </div>
-
-
-
+        <!-- Register Area End -->
+    </main>
 
     <!--===============================================================================================-->
     <script src="{{ asset('login/vendor/jquery/jquery-3.2.1.min.js') }}"></script>
     <!--===============================================================================================-->
-    <script src="{{ asset('login/vendor/bootstrap/js/popper.js') }}"></script>
-    <script src="{{ asset('login/vendor/bootstrap/js/bootstrap.min.js') }}"></script>
-    <!--===============================================================================================-->
-    <script src="{{ asset('login/vendor/select2/select2.min.js') }}"></script>
-    <!--===============================================================================================-->
-    <script src="{{ asset('login/vendor/tilt/tilt.jquery.min.js') }}"></script>
-    <script>
-        $('.js-tilt').tilt({
-            scale: 1.1
-        })
-
-    </script>
-    <!--===============================================================================================-->
     <script src="{{ asset('login/js/jquery-validate.js') }}"></script>
-    {{-- <script>
-        $(document).ready(function() {
-            $('.validate-form').validate({
-                onfocusout: false,
-                onkeyup: false,
-                onclick: false,
-                rules: {
-                    "email": {
-                        required: true,
-                        maxlength: 15
-                    },
-                    "pass": {
-                        required: true,
-                        minlength: 8
-                    },
-                    "re-password": {
-                        equalTo: "#password",
-                        minlength: 8
-                    }
-                }
-            });
-        });
-
-    </script> --}}
-    <!--===============================================================================================-->
-    <script src="{{ asset('login/js/main.js') }}"></script>
 
 </body>
 
