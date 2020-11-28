@@ -3,9 +3,8 @@
     <!-- Page info -->
     <div class="page-top-info">
         <div class="container">
-            <h4>CAtegory PAge</h4>
             <div class="site-pagination">
-                <a href="">Home</a> /
+                <a href="">Trang chủ</a> /
                 <a href="">Shop</a> /
             </div>
         </div>

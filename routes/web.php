@@ -41,7 +41,6 @@ Route::get('/logout', [HomeController::class, 'logout']);
 Route::get('/category/{category_id}', [HomeController::class, 'category']);
 Route::get('/brand/{brand_id}', [HomeController::class, 'brand']);
 Route::get('/product-detail/{product_id}', [ProductDetail::class, 'product_detail']);
-
 // blog
 Route::get('/blog', [PostController::class, 'blog']);
 Route::get('/blog-detail/{post_slug}', [PostController::class, 'blog_detail']);
@@ -66,6 +65,8 @@ Route::post('/reply-comment', [ProductDetail::class, 'reply_comment']);
 Route::post('/search', [HomeController::class, 'search']);
 // paginate
 Route::post('/paginate', [HomeController::class, 'paginate']);
+// rating
+Route::post('/add-rating', [ProductDetail::class, 'add_rating']);
 
 
 // Back end

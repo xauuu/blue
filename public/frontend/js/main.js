@@ -375,6 +375,48 @@ $(window).on('load', function () {
             }
         });
     });
+    // rating
+    function remove_bg(product_id){
+        for(var count = 1; count <=5; count++){
+            $('#'+product_id+'-'+count).css('color', '#e6e6e6');
+        }
+    }
+    $('.rating').mouseenter(function () {
+        var index = $(this).data("index");
+        var product_id = $(this).data("product_id");
+        remove_bg(product_id);
+        for(var count = 1; count <=index; count++){
+            $('#'+product_id+'-'+count).css('color', '#f51167');
+        }
+    });
+    $('.rating').mouseleave(function () {
+        var index = $(this).data("index");
+        var product_id = $(this).data("product_id");
+        var rating = $(this).data("rating");
+        remove_bg(product_id);
+        for(var count = 1; count <=rating; count++){
+            $('#'+product_id+'-'+count).css('color', '#f51167');
+        }
+    });
+    $('.rating').click(function (e) {
+        var index = $(this).data("index");
+        var product_id = $(this).data("product_id");
+        var _token = $('input[name=_token]').val();
+        var url = $('input[name=this_url]').val() + '/add-rating';
+        $.ajax({
+            type: "post",
+            url: url,
+            data: {
+                index: index,
+                product_id: product_id,
+                _token: _token
+            },
+            success: function (data) {
+                alert(data);
+            }
+        });
+    });
+    // end rating
     // back to top
     var btn = $('#backtotop');
 

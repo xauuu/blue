@@ -25,6 +25,9 @@ class Product extends Model
         'product_status'
     ];
     public $timestamps = true;
+    function category(){
+        return $this->belongsTo(Category::class, 'category_id');
+    }
     function gallery()
     {
         return $this->hasMany('App\Models\Gallery', 'product_id');

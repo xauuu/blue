@@ -3,10 +3,12 @@
     <!-- Page info -->
     <div class="page-top-info">
         <div class="container">
-            <h4>Category PAge</h4>
             <div class="site-pagination">
-                <a href="">Home</a> /
-                <a href="">Shop</a>
+                <a href="{{ URL::to('/home') }}">Trang chủ </a> /
+                <a href="{{ URL::to('/shop') }}">Shop </a> /
+                <a href="{{ URL::to('/category/' . $detail->category->category_id) }}">{{ $detail->category->category_name }}
+                </a> /
+                <a class="disable" href="">{{ $detail->product_name }}</a>
             </div>
         </div>
     </div>
@@ -17,7 +19,7 @@
     <section class="product-section">
         <div class="container">
             <div class="back-link">
-                <a href="./category.html"> &lt;&lt; Trở lại danh mục</a>
+                <a href="./category.html"> &lt;&lt; Quay lại</a>
             </div>
             <div class="row">
                 <div class="col-lg-6">
@@ -41,15 +43,17 @@
                     <h2 class="p-title">{{ $detail->product_name }}</h2>
                     <h3 class="p-price">{{ number_format($detail->product_discount) }} VND</h3>
                     <h4 class="p-stock">Có sẵn: <span>{{ $detail->product_quantity }} sản phẩm</span></h4>
-                    <div class="p-rating">
-                        <i class="fa fa-star-o"></i>
-                        <i class="fa fa-star-o"></i>
-                        <i class="fa fa-star-o"></i>
-                        <i class="fa fa-star-o"></i>
-                        <i class="fa fa-star-o fa-fade"></i>
-                    </div>
+                    <ul class="p-rating">
+                        @for ($count = 1; $count <= 5; $count++)
+                            @php
+                            if($count <= $rating){ $color='color:#f51167' ; }else { $color='color:#e6e6e6' ; } @endphp <li
+                                style="{{ $color }}" id="{{ $detail->product_id }}-{{ $count }}" data-index="{{ $count }}"
+                                data-product_id="{{ $detail->product_id }}" data-rating="{{ $rating }}" class="rating"><i
+                                    class="fa fa-star"></i></li>
+                        @endfor
+                    </ul>
                     <div class="p-review">
-                        <a href="">3 nhận xét</a>|<a href="">Thêm nhận xét của bạn</a>
+                        <a href="">{{ count($detail->comment) }} bình luận</a>|<a href="#cmt">Thêm bình luận của bạn</a>
                     </div>
                     <div class="fw-size-choose">
                         <p>Size</p>
@@ -161,7 +165,8 @@
                                             @if ($cmt->comment_id == $reply->reply_id)
                                                 <div class="blog__comment__item__text mt-4">
                                                     <div class="blog__comment__item__pic">
-                                                        <div class="reply-avt">{{ $reply->customer->customer_name[0] }}</div>
+                                                        <div class="reply-avt">{{ $reply->customer->customer_name[0] }}
+                                                        </div>
                                                     </div>
                                                     <div class="blog__comment__item__text">
                                                         <h6>{{ $reply->customer->customer_name }}</h6>
