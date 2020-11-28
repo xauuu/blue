@@ -178,7 +178,7 @@
                                     </div>
 
                                     <div id="cmt{{ $cmt->comment_id }}" class="collapse mt-3">
-                                        <form>
+                                        <form onsubmit="return false;">
                                             @csrf
                                             <input type="text" id="reply{{ $cmt->comment_id }}" class="form-control"
                                                 placeholder="Nhập phản hồi của bạn">

@@ -48,10 +48,10 @@
 .main-menu-us .sub-menu {
     position: absolute;
     list-style: none;
-    width: 220px;
+    width: 150px;
     left: 0;
     top: 100%;
-    padding: 20px 0;
+    padding: 10px 0;
     visibility: hidden;
     opacity: 0;
     margin-top: 50px;

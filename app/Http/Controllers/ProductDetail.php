@@ -68,7 +68,7 @@ class ProductDetail extends Controller
         $content = '
         <div class="blog__comment__item  mt-4">
             <div class="blog__comment__item__pic">
-                <div class="cmt-avt">' . $name[0] . '</div>
+                <div class="reply-avt">' . $name[0] . '</div>
             </div>
             <div class="blog__comment__item__text">
                 <h6>' . session('customer_name') . '</h6>
