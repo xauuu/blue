@@ -9,6 +9,25 @@
 /*----------------------------------------*/
 /* Template default CSS
 /*----------------------------------------*/
+.active a{
+    color: #f51167!important;
+}
+.filter-btn {
+	display: inline-block;
+	border: none;
+	font-size: 14px;
+	font-weight: 600;
+    min-width: 100px;
+    margin: 0 auto;
+	padding: 15px 35px 12px;
+	border-radius: 50px;
+	text-transform: uppercase;
+	background: #f51167;
+	color: #fff;
+	line-height: normal;
+	cursor: pointer;
+	text-align: center;
+}
 .checkout-form select {
     width: 100%;
     height: 44px;
@@ -1420,9 +1439,9 @@ ol {
 }
 
 .price-range-wrap {
-	border-bottom: 2px solid #ebebeb;
+
 	padding-bottom: 40px;
-	margin-bottom: 50px;
+
 }
 
 .price-range-wrap h4 {
@@ -1432,7 +1451,10 @@ ol {
 	color: #414141;
 	margin-bottom: 45px;
 }
-
+.price-bt{
+    border-bottom: 2px solid #ebebeb;
+    margin-bottom: 50px;
+}
 .price-range-wrap .range-slider .price-input input {
 	color: #444444;
 	border: none;

@@ -22,11 +22,14 @@
                         <ul class="category-menu">
                             @foreach ($category as $item => $cate)
                                 @if ($cate->category_parent == 0)
-                                    <li><a href="{{ URL::to('category/'.$cate->category_slug) }}">{{ $cate->category_name }}</a>
+                                    <li><a
+                                            href="{{ URL::to('category/' . $cate->category_slug) }}">{{ $cate->category_name }}</a>
                                         <ul class="sub-menu">
                                             @foreach ($category as $item => $cate_chill)
                                                 @if ($cate_chill->category_parent == $cate->category_id)
-                                                    <li><a class="chill" href="{{ URL::to('category/'.$cate_chill->category_slug) }}">{{ $cate_chill->category_name }}</a></li>
+                                                    <li><a class="chill"
+                                                            href="{{ URL::to('category/' . $cate_chill->category_slug) }}">{{ $cate_chill->category_name }}</a>
+                                                    </li>
                                                 @endif
                                             @endforeach
                                         </ul>
@@ -36,11 +39,12 @@
                         </ul>
                     </div>
                     <div class="filter-widget mb-0">
+                        <form method="get">
                         <h2 class="fw-title">Lọc theo</h2>
                         <div class="price-range-wrap">
                             <h4>Giá</h4>
                             <div class="price-range ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content"
-                                data-min="10" data-max="270">
+                                data-min="0" data-max="999">
                                 <div class="ui-slider-range ui-corner-all ui-widget-header" style="left: 0%; width: 100%;">
                                 </div>
                                 <span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default"
@@ -52,11 +56,18 @@
                             </div>
                             <div class="range-slider">
                                 <div class="price-input">
+
                                     <input type="text" id="minamount">
                                     <input type="text" id="maxamount">
                                 </div>
+                                <input type="hidden" name="min">
+                                <input type="hidden"  name="max">
                             </div>
                         </div>
+                        <div class="price-bt d-flex">
+                            <button type="submit" class="mb-2 filter-btn">Lọc</button>
+                        </div>
+                    </form>
                     </div>
                     <div class="filter-widget mb-0">
                         <h2 class="fw-title">color by</h2>
@@ -132,7 +143,8 @@
                         <h2 class="fw-title">Thương hiệu</h2>
                         <ul class="category-menu">
                             @foreach ($brand as $item)
-                                <li><a href="{{ URL::to('brand/'.$item->brand_slug) }}">{{ $item->brand_name }} <span>({{ count($item->count_brand) }})</span></a></li>
+                                <li><a href="{{ URL::to('brand/' . $item->brand_slug) }}">{{ $item->brand_name }}
+                                        <span>({{ count($item->count_brand) }})</span></a></li>
                             @endforeach
                         </ul>
                     </div>

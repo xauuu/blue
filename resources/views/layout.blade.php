@@ -104,6 +104,7 @@
                 <!-- menu -->
                 <ul class="main-menu">
                     <li><a href="{{ URL::to('/home') }}">Trang chủ</a></li>
+                    <li><a href="{{ URL::to('/shop') }}">Shop</a></li>
                     @foreach ($category as $item => $cate)
                         @if ($cate->category_parent == 0)
                             <li><a href="{{ URL::to('category/' . $cate->category_slug) }}">{{ $cate->category_name }}</a>
@@ -248,6 +249,7 @@
     <script src="{{ asset('frontend/js/jquery-ui.min.js') }}"></script>
     <script src="{{ asset('frontend/js/sweetalert.min.js') }}"></script>
     <script src="{{ asset('frontend/js/main.js') }}"></script>
+    <script src="{{ asset('frontend/js/xau.js') }}"></script>
     <script src="{{ asset('frontend/js/jquery.easydropdown.min.js') }}"></script>
 
 </body>

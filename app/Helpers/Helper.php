@@ -20,7 +20,12 @@ if (!function_exists('AuthLogin')) {
         }
     }
 }
-
+if (!function_exists('active')) {
+    function active($path, $active = 'active')
+    {
+        return call_user_func_array('Request::is', (array)$path) ? $active : '';
+    }
+}
 if (!function_exists('vn_to_str')) {
     function vn_to_str($str)
     {

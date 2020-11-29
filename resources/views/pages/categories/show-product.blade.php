@@ -4,7 +4,7 @@
         <div class="col-lg-6 d-flex">
             <span class="pt-2 mr-2">Sắp xếp theo</span>
             <select class="dropdown">
-                <option disabled selected    value="">Chọn</option>
+                <option disabled selected value="">Mặc định</option>
                 <option value="{{ Request::url() }}?sort=tang_dan">Giá từ thấp đến cao</option>
                 <option value="{{ Request::url() }}?sort=giam_dan">Giá từ cao đến thấp</option>
                 <option value="{{ Request::url() }}?sort=a_z">Tên từ A-Z</option>

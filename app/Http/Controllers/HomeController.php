@@ -26,7 +26,36 @@ class HomeController extends Controller
         $page = isset($cook) ? $cook : 6;
         $category = Category::where('category_status', 1)->get();
         $brand = Brand::where('brand_status', 1)->get();
-        $product = Product::where('product_status', 1)->paginate($page);
+
+        if (isset($_GET['sort'])) {
+            $sort = $_GET['sort'];
+            if ($sort == 'tang_dan') {
+                $product = Product::where('product_status', 1)
+                    ->orderBy('product_discount', "ASC")
+                    ->paginate($page)->appends(request()->query());
+            } elseif ($sort == 'giam_dan') {
+                $product = Product::where('product_status', 1)
+                    ->orderBy('product_discount', "DESC")
+                    ->paginate($page)->appends(request()->query());
+            } elseif ($sort == 'a_z') {
+                $product = Product::where('product_status', 1)
+                    ->orderBy('product_name', "ASC")
+                    ->paginate($page)->appends(request()->query());
+            } elseif ($sort == 'z_a') {
+                $product = Product::where('product_status', 1)
+                    ->orderBy('product_name', "DESC")
+                    ->paginate($page)->appends(request()->query());
+            }
+        } elseif (isset($_GET['min']) && isset($_GET['max'])) {
+            $min = $_GET['min'] * 1000;
+            $max = $_GET['max'] * 1000;
+
+            $product = Product::where('product_status', 1)
+                ->whereBetween('product_discount', [$min, $max])
+                ->paginate($page)->appends(request()->query());
+        } else {
+            $product = Product::where('product_status', 1)->paginate($page);
+        }
         return view('pages.categories.show-product', compact('product', 'category', 'brand'));
     }
     public function category($category_slug)
@@ -75,6 +104,17 @@ class HomeController extends Controller
                     ->orderBy('product_name', "DESC")
                     ->paginate($page)->appends(request()->query());
             }
+        } elseif (isset($_GET['min']) && isset($_GET['max'])) {
+            $min = $_GET['min'] * 1000;
+            $max = $_GET['max'] * 1000;
+
+            $product = Product::join('categories', 'categories.category_id', 'products.category_id')
+                ->where(function ($query) use ($category_id) {
+                    return $query->where('products.category_id', $category_id)
+                        ->orWhere('category_parent', $category_id);
+                })->where('product_quantity', '>', 0)
+                ->whereBetween('product_discount', [$min, $max])
+                ->paginate($page)->appends(request()->query());
         } else {
             $product = Product::join('categories', 'categories.category_id', 'products.category_id')
                 ->where(function ($query) use ($category_id) {
@@ -96,9 +136,43 @@ class HomeController extends Controller
         $b_slug = Brand::where('brand_slug', $brand_slug)->first();
         $brand_id = $b_slug->brand_id;
 
-        $product = Product::where('brand_id', $brand_id)
-            ->where('product_status', 1)
-            ->paginate($page);
+        if (isset($_GET['sort'])) {
+            $sort = $_GET['sort'];
+            if ($sort == 'tang_dan') {
+                $product = Product::where('brand_id', $brand_id)
+                    ->where('product_status', 1)
+                    ->orderBy('product_discount', "ASC")
+                    ->paginate($page)->appends(request()->query());
+            } elseif ($sort == 'giam_dan') {
+                $product = Product::where('brand_id', $brand_id)
+                    ->where('product_status', 1)
+                    ->orderBy('product_discount', "DESC")
+                    ->paginate($page)->appends(request()->query());
+            } elseif ($sort == 'a_z') {
+                $product = Product::where('brand_id', $brand_id)
+                    ->where('product_status', 1)
+                    ->orderBy('product_name', "ASC")
+                    ->paginate($page)->appends(request()->query());
+            } elseif ($sort == 'z_a') {
+                $product = Product::where('brand_id', $brand_id)
+                    ->where('product_status', 1)
+                    ->orderBy('product_name', "DESC")
+                    ->paginate($page)->appends(request()->query());
+            }
+        } elseif (isset($_GET['min']) && isset($_GET['max'])) {
+            $min = $_GET['min'] * 1000;
+            $max = $_GET['max'] * 1000;
+
+            $product = Product::where('brand_id', $brand_id)
+                ->where('product_status', 1)
+                ->whereBetween('product_discount', [$min, $max])
+                ->paginate($page)->appends(request()->query());
+        } else {
+            $product = Product::where('brand_id', $brand_id)
+                ->where('product_status', 1)
+                ->paginate($page);
+        }
+
         return view('pages.categories.show-product', compact('product', 'category', 'brand'));
     }
     public function login()
@@ -167,7 +241,7 @@ class HomeController extends Controller
             foreach ($search as $item) {
                 $output .= '
                     <li>
-                        <a class="dropdown-item" href="' . url('/product-detail/' . $item->product_id) . '">' . $item->product_name . '
+                        <a class="dropdown-item" href="' . url('/product-detail/' . $item->product_slug) . '">' . $item->product_name . '
                         <span class="search-price">' . number_format($item->product_discount) . ' VND</span>
                         </a>
                     </li>';
