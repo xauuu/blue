@@ -38,9 +38,9 @@ Route::get('/registration', [HomeController::class, 'registration']);
 Route::post('/check-registration', [HomeController::class, 'check_registration']);
 Route::get('/logout', [HomeController::class, 'logout']);
 //
-Route::get('/category/{category_id}', [HomeController::class, 'category']);
-Route::get('/brand/{brand_id}', [HomeController::class, 'brand']);
-Route::get('/product-detail/{product_id}', [ProductDetail::class, 'product_detail']);
+Route::get('/category/{category_slug}', [HomeController::class, 'category']);
+Route::get('/brand/{brand_slug}', [HomeController::class, 'brand']);
+Route::get('/product-detail/{product_slug}', [ProductDetail::class, 'product_detail']);
 // blog
 Route::get('/blog', [PostController::class, 'blog']);
 Route::get('/blog-detail/{post_slug}', [PostController::class, 'blog_detail']);

@@ -15,4 +15,5 @@ class Rating extends Model
         'customer_id',
         'rating'
     ];
+    public $timestamps = true;
 }

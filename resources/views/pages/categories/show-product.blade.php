@@ -1,7 +1,17 @@
 @extends('pages.shop.shop')
 @section('product')
-    <div class="row justify-content-end">
-        <div class="col-lg-4 mb-3">
+    <div class="row justify-content-between mb-3">
+        <div class="col-lg-6 d-flex">
+            <span class="pt-2 mr-2">Sắp xếp theo</span>
+            <select class="dropdown">
+                <option disabled selected    value="">Chọn</option>
+                <option value="{{ Request::url() }}?sort=tang_dan">Giá từ thấp đến cao</option>
+                <option value="{{ Request::url() }}?sort=giam_dan">Giá từ cao đến thấp</option>
+                <option value="{{ Request::url() }}?sort=a_z">Tên từ A-Z</option>
+                <option value="{{ Request::url() }}?sort=z_a">Tên từ Z-A</option>
+            </select>
+        </div>
+        <div class="col-lg-4">
             <span>Hiển thị</span>
             <select style="width:80px;" class="custom-select" name="pagination">
                 <option disabled selected value="0">Chọn</option>
@@ -20,7 +30,7 @@
                     {{ csrf_field() }}
                     <div class="product-item">
                         <div class="pi-pic">
-                            <a href="{{ URL::to('product-detail/' . $pro->product_id) }}">
+                            <a href="{{ URL::to('product-detail/' . $pro->product_slug) }}">
                                 <img src="{{ asset('uploads/product/' . $pro->product_img) }}" alt="">
                             </a>
                             <div class="pi-links">

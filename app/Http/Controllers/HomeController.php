@@ -29,27 +29,73 @@ class HomeController extends Controller
         $product = Product::where('product_status', 1)->paginate($page);
         return view('pages.categories.show-product', compact('product', 'category', 'brand'));
     }
-    public function category($category_id)
+    public function category($category_slug)
     {
         $category = Category::where('category_status', 1)->get();
         $brand = Brand::where('brand_status', 1)->get();
+
         $cook = Cookie::get('page');
         $page = isset($cook) ? $cook : 6;
-        $product = Product::join('categories', 'categories.category_id', 'products.category_id')
-            // ->where('product_status', 0)->where('category_status', 0)
-            ->where(function ($query) use ($category_id) {
-                return $query->where('products.category_id', $category_id)
-                    ->orWhere('category_parent', $category_id);
-            })->where('product_quantity', '>', 0)->paginate($page);
+
+        $cate_slug = Category::where('category_slug', $category_slug)->first();
+        $category_id = $cate_slug->category_id;
+
+        if (isset($_GET['sort'])) {
+            $sort = $_GET['sort'];
+            if ($sort == 'tang_dan') {
+                $product = Product::join('categories', 'categories.category_id', 'products.category_id')
+                    ->where(function ($query) use ($category_id) {
+                        return $query->where('products.category_id', $category_id)
+                            ->orWhere('category_parent', $category_id);
+                    })->where('product_quantity', '>', 0)
+                    ->orderBy('product_discount', "ASC")
+                    ->paginate($page)->appends(request()->query());
+            } elseif ($sort == 'giam_dan') {
+                $product = Product::join('categories', 'categories.category_id', 'products.category_id')
+                    ->where(function ($query) use ($category_id) {
+                        return $query->where('products.category_id', $category_id)
+                            ->orWhere('category_parent', $category_id);
+                    })->where('product_quantity', '>', 0)
+                    ->orderBy('product_discount', "DESC")
+                    ->paginate($page)->appends(request()->query());
+            } elseif ($sort == 'a_z') {
+                $product = Product::join('categories', 'categories.category_id', 'products.category_id')
+                    ->where(function ($query) use ($category_id) {
+                        return $query->where('products.category_id', $category_id)
+                            ->orWhere('category_parent', $category_id);
+                    })->where('product_quantity', '>', 0)
+                    ->orderBy('product_name', "ASC")
+                    ->paginate($page)->appends(request()->query());
+            } elseif ($sort == 'z_a') {
+                $product = Product::join('categories', 'categories.category_id', 'products.category_id')
+                    ->where(function ($query) use ($category_id) {
+                        return $query->where('products.category_id', $category_id)
+                            ->orWhere('category_parent', $category_id);
+                    })->where('product_quantity', '>', 0)
+                    ->orderBy('product_name', "DESC")
+                    ->paginate($page)->appends(request()->query());
+            }
+        } else {
+            $product = Product::join('categories', 'categories.category_id', 'products.category_id')
+                ->where(function ($query) use ($category_id) {
+                    return $query->where('products.category_id', $category_id)
+                        ->orWhere('category_parent', $category_id);
+                })->where('product_quantity', '>', 0)->paginate($page);
+        }
 
         return view('pages.categories.show-product', compact('product', 'category', 'brand'));
     }
-    public function brand($brand_id)
+    public function brand($brand_slug)
     {
         $cook = Cookie::get('page');
         $page = isset($cook) ? $cook : 6;
+
         $category = Category::where('category_status', 1)->get();
         $brand = Brand::where('brand_status', 1)->get();
+
+        $b_slug = Brand::where('brand_slug', $brand_slug)->first();
+        $brand_id = $b_slug->brand_id;
+
         $product = Product::where('brand_id', $brand_id)
             ->where('product_status', 1)
             ->paginate($page);
@@ -78,7 +124,7 @@ class HomeController extends Controller
         if ($user) {
             Session::put('customer_id', $user->id);
             Session::put('customer_name', $user->customer_name);
-            if(strpos(session('backUrl'), "registration")){
+            if (strpos(session('backUrl'), "registration")) {
                 return Redirect::to('/home');
             }
             return Redirect::to(session('backUrl'));

@@ -15,12 +15,16 @@ use App\Models\Rating;
 
 class ProductDetail extends Controller
 {
-    public function product_detail($product_id)
+    public function product_detail($product_slug)
     {
         $category = Category::where('category_status', 1)->get();
+
+        $pro_slug = Product::where('product_slug', $product_slug)->first();
+        $product_id = $pro_slug->product_id;
+
         $detail = Product::find($product_id);
         $related = Product::where('category_id', $detail->category_id)->get();
-        $rating = DB::table('ratings')->where('product_id', $product_id)->avg('rating');
+        $rating = Rating::where('product_id', $product_id)->avg('rating');
         $rating = round($rating);
         return view('pages.products.product-detail', compact('category', 'detail', 'related', 'rating'));
     }
@@ -88,19 +92,20 @@ class ProductDetail extends Controller
         if (session('customer_id')) {
             $customer_id = session('customer_id');
             $all = $request->all();
-            // $check = Rating::where('product_id', $product_id)->where('customer_id', $customer_id)->fisrt();
-            // if(count($check) == 1){
-            //     $add_rating = new Rating();
-            //     $check->rating = $rating;
-            //     $add_rating->save();
-            //     echo 'Bạn đã đánh giá '.$rating.'/5 sao';
-            // }else{
-            $rating = new Rating();
-            $rating->product_id = $all['product_id'];
-            $rating->customer_id = $customer_id;
-            $rating->rating = $all['ratung'];
-            dd($rating);
-            // }
+            $check = Rating::where('product_id', $all['product_id'])->where('customer_id', $customer_id)->first();
+            if ($check) {
+                $rating = Rating::find($check->rating_id);
+                $rating->rating = $all['index'];
+                $rating->save();
+                echo 'Bạn đã đánh giá ' . $all['index'] . '/5 sao';
+            } else {
+                $rating = new Rating();
+                $rating->product_id = $all['product_id'];
+                $rating->customer_id = $customer_id;
+                $rating->rating = $all['index'];
+                $rating->save();
+                echo 'Bạn đã đánh giá ' . $all['index'] . '/5 sao';
+            }
         } else {
             echo 'Bạn cần đăng nhập để đánh giá sản phẩm này';
         }

@@ -98,7 +98,7 @@
                         {{ csrf_field() }}
                         <div class="product-item">
                             <div class="pi-pic">
-                                <a href="{{ URL::to('product-detail/' . $pro->product_id) }}">
+                                <a href="{{ URL::to('product-detail/' . $pro->product_slug) }}">
                                     <img src="{{ asset('uploads/product/' . $pro->product_img) }}" alt="">
                                 </a>
                                 <div class="pi-links">

@@ -419,7 +419,6 @@ $(window).on('load', function () {
     // end rating
     // back to top
     var btn = $('#backtotop');
-
     $(window).scroll(function () {
         if ($(window).scrollTop() > 300) {
             btn.addClass('show');
@@ -431,5 +430,14 @@ $(window).on('load', function () {
     btn.on('click', function (e) {
         e.preventDefault();
         $('html, body').animate({ scrollTop: 0 }, '300');
+    });
+
+    $('.dropdown').change(function (e) {
+        var url = $(this).val();
+        console.log(url);
+        if(url){
+            window.location = url;
+        }
+        return false;
     });
 })(jQuery);

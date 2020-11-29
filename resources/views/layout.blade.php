@@ -23,6 +23,7 @@
     <link rel="stylesheet" href="{{ asset('frontend/css/owl.carousel.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('frontend/css/animate.css') }}" />
     <link rel="stylesheet" href="{{ asset('frontend/css/sweetalert.css') }}" />
+    <link rel="stylesheet" href="{{ asset('frontend/css/easydropdown.css') }}" />
     <link rel="stylesheet" href="{{ asset('frontend/css/style.css') }}" />
     <link rel="stylesheet" href="{{ asset('frontend/css/xau.css') }}" />
 
@@ -105,12 +106,12 @@
                     <li><a href="{{ URL::to('/home') }}">Trang chủ</a></li>
                     @foreach ($category as $item => $cate)
                         @if ($cate->category_parent == 0)
-                            <li><a href="{{ URL::to('category/' . $cate->category_id) }}">{{ $cate->category_name }}</a>
+                            <li><a href="{{ URL::to('category/' . $cate->category_slug) }}">{{ $cate->category_name }}</a>
                                 <ul class="sub-menu">
                                     @foreach ($category as $item => $cate_chill)
                                         @if ($cate_chill->category_parent == $cate->category_id)
                                             <li><a
-                                                    href="{{ URL::to('category/' . $cate_chill->category_id) }}">{{ $cate_chill->category_name }}</a>
+                                                    href="{{ URL::to('category/' . $cate_chill->category_slug) }}">{{ $cate_chill->category_name }}</a>
                                             </li>
                                         @endif
                                     @endforeach
@@ -247,6 +248,7 @@
     <script src="{{ asset('frontend/js/jquery-ui.min.js') }}"></script>
     <script src="{{ asset('frontend/js/sweetalert.min.js') }}"></script>
     <script src="{{ asset('frontend/js/main.js') }}"></script>
+    <script src="{{ asset('frontend/js/jquery.easydropdown.min.js') }}"></script>
 
 </body>
 

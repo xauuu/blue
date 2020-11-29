@@ -22,11 +22,11 @@
                         <ul class="category-menu">
                             @foreach ($category as $item => $cate)
                                 @if ($cate->category_parent == 0)
-                                    <li><a href="{{ URL::to('category/'.$cate->category_id) }}">{{ $cate->category_name }}</a>
+                                    <li><a href="{{ URL::to('category/'.$cate->category_slug) }}">{{ $cate->category_name }}</a>
                                         <ul class="sub-menu">
                                             @foreach ($category as $item => $cate_chill)
                                                 @if ($cate_chill->category_parent == $cate->category_id)
-                                                    <li><a class="chill" href="{{ URL::to('category/'.$cate_chill->category_id) }}">{{ $cate_chill->category_name }}</a></li>
+                                                    <li><a class="chill" href="{{ URL::to('category/'.$cate_chill->category_slug) }}">{{ $cate_chill->category_name }}</a></li>
                                                 @endif
                                             @endforeach
                                         </ul>
@@ -132,7 +132,7 @@
                         <h2 class="fw-title">Thương hiệu</h2>
                         <ul class="category-menu">
                             @foreach ($brand as $item)
-                                <li><a href="{{ URL::to('brand/'.$item->brand_id) }}">{{ $item->brand_name }} <span>({{ count($item->count_brand) }})</span></a></li>
+                                <li><a href="{{ URL::to('brand/'.$item->brand_slug) }}">{{ $item->brand_name }} <span>({{ count($item->count_brand) }})</span></a></li>
                             @endforeach
                         </ul>
                     </div>

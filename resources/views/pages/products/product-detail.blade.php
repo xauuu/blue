@@ -6,7 +6,7 @@
             <div class="site-pagination">
                 <a href="{{ URL::to('/home') }}">Trang chủ </a> /
                 <a href="{{ URL::to('/shop') }}">Shop </a> /
-                <a href="{{ URL::to('/category/' . $detail->category->category_id) }}">{{ $detail->category->category_name }}
+                <a href="{{ URL::to('/category/' . $detail->category->category_slug) }}">{{ $detail->category->category_name }}
                 </a> /
                 <a class="disable" href="">{{ $detail->product_name }}</a>
             </div>
@@ -224,7 +224,7 @@
                         {{ csrf_field() }}
                         <div class="product-item">
                             <div class="pi-pic">
-                                <a href="{{ URL::to('product-detail/' . $pro->product_id) }}">
+                                <a href="{{ URL::to('product-detail/' . $pro->product_slug) }}">
                                     <img src="{{ asset('uploads/product/' . $pro->product_img) }}" alt="">
                                 </a>
                                 <div class="pi-links">
