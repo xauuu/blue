@@ -14,7 +14,7 @@
                                 <ul>
                                     <li>by <span>Xau</span></li>
                                     <li>{{ date('d F, Y', strtotime($post_detail->created_at)) }}</li>
-                                    <li>39 Comments</li>
+                                    <li>{{ $post_detail->post_view }} lượt xem</li>
                                 </ul>
                             </div>
                         </div>

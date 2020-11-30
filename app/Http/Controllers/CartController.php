@@ -51,7 +51,7 @@ class CartController extends Controller
     }
     public function check_coupon(Request $request)
     {
-        $coupon = Coupon::where('coupon_code', $request->coupon_code)->first();
+        $coupon = Coupon::where('coupon_code', $request->coupon_code)->where('coupon_times', '>', 0)->first();
         if ($coupon) {
             if ($coupon->count() > 0) {
                 if (Session::get('coupon')) {
@@ -70,6 +70,8 @@ class CartController extends Controller
                     Session::put('coupon', $cou);
                 }
                 Session::save();
+                $coupon->coupon_times = $coupon->coupon_times - 1;
+                $coupon->save();
                 return redirect()->back()->with('success', 'Sử dụng mã giảm giá thành công');
             }
         } else {

@@ -17,7 +17,8 @@ class Order extends Model
         'shipping_id',
         'order_total',
         'order_payment',
-        'order_status'
+        'order_status',
+        'order_date'
     ];
     public $timestamps = true;
     public function shipping()

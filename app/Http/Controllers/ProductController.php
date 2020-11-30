@@ -93,7 +93,7 @@ class ProductController extends Controller
         $product->category_id = $request->category_id;
         $product->brand_id = $request->brand_id;
         $product->product_name = $request->product_name;
-        $product->product_slug = $request->product_slug;
+        $product->product_slug = $request->product_slug. '-' . date('His');
         $product->product_quantity = $request->product_quantity;
         $product->product_desc = $request->product_desc;
         $product->product_price = $request->product_price;

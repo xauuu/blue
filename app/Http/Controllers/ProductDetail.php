@@ -23,6 +23,10 @@ class ProductDetail extends Controller
         $product_id = $pro_slug->product_id;
 
         $detail = Product::find($product_id);
+        // luot xem
+        $detail->product_view = $detail->product_view + 1;
+        $detail->save();
+        // end luot xem
         $related = Product::where('category_id', $detail->category_id)->get();
         $rating = Rating::where('product_id', $product_id)->avg('rating');
         $rating = round($rating);

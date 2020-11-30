@@ -19,26 +19,9 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-7 order-2 order-lg-1">
-                    <form method="post" action="{{ URL::to('save-checkout') }}" class="checkout-form">
+                    <form method="post" action="{{ URL::to('/save-checkout') }}" class="checkout-form">
                         {{ csrf_field() }}
                         <div class="cf-title">Địa chỉ nhận hàng</div>
-                        {{-- <div class="row">
-                            <div class="col-md-7">
-                                <p>*Billing Information</p>
-                            </div>
-                            <div class="col-md-5">
-                                <div class="cf-radio-btns address-rb">
-                                    <div class="cfr-item">
-                                        <input type="radio" name="pm" id="one">
-                                        <label for="one">Use my regular address</label>
-                                    </div>
-                                    <div class="cfr-item">
-                                        <input type="radio" name="pm" id="two">
-                                        <label for="two">Use a different address</label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> --}}
                         <div class="row address-inputs">
                             <div class="col-md-6">
                                 <input type="text" placeholder="Họ" name="firstname" required>

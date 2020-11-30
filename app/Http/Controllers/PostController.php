@@ -171,6 +171,10 @@ class PostController extends Controller
     {
         $category = Category::all();
         $post_detail = Post::where('post_slug', $post_slug)->first();
+        // luot xem
+        $post_detail->post_view = $post_detail->post_view + 1;
+        $post_detail->save();
+        // end luot xem
         $category_post = CategoryPost::all();
         $recent_post = Post::whereNotIn('post_slug', [$post_slug])->latest()->limit(5)->get();
         return view('pages.blog.blog-detail', compact('category', 'post_detail','category_post','recent_post'));

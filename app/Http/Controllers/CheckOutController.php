@@ -15,7 +15,9 @@ use App\Models\District;
 use App\Models\Shipping;
 use App\Models\Order;
 use App\Models\OrderDetail;
+use App\Models\Statistic;
 use App\Models\Wards;
+use Carbon\Carbon;
 use Cart;
 
 class CheckOutController extends Controller
@@ -70,6 +72,7 @@ class CheckOutController extends Controller
 
         $order->order_payment = $request->payment;
         $order->order_status = '0';
+        $order->order_date = Carbon::now('Asia/Ho_Chi_Minh')->format('Y-m-d');
         $order->save();
         $order_id = $order->order_id;
 
@@ -161,12 +164,41 @@ class CheckOutController extends Controller
         $order = Order::find($order_id);
         $order->order_status = '1';
         $order->save();
-        foreach($order->order_detail as $item){
+        $statistic = Statistic::where('order_date', $order->order_date)->get();
+        if ($statistic) {
+            $count_sta = $statistic->count();
+        } else {
+            $count_sta = 0;
+        }
+
+        $sales = $order->order_total;
+        $profit = $sales - 100000;
+        $quantity = 0;
+
+        foreach ($order->order_detail as $item) {
             $product = Product::find($item->product->product_id);
             $product_sold = $item->quantity;
             $product_remain = $product->product_quantity - $product_sold;
             $product->product_quantity = $product_remain;
             $product->save();
+            $quantity += $item->quantity;
+        }
+
+        if ($count_sta > 0) {
+            $statistic_update = Statistic::where('order_date', $order->order_date)->first();
+            $statistic_update->sales = $statistic_update->sales + $sales;
+            $statistic_update->profit = $statistic_update->profit + $profit;
+            $statistic_update->quantity = $statistic_update->quantity + $quantity;
+            $statistic_update->total_order = $statistic_update->total_order + 1;
+            $statistic_update->save();
+        } else {
+            $statistic_new = new Statistic();
+            $statistic_new->order_date = $order->order_date;
+            $statistic_new->sales = $sales;
+            $statistic_new->profit = $profit;
+            $statistic_new->quantity = $quantity;
+            $statistic_new->total_order = 1;
+            $statistic_new->save();
         }
         return redirect()->back();
     }
@@ -177,5 +209,4 @@ class CheckOutController extends Controller
         $order->save();
         return redirect()->back();
     }
-
 }

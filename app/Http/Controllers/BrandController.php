@@ -25,7 +25,7 @@ class BrandController extends Controller
     {
         $brand = new Brand();
         $brand->brand_name = $request->brand_name;
-        $brand->brand_slug = $request->brand_slug;
+        $brand->brand_slug = $request->brand_slug. '-' . date('His');
         $brand->brand_desc = $request->brand_desc;
         $brand->brand_status = $request->brand_status;
         $brand->save();

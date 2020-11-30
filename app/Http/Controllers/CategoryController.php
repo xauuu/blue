@@ -27,7 +27,7 @@ class CategoryController extends Controller
     {
         $category = new Category();
         $category->category_name = $request->category_name;
-        $category->category_slug = $request->category_slug;
+        $category->category_slug = $request->category_slug. '-' . date('His');
         $category->category_desc = $request->category_desc;
         $category->category_status = $request->category_status;
         $category->category_parent = $request->category_parent;

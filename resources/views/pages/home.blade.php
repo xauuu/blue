@@ -110,7 +110,7 @@
                             </div>
                             <div class="pi-text">
                                 <h6>{{ number_format($pro->product_discount) }} VND</h6>
-                                <a href="{{ URL::to('product-detail/' . $pro->product_id) }}">
+                                <a href="{{ URL::to('product-detail/' . $pro->product_slug) }}">
                                     <p>{{ $pro->product_name }}</p>
                                 </a>
                             </div>
