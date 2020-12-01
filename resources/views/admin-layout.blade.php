@@ -15,6 +15,7 @@
     <title>XAU - Dashboard</title>
     <link href="{{ asset('/backend/css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('/backend/css/style.css') }}" rel="stylesheet">
+    <link href="{{ asset('/backend/css/bootstrap-tagsinput.css') }}" rel="stylesheet">
 </head>
 
 <body>
@@ -377,6 +378,7 @@
 
     <script src="{{ asset('backend/js/app.js') }}"></script>
     <script src="{{ asset('backend/js/jquery-3.5.0.min.js') }}"></script>
+    <script src="{{ asset('backend/js/bootstrap-tagsinput.min.js') }}"></script>
     <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
     <script src="{{ asset('backend/js/jquery.validate.min.js') }}"></script>
     <script src="{{ asset('backend/js/additional-methods.min.js') }}"></script>

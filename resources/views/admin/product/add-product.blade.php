@@ -68,6 +68,10 @@
                             <textarea id="xau1" class="form-control" name="product_detail" rows="3" required></textarea>
                         </div>
                         <div class="mb-3">
+                            <label class="form-label">Tags</label>
+                            <input data-role="tagsinput" type="text" class="form-control" name="product_tag">
+                        </div>
+                        <div class="mb-3">
                             <label class="form-label">Trạng thái</label>
                             <select class="form-control mb-3" name="product_status">
                                 <option value="1" selected>Hiển thị</option>

@@ -2,7 +2,7 @@
 <html lang="zxx">
 
 <head>
-    <title>XAU | Shop áo quần xịn</title>
+    <title>Xấu cục súc - Mua đéo mua, CÚT</title>
     <meta charset="UTF-8">
     <meta name="description" content=" Divisima | eCommerce Template">
     <meta name="keywords" content="divisima, eCommerce, creative, html">

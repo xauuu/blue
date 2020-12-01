@@ -16,6 +16,7 @@ class Product extends Model
         'brand_id',
         'product_name',
         'product_slug',
+        'product_tag',
         'product_desc',
         'product_quantity',
         'product_price',
@@ -34,5 +35,9 @@ class Product extends Model
     }
     function comment(){
         return $this->hasMany('App\Models\Comment', 'product_id');
+    }
+    function rating()
+    {
+        return $this->hasMany(Rating::class, 'product_id');
     }
 }

@@ -7,7 +7,9 @@ $(document).ready(function () {
         var id = $(this).data('id');
         var _token = $('input[name=_token]').val();
         var url = $('input[name=this_url]').val() + '/add-cart-ajax';
-        swal("Bạn có muốn thêm sản phẩm vào giỏ hàng?", {
+        swal({
+            title: "Thêm sản phẩm này vào giỏ hàng",
+            icon: "warning",
             buttons: {
                 cancel: "Không",
                 ok: {
@@ -29,7 +31,7 @@ $(document).ready(function () {
                             dataType: "html",
                             success: function (data) {
                                 swal({
-                                    text: "Đã thêm vào giỏ hàng",
+                                    title: "Đã thêm vào giỏ hàng",
                                     icon: "success",
                                 });
                                 document.getElementById('slsp').innerHTML =
@@ -39,6 +41,30 @@ $(document).ready(function () {
                         break;
                 }
             });
+    });
+    $('button[id=add-cart-w-qty]').click(function (e) {
+        var product_id = $('input[name=product_id]').val();
+        var quantity = $('input[name=quantity]').val();
+        var url = $('input[name=this_url]').val() + '/add-cart';
+        var _token = $('input[name=_token]').val();
+        $.ajax({
+            type: "post",
+            url: url,
+            data: {
+                product_id: product_id,
+                quantity: quantity,
+                _token: _token
+            },
+            success: function (data) {
+                swal({
+                    text: "Đã thêm vào giỏ hàng",
+                    icon: "success",
+                    buttons: false,
+                    timer: 1500
+                });
+                document.getElementById('slsp').innerHTML = data;
+            }
+        });
     });
     // end add cart
 
@@ -219,12 +245,5 @@ $(document).ready(function () {
         }
         return false;
     });
-    $('.filter-btn').click(function (e) {
-        var min = $('input[id=minamount]').val();
-        var max = $('input[id=maxamount]').val();
-        min = min.replace('đ', '').replace(',', '').trim();
-        max = max.replace('đ', '').replace(',', '').trim();
-        console.log(min);
-        console.log(max);
-    });
+
 });

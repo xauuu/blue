@@ -19,6 +19,7 @@
                 <option value="6">6</option>
                 <option value="9">9</option>
                 <option value="12">12</option>
+                <option value="15">15</option>
             </select>
             <span>sản phẩm</span>
         </div>

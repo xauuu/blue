@@ -209,4 +209,9 @@ class CheckOutController extends Controller
         $order->save();
         return redirect()->back();
     }
+    public function carr()
+    {
+        $now = Carbon::now('Asia/Ho_Chi_Minh');
+        echo $now->subDays($now->dayOfWeek - 1)->subWeek()->format('Y-m-d');
+    }
 }

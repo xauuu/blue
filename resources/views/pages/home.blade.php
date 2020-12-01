@@ -89,7 +89,7 @@
     <!-- letest product section -->
     <section class="top-letest-product-section">
         <div class="container">
-            <div class="section-title">
+            <div class="section-title mt-5">
                 <h2>SẢN PHẨM MỚI</h2>
             </div>
             <div class="product-slider owl-carousel">

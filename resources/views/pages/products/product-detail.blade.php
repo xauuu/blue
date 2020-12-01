@@ -46,11 +46,14 @@
                     <ul class="p-rating">
                         @for ($count = 1; $count <= 5; $count++)
                             @php
-                            if($count <= $rating){ $color='color:#f51167' ; }else { $color='color:#e6e6e6' ; } @endphp <li
-                                style="{{ $color }}" id="{{ $detail->product_id }}-{{ $count }}" data-index="{{ $count }}"
-                                data-product_id="{{ $detail->product_id }}" data-rating="{{ $rating }}" class="rating"><i
-                                    class="fa fa-star"></i></li>
+                            if($count <= $rating){ $color='color:#f51167' ; }else { $color='color:#e6e6e6' ; }
+                            @endphp
+                            <li style="{{ $color }}" id="{{ $detail->product_id }}-{{ $count }}" data-index="{{ $count }}"
+                                data-product_id="{{ $detail->product_id }}" data-rating="{{ $rating }}" class="rating">
+                                <i class="fa fa-star"></i>
+                            </li>
                         @endfor
+                        <li class="ml-2">{{ count($detail->rating) }} đánh giá</li>
                     </ul>
                     <div class="p-review">
                         <a href="">{{ count($detail->comment) }} bình luận</a>|<a href="#cmt">Thêm bình luận của bạn</a>
@@ -84,9 +87,9 @@
                     </div>
                     <div class="quantity">
                         <p>Số lượng</p>
-                        <div class="pro-qty"><input type="text" value="1"></div>
+                        <div class="pro-qty"><input name="quantity" type="text" value="1"></div>
                     </div>
-                    <a href="#" class="site-btn">MUA NGAY</a>
+                    <button id="add-cart-w-qty" type="button" class="site-btn">THÊM VÀO GIỎ HÀNG</button>
                     <div id="accordion" class="accordion-area">
                         <div class="panel">
                             <div class="panel-header" id="headingOne">

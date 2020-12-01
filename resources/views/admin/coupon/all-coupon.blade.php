@@ -25,6 +25,7 @@
                     <tr class="text-nowrap">
                         <th scope="col">Tên mã giảm giá</th>
                         <th scope="col">Mã giảm giá</th>
+                        <th scope="col">Số lượng</th>
                         <th scope="col">Tính năng</th>
                         <th scope="col">Giảm giá</th>
                         <th scope="col">Thao tác</th>
@@ -35,6 +36,7 @@
                         <tr>
                             <td>{{ $item->coupon_name }}</td>
                             <td>{{ $item->coupon_code }}</td>
+                            <td>{{ $item->coupon_times }}</td>
                             <td>
                                 @if ($item->coupon_feature == 1)
                                     Giảm theo phần trăm
