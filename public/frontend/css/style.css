@@ -9,9 +9,7 @@
 /*----------------------------------------*/
 /* Template default CSS
 /*----------------------------------------*/
-.active a{
-    color: #f51167!important;
-}
+
 .filter-btn {
 	display: inline-block;
 	border: none;
@@ -278,7 +276,7 @@ ol {
 /* Accordion */
 
 .accordion-area {
-	margin-top: 50px;
+	margin-top: 30px;
 	border-top: 2px solid #e1e1e1;
 }
 
@@ -336,7 +334,7 @@ ol {
 }
 
 .accordion-area .panel-body p {
-	color: #8f8f8f;
+	color: #484848;
 	margin-bottom: 25px;
 	line-height: 1.8;
 }
@@ -1641,7 +1639,7 @@ ol {
 }
 
 .product-details .p-stock {
-	font-size: 12px;
+	font-size: 14px;
 	color: #000;
 	font-weight: 700;
 	color: #414141;

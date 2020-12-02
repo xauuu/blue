@@ -26,6 +26,9 @@ class Product extends Model
         'product_status'
     ];
     public $timestamps = true;
+    function brand(){
+        return $this->belongsTo(Brand::class, 'brand_id');
+    }
     function category(){
         return $this->belongsTo(Category::class, 'category_id');
     }

@@ -106,7 +106,7 @@
                 <div class="col-lg-4 col-md-4">
                     <div class="blog__sidebar">
                         <div class="blog__sidebar__item">
-                            <div class="section-title">
+                            <div class="section-title-blog">
                                 <h4>Danh mục bài viết</h4>
                             </div>
                             <ul>
@@ -117,7 +117,7 @@
                             </ul>
                         </div>
                         <div class="blog__sidebar__item">
-                            <div class="section-title">
+                            <div class="section-title-blog">
                                 <h4>Bài viết mới nhất</h4>
                             </div>
                             @foreach ($recent_post as $item)
@@ -139,7 +139,7 @@
 
                         </div>
                         <div class="blog__sidebar__item">
-                            <div class="section-title">
+                            <div class="section-title-blog">
                                 <h4>Tags cloud</h4>
                             </div>
                             <div class="blog__sidebar__tags">

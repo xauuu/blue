@@ -175,6 +175,21 @@ class HomeController extends Controller
 
         return view('pages.categories.show-product', compact('product', 'category', 'brand'));
     }
+    public function tag($tag)
+    {
+        $cook = Cookie::get('page');
+        $page = isset($cook) ? $cook : 6;
+
+        $category = Category::where('category_status', 1)->get();
+        $brand = Brand::where('brand_status', 1)->get();
+
+        $product = Product::where('product_status', 1)
+            ->where('product_name', 'LIKE', '%' . $tag . '%')
+            ->orWhere('product_tag', 'LIKE', '%' . $tag . '%')
+            ->orWhere('product_slug', 'LIKE', '%' . $tag . '%')
+            ->paginate($page);
+        return view('pages.categories.show-product', compact('product', 'category', 'brand'));
+    }
     public function login()
     {
         if (Session::get('backUrl') != url()->previous()) {

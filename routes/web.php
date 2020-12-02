@@ -41,6 +41,8 @@ Route::get('/logout', [HomeController::class, 'logout']);
 Route::get('/category/{category_slug}', [HomeController::class, 'category']);
 Route::get('/brand/{brand_slug}', [HomeController::class, 'brand']);
 Route::get('/product-detail/{product_slug}', [ProductDetail::class, 'product_detail']);
+Route::get('/tag/{tag}', [HomeController::class, 'tag']);
+
 // blog
 Route::get('/blog', [PostController::class, 'blog']);
 Route::get('/blog-detail/{post_slug}', [PostController::class, 'blog_detail']);

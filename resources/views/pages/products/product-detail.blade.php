@@ -42,6 +42,7 @@
                 <div class="col-lg-6 product-details">
                     <h2 class="p-title">{{ $detail->product_name }}</h2>
                     <h3 class="p-price">{{ number_format($detail->product_discount) }} VND</h3>
+                    <h4 class="p-stock">Thương hiệu: <span>{{ $detail->brand->brand_name }}</span></h4>
                     <h4 class="p-stock">Có sẵn: <span>{{ $detail->product_quantity }} sản phẩm</span></h4>
                     <ul class="p-rating">
                         @for ($count = 1; $count <= 5; $count++)
@@ -53,10 +54,10 @@
                                 <i class="fa fa-star"></i>
                             </li>
                         @endfor
-                        <li class="ml-2">{{ count($detail->rating) }} đánh giá</li>
+                        <li class="rat">{{ count($detail->rating) }} đánh giá</li>
                     </ul>
                     <div class="p-review">
-                        <a href="">{{ count($detail->comment) }} bình luận</a>|<a href="#cmt">Thêm bình luận của bạn</a>
+                        <a>{{ count($detail->comment) }} bình luận</a>|<a href="#cmt">Thêm bình luận của bạn</a>
                     </div>
                     <div class="fw-size-choose">
                         <p>Size</p>
@@ -90,6 +91,15 @@
                         <div class="pro-qty"><input name="quantity" type="text" value="1"></div>
                     </div>
                     <button id="add-cart-w-qty" type="button" class="site-btn">THÊM VÀO GIỎ HÀNG</button>
+                    <div class="blog__sidebar__tags mt-3">
+                        @php
+                            $tag = $detail->product_tag;
+                            $tag = explode(",", $tag);
+                        @endphp
+                        @foreach ($tag as $tag)
+                            <a href="{{ URL::to('/tag/'.vn_to_str($tag)) }}">{{ $tag }}</a>
+                        @endforeach
+                    </div>
                     <div id="accordion" class="accordion-area">
                         <div class="panel">
                             <div class="panel-header" id="headingOne">
