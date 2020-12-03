@@ -19,8 +19,8 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-7 order-2 order-lg-1">
-                    <form method="post" action="{{ URL::to('/save-checkout') }}" class="checkout-form">
-                        {{ csrf_field() }}
+                    <form action="{{ URL::to('/save-checkout') }}" method="POST" class="checkout-form">
+                        @csrf
                         <div class="cf-title">Địa chỉ nhận hàng</div>
                         <div class="row address-inputs">
                             <div class="col-md-6">
@@ -69,7 +69,8 @@
                                 <label for="sex-female">Thanh toán bằng thẻ tín dụng</label>
                             </div>
                         </div>
-                        <button class="site-btn submit-order-btn">Đặt hàng</button>
+
+                        <button type="submit" class="site-btn submit-order-btn">Đặt hàng</button>
                     </form>
                 </div>
                 <div class="col-lg-5 order-1 order-lg-2">

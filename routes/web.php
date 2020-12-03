@@ -74,6 +74,7 @@ Route::post('/add-rating', [ProductDetail::class, 'add_rating']);
 
 
 // Back end
+Route::post('/load-statistic', [AdminController::class, 'load_statistic']);
 Route::group(['prefix' => 'admin'], function () {
     Route::get('/dashboard', [AdminController::class, 'index']);
     Route::get('/login', [AdminController::class, 'login']);

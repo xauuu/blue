@@ -25,7 +25,7 @@
                     <tr class="text-nowrap">
                         <th scope="col">Tên người đặt</th>
                         <th scope="col">Tổng tiền</th>
-                        <th scope="col">Thanh toán</th>
+                        <th scope="col">Thời gian</th>
                         <th scope="col">Trạng thái</th>
                         <th scope="col">Chi tiết</th>
                     </tr>
@@ -35,7 +35,7 @@
                         <tr>
                             <td>{{ $item->customer_name }}</td>
                             <td>{!! number_format($item->order_total) !!} VND</td>
-                            <td>{{ $item->order_payment }}</td>
+                            <td>{{ $item->created_at }}</td>
                             <td>
                                 @php
                                 if($item->order_status == 0){

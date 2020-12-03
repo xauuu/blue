@@ -41,7 +41,11 @@
     <div id="preloder">
         <div class="loader"></div>
     </div>
-
+    @php
+    if (Request::segment(1) != 'login-customer' || Request::segment(1) != 'registration') {
+    Session::put('backUrl', url()->current());
+    }
+    @endphp
     <input type="hidden" name="this_url" value="{{ url('/') }}">
     <!-- Header section -->
     <header class="header-section">
@@ -107,7 +111,8 @@
                     <li><a href="{{ URL::to('/shop') }}">Shop</a></li>
                     @foreach ($category as $item => $cate)
                         @if ($cate->category_parent == 0)
-                            <li><a href="{{ URL::to('category/' . $cate->category_slug) }}">{{ $cate->category_name }}</a>
+                            <li><a
+                                    href="{{ URL::to('category/' . $cate->category_slug) }}">{{ $cate->category_name }}</a>
                                 <ul class="sub-menu">
                                     @foreach ($category as $item => $cate_chill)
                                         @if ($cate_chill->category_parent == $cate->category_id)

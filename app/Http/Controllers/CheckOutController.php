@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\SendEmail;
 use App\Mail\SendMail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -85,7 +86,9 @@ class CheckOutController extends Controller
             $order_detail->product_price = $item->price;
             $order_detail->save();
         }
-        Mail::to($all['email'])->send(new SendMail($cart));
+        $emailJob = new SendEmail($cart, $all['email']);
+        dispatch($emailJob->delay(Carbon::now()->addMinutes(1)));
+        // Mail::to($all['email'])->send(new SendMail($cart));
         Cart::destroy();
         session()->forget('coupon');
         return Redirect::to('/check-out-success');

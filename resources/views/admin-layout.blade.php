@@ -375,7 +375,7 @@
             </footer>
         </div>
     </div>
-
+    @csrf
     <script src="{{ asset('backend/js/app.js') }}"></script>
     <script src="{{ asset('backend/js/jquery-3.5.0.min.js') }}"></script>
     <script src="{{ asset('backend/js/bootstrap-tagsinput.min.js') }}"></script>
@@ -402,31 +402,16 @@
             gradient.addColorStop(0, "rgba(215, 227, 244, 1)");
             gradient.addColorStop(1, "rgba(215, 227, 244, 0)");
             // Line chart
-            new Chart(document.getElementById("chartjs-dashboard-line"), {
+            var chart = new Chart(document.getElementById("chartjs-dashboard-line"), {
                 type: "line",
                 data: {
-                    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct",
-                        "Nov", "Dec"
-                    ],
+                    labels: [],
                     datasets: [{
-                        label: "Sales ($)",
+                        label: "Thu nhập",
                         fill: true,
                         backgroundColor: gradient,
                         borderColor: window.theme.primary,
-                        data: [
-                            2115,
-                            1562,
-                            1584,
-                            1892,
-                            1587,
-                            1923,
-                            2566,
-                            2448,
-                            2805,
-                            3438,
-                            2917,
-                            3327
-                        ]
+                        data: []
                     }]
                 },
                 options: {
@@ -435,7 +420,17 @@
                         display: false
                     },
                     tooltips: {
-                        intersect: false
+                        intersect: false,
+                        callbacks: {
+                            label: function(tooltipItem, data) {
+                                var label = data.datasets[tooltipItem.datasetIndex].label || '';
+                                if (label) {
+                                    label += ': ';
+                                }
+                                label += tooltipItem.yLabel.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+' đ'
+                                return label;
+                            }
+                        }
                     },
                     hover: {
                         intersect: true
@@ -454,7 +449,14 @@
                         }],
                         yAxes: [{
                             ticks: {
-                                stepSize: 1000
+                                stepSize: 1000000,
+                                callback: function(value, index, values) {
+                                    if(parseInt(value) >= 1000){
+                                        return  value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+' đ';
+                                    } else {
+                                        return value+' đ';
+                                    }
+                                }
                             },
                             display: true,
                             borderDash: [3, 3],
@@ -465,38 +467,59 @@
                     }
                 }
             });
+            load_data(chart);
         });
-
-    </script>
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            // Pie chart
-            new Chart(document.getElementById("chartjs-dashboard-pie"), {
-                type: "pie",
-                data: {
-                    labels: ["Chrome", "Firefox", "IE"],
-                    datasets: [{
-                        data: [4306, 3801, 1689],
-                        backgroundColor: [
-                            window.theme.primary,
-                            window.theme.warning,
-                            window.theme.danger
-                        ],
-                        borderWidth: 5
-                    }]
+        function load_data(chart){
+            var _token = $('input[name=_token]').val();
+            $.ajax({
+                type: "post",
+                url: "{{ url('/load-statistic') }}",
+                data:{
+                    _token: _token
                 },
-                options: {
-                    responsive: !window.MSInputMethodContext,
-                    maintainAspectRatio: false,
-                    legend: {
-                        display: false
-                    },
-                    cutoutPercentage: 75
+                dataType: "json",
+                success: function (data) {
+                    var labels = [];
+                    var dat = [];
+                    $.each(data, function (key, value) {
+                    labels.push(value.order_date);
+                    dat.push(value.profit);
+                    })
+                    chart.data.labels = labels;
+                    chart.data.datasets[0].data = dat;
+                    chart.update();
                 }
             });
-        });
-
+        }
     </script>
+    <script>
+		document.addEventListener("DOMContentLoaded", function() {
+			// Pie chart
+			new Chart(document.getElementById("chartjs-dashboard-pie"), {
+				type: "pie",
+				data: {
+					labels: ["Chrome", "Firefox", "IE"],
+					datasets: [{
+						data: [4306, 3801, 1689],
+						backgroundColor: [
+							window.theme.primary,
+							window.theme.warning,
+							window.theme.danger
+						],
+						borderWidth: 5
+					}]
+				},
+				options: {
+					responsive: !window.MSInputMethodContext,
+					maintainAspectRatio: false,
+					legend: {
+						display: false
+					},
+					cutoutPercentage: 75
+				}
+			});
+		});
+	</script>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             var markers = [{

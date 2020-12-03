@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Cookie;
 
 class HomeController extends Controller
 {
-    public function home()
+    public function home(Request $request)
     {
         $category = Category::all();
         $product_latest = Product::latest()->limit(8)->get();
@@ -192,9 +192,6 @@ class HomeController extends Controller
     }
     public function login()
     {
-        if (Session::get('backUrl') != url()->previous()) {
-            Session::put('backUrl', url()->previous());
-        }
         return view('pages.login');
     }
     public function logout()
@@ -213,9 +210,6 @@ class HomeController extends Controller
         if ($user) {
             Session::put('customer_id', $user->id);
             Session::put('customer_name', $user->customer_name);
-            if (strpos(session('backUrl'), "registration")) {
-                return Redirect::to('/home');
-            }
             return Redirect::to(session('backUrl'));
         } else {
             Session::flash('error', "Bạn nhập sai email hoặc mật khẩu");

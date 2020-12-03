@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Statistic;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Redirect;
+
+use function GuzzleHttp\json_encode;
 
 class AdminController extends Controller
 {
@@ -13,7 +17,9 @@ class AdminController extends Controller
     public function index()
     {
         AuthLogin();
-        return view('admin.admin-home');
+        $now = Carbon::now('Asia/Ho_Chi_Minh')->format('Y-m-d');
+        $statistic = Statistic::where('order_date', $now)->first();
+        return view('admin.admin-home', compact('statistic'));
     }
     public function login()
     {
@@ -41,5 +47,22 @@ class AdminController extends Controller
         Session::put('admin_id', null);
         Session::put('admin_avt', null);
         return Redirect::to('admin/login');
+    }
+    public function load_statistic()
+    {
+        $now = Carbon::now('Asia/Ho_Chi_Minh');
+        $last_day = $now->yesterday()->toDateString();
+        $last_7_day = $now->subDays(7)->toDateString();
+
+        $statistic = Statistic::whereBetween('order_date', [$last_7_day, $last_day])
+            ->orderBy('order_date', 'asc')->get();
+
+        foreach ($statistic as $item) {
+            $chart[] = array(
+                'order_date' => $item->order_date,
+                'profit' => $item->profit
+            );
+        }
+        echo json_encode($chart);
     }
 }
