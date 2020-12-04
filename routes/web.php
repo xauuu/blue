@@ -75,6 +75,7 @@ Route::post('/add-rating', [ProductDetail::class, 'add_rating']);
 
 // Back end
 Route::post('/load-statistic', [AdminController::class, 'load_statistic']);
+Route::post('/load-chart', [AdminController::class, 'load_chart']);
 Route::group(['prefix' => 'admin'], function () {
     Route::get('/dashboard', [AdminController::class, 'index']);
     Route::get('/login', [AdminController::class, 'login']);
@@ -115,7 +116,9 @@ Route::group(['prefix' => 'admin'], function () {
         Route::get('/gallery/{product_id}', [GalleryController::class, 'gallery']);
         Route::post('/add-gallery', [GalleryController::class, 'add_gallery']);
         Route::get('/delete-ga/{gallery_id}', [GalleryController::class, 'delete_ga']);
-        Route::get('/comment/{product_id}', [ProductController::class, 'gallery']);
+        // cmt
+        Route::get('/comment/{product_id}', [ProductController::class, 'comment']);
+        Route::get('/delete-comment/{product_id}', [ProductController::class, 'delete_comment']);
     });
     // order
     Route::group(['prefix' => 'order'], function () {

@@ -51,7 +51,7 @@
                             @endphp
                             <li style="{{ $color }}" id="{{ $detail->product_id }}-{{ $count }}" data-index="{{ $count }}"
                                 data-product_id="{{ $detail->product_id }}" data-rating="{{ $rating }}" class="rating">
-                                <i class="fa fa-star"></i>
+                                <span>★</span>
                             </li>
                         @endfor
                         <li class="rat">{{ count($detail->rating) }} đánh giá</li>

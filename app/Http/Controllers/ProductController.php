@@ -120,10 +120,14 @@ class ProductController extends Controller
     }
     public function comment($product_id)
     {
-        $comment = Comment::join('customers', 'customers.id', 'comments.customer_id')
-            ->select('customers.customer_name', 'comments.*')
-            ->where('product_id', $product_id)->get();
-        return view('admin.product.comment', compact('comment'));
+        $product = Product::find($product_id);
+        return view('admin.product.comment', compact('product'));
+    }
+    public function delete_comment($comment_id)
+    {
+        $cmt = Comment::find($comment_id);
+        $cmt->delete();
+        return redirect()->back()->with('success', 'Đã xoá bình luận');
     }
     // end backend
     //

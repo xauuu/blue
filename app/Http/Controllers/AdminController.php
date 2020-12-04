@@ -48,19 +48,36 @@ class AdminController extends Controller
         Session::put('admin_avt', null);
         return Redirect::to('admin/login');
     }
-    public function load_statistic()
+    public function load_statistic(Request $request)
+    {
+        $start = $request->start;
+        $end = $request->end;
+
+        $statistic = Statistic::whereBetween('order_date', [$start, $end])
+            ->orderBy('order_date', 'asc')->get();
+
+        foreach ($statistic as $item) {
+            $chart[] = array(
+                'order_date' => $item->order_date,
+                'profit' => $item->sales,
+                'order' => $item->total_order
+            );
+        }
+        echo json_encode($chart);
+    }
+    public function load_chart()
     {
         $now = Carbon::now('Asia/Ho_Chi_Minh');
         $last_day = $now->yesterday()->toDateString();
         $last_7_day = $now->subDays(7)->toDateString();
-
         $statistic = Statistic::whereBetween('order_date', [$last_7_day, $last_day])
             ->orderBy('order_date', 'asc')->get();
 
         foreach ($statistic as $item) {
             $chart[] = array(
                 'order_date' => $item->order_date,
-                'profit' => $item->profit
+                'profit' => $item->sales,
+                'order' => $item->total_order
             );
         }
         echo json_encode($chart);

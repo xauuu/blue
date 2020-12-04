@@ -13,7 +13,6 @@ class Statistic extends Model
     protected $fillable = [
         'order_date',
         'sales',
-        'profit',
         'quantity',
         'total_order'
     ];

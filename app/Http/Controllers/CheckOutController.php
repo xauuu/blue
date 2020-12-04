@@ -175,7 +175,6 @@ class CheckOutController extends Controller
         }
 
         $sales = $order->order_total;
-        $profit = $sales - 100000;
         $quantity = 0;
 
         foreach ($order->order_detail as $item) {
@@ -190,7 +189,6 @@ class CheckOutController extends Controller
         if ($count_sta > 0) {
             $statistic_update = Statistic::where('order_date', $order->order_date)->first();
             $statistic_update->sales = $statistic_update->sales + $sales;
-            $statistic_update->profit = $statistic_update->profit + $profit;
             $statistic_update->quantity = $statistic_update->quantity + $quantity;
             $statistic_update->total_order = $statistic_update->total_order + 1;
             $statistic_update->save();
@@ -198,7 +196,6 @@ class CheckOutController extends Controller
             $statistic_new = new Statistic();
             $statistic_new->order_date = $order->order_date;
             $statistic_new->sales = $sales;
-            $statistic_new->profit = $profit;
             $statistic_new->quantity = $quantity;
             $statistic_new->total_order = 1;
             $statistic_new->save();

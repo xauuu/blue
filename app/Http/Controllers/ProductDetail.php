@@ -101,14 +101,12 @@ class ProductDetail extends Controller
                 $rating = Rating::find($check->rating_id);
                 $rating->rating = $all['index'];
                 $rating->save();
-                echo 'Bạn đã đánh giá ' . $all['index'] . '/5 sao';
             } else {
                 $rating = new Rating();
                 $rating->product_id = $all['product_id'];
                 $rating->customer_id = $customer_id;
                 $rating->rating = $all['index'];
                 $rating->save();
-                echo 'Bạn đã đánh giá ' . $all['index'] . '/5 sao';
             }
         } else {
             echo 'Bạn cần đăng nhập để đánh giá sản phẩm này';

@@ -16,6 +16,8 @@
     <link href="{{ asset('/backend/css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('/backend/css/style.css') }}" rel="stylesheet">
     <link href="{{ asset('/backend/css/bootstrap-tagsinput.css') }}" rel="stylesheet">
+    <link href="{{ asset('/backend/css/jquery-ui.css') }}" rel="stylesheet">
+    <link href="{{ asset('/backend/css/daterangepicker.css') }}" rel="stylesheet">
 </head>
 
 <body>
@@ -383,26 +385,61 @@
     <script src="{{ asset('backend/js/jquery.validate.min.js') }}"></script>
     <script src="{{ asset('backend/js/additional-methods.min.js') }}"></script>
     <script src="{{ asset('backend/js/validate.js') }}"></script>
+    <script src="{{ asset('backend/js/jquery-ui.js') }}"></script>
+    <script src="{{ asset('backend/js/moment.min.js') }}"></script>
+    <script src="{{ asset('backend/js/daterangepicker.min.js') }}"></script>
     <script src="{{ asset('backend/js/main.js') }}"></script>
     <script>
-        CKEDITOR.replace('xau');
-        CKEDITOR.replace('xau1', {
-            filebrowserBrowseUrl: '{{ asset('ckeditor/ckfinder/ckfinder.html') }}',
-            filebrowserImageBrowseUrl: '{{ asset('ckeditor/ckfinder/ckfinder.html?type=Images') }}',
-            filebrowserFlashBrowseUrl : '{{ asset('ckeditor/ckfinder/ckfinder.html?type=Flash') }}',
-            filebrowserUploadUrl : '{{ asset('ckeditor/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files') }}',
-            filebrowserImageUploadUrl : '{{ asset('ckeditor/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images') }}',
-            filebrowserFlashUploadUrl : '{{ asset('ckeditor/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Flash') }}'
+        $('#picker').daterangepicker({
+            startDate: moment().subtract(29, 'days'),
+            endDate: moment(),
+            ranges: {
+            'Hôm nay': [moment(), moment()],
+            'Hôm qua': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+            '7 ngày trước': [moment().subtract(6, 'days'), moment()],
+            '30 ngày trước': [moment().subtract(29, 'days'), moment()],
+            'Tháng này': [moment().startOf('month'), moment().endOf('month')],
+            'Tháng trước': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+            }
+        },
+        function (start, end){
+            $('#datepicker').html(start.format('YYYY-MM-DD') + ' - ' + end.format('YYYY-MM-DD'));
+            var start = start.format('YYYY-MM-DD');
+            var end = end.format('YYYY-MM-DD');
+            var _token = $('input[name=_token]').val();
+            $.ajax({
+                type: "post",
+                url: "{{ url('/load-statistic') }}",
+                data:{
+                    start: start,
+                    end: end,
+                    _token: _token
+                },
+                dataType: "json",
+                success: function (data) {
+                    var labels = [];
+                    var dat = [];
+                    var order = [];
+                    $.each(data, function (key, value) {
+                    labels.push(value.order_date);
+                    dat.push(value.profit);
+                    order.push(value.order);
+                    })
+                    chart.data.labels = labels;
+                    chart.data.datasets[0].data = dat;
+                    chart.data.datasets[1].data = order;
+                    chart.update();
+                }
+            });
         });
-    </script>
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            var ctx = document.getElementById("chartjs-dashboard-line").getContext("2d");
-            var gradient = ctx.createLinearGradient(0, 0, 0, 225);
-            gradient.addColorStop(0, "rgba(215, 227, 244, 1)");
-            gradient.addColorStop(1, "rgba(215, 227, 244, 0)");
-            // Line chart
-            var chart = new Chart(document.getElementById("chartjs-dashboard-line"), {
+        var ctx = document.getElementById("chartjs-dashboard-line").getContext("2d");
+        var gradient = ctx.createLinearGradient(0, 0, 0, 225);
+        gradient.addColorStop(0, "rgba(255, 217, 112, 1)");
+        gradient.addColorStop(1, "rgba(255, 217, 112, 0)");
+        var gradient1 = ctx.createLinearGradient(0, 0, 0, 225);
+        gradient1.addColorStop(0, "rgba(133, 146, 219, 1)");
+        gradient1.addColorStop(1, "rgba(133, 146, 219, 0)");
+        var chart = new Chart(document.getElementById("chartjs-dashboard-line"), {
                 type: "line",
                 data: {
                     labels: [],
@@ -410,6 +447,12 @@
                         label: "Thu nhập",
                         fill: true,
                         backgroundColor: gradient,
+                        borderColor: window.theme.warning,
+                        data: []
+                    }, {
+                        label: "Đơn hàng",
+                        fill: true,
+                        backgroundColor: gradient1,
                         borderColor: window.theme.primary,
                         data: []
                     }]
@@ -417,7 +460,7 @@
                 options: {
                     maintainAspectRatio: false,
                     legend: {
-                        display: false
+                        display: true
                     },
                     tooltips: {
                         intersect: false,
@@ -449,12 +492,12 @@
                         }],
                         yAxes: [{
                             ticks: {
-                                stepSize: 1000000,
+                                stepSize: 2000000,
                                 callback: function(value, index, values) {
                                     if(parseInt(value) >= 1000){
                                         return  value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+' đ';
                                     } else {
-                                        return value+' đ';
+                                        return value;
                                     }
                                 }
                             },
@@ -467,30 +510,32 @@
                     }
                 }
             });
-            load_data(chart);
-        });
-        function load_data(chart){
-            var _token = $('input[name=_token]').val();
-            $.ajax({
-                type: "post",
-                url: "{{ url('/load-statistic') }}",
-                data:{
-                    _token: _token
-                },
-                dataType: "json",
-                success: function (data) {
-                    var labels = [];
-                    var dat = [];
-                    $.each(data, function (key, value) {
-                    labels.push(value.order_date);
-                    dat.push(value.profit);
-                    })
-                    chart.data.labels = labels;
-                    chart.data.datasets[0].data = dat;
-                    chart.update();
-                }
-            });
-        }
+            function load_data(){
+                var _token = $('input[name=_token]').val();
+                $.ajax({
+                    type: "post",
+                    url: "{{ url('/load-chart') }}",
+                    data:{
+                        _token: _token
+                    },
+                    dataType: "json",
+                    success: function (data) {
+                        var labels = [];
+                        var dat = [];
+                        var order = [];
+                        $.each(data, function (key, value) {
+                        labels.push(value.order_date);
+                        dat.push(value.profit);
+                        order.push(value.order);
+                        })
+                        chart.data.labels = labels;
+                        chart.data.datasets[0].data = dat;
+                        chart.data.datasets[1].data = order;
+                        chart.update();
+                    }
+                });
+            }
+            load_data();
     </script>
     <script>
 		document.addEventListener("DOMContentLoaded", function() {
@@ -597,7 +642,17 @@
         });
 
     </script>
-
+    <script>
+        CKEDITOR.replace('xau');
+        CKEDITOR.replace('xau1', {
+            filebrowserBrowseUrl: '{{ asset('ckeditor/ckfinder/ckfinder.html') }}',
+            filebrowserImageBrowseUrl: '{{ asset('ckeditor/ckfinder/ckfinder.html?type=Images') }}',
+            filebrowserFlashBrowseUrl : '{{ asset('ckeditor/ckfinder/ckfinder.html?type=Flash') }}',
+            filebrowserUploadUrl : '{{ asset('ckeditor/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files') }}',
+            filebrowserImageUploadUrl : '{{ asset('ckeditor/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images') }}',
+            filebrowserFlashUploadUrl : '{{ asset('ckeditor/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Flash') }}'
+        });
+    </script>
 </body>
 
 </html>

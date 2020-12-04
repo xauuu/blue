@@ -71,7 +71,7 @@
                         </div>
                         <div class="row justify-content-between mt-2">
                             <div class="col-lg-3 card-right">
-                                <a href="" class="site-btn sb-dark">Tiếp tục mua hàng</a>
+                                <a href="{{ URL::to('/shop') }}" class="site-btn sb-dark">Tiếp tục mua hàng</a>
                             </div>
                             <div class="col-lg-3 card-right">
                                 <button style="padding: 18px 47px 14px;" type="submit" class="site-btn sb-dark">Cập

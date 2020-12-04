@@ -1653,13 +1653,13 @@ ol {
 .product-details .p-rating {
     list-style: none;
 	margin-bottom: 15px;
-    cursor: pointer;
 }
 .product-details .p-rating li{
     display: inline;
+    cursor: pointer;
 }
-.product-details .p-rating li i{
-    font-size: 20px;
+.product-details .p-rating li span{
+    font-size: 28px;
 }
 /* .product-details .p-rating i {
 	color: #f51167;

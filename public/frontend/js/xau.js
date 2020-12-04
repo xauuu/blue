@@ -205,6 +205,7 @@ $(document).ready(function () {
     });
     $('.rating').click(function (e) {
         var index = $(this).data("index");
+        $('.rating').data('rating', index);
         var product_id = $(this).data("product_id");
         var _token = $('input[name=_token]').val();
         var url = $('input[name=this_url]').val() + '/add-rating';
@@ -217,7 +218,9 @@ $(document).ready(function () {
                 _token: _token
             },
             success: function (data) {
-                alert(data);
+                if(data){
+                    alert(data);
+                }
             }
         });
     });
