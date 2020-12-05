@@ -2,13 +2,13 @@
 <html lang="zxx">
 
 <head>
-    <title>Xấu cục súc - Mua đéo mua, CÚT</title>
+    <title>BLUE - Because love you everyday</title>
     <meta charset="UTF-8">
     <meta name="description" content=" Divisima | eCommerce Template">
     <meta name="keywords" content="divisima, eCommerce, creative, html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Favicon -->
-    <link href="{{ asset('frontend/img/icons/xlogo.png') }}" rel="shortcut icon" />
+    <link href="{{ asset('frontend/img/icons/zz.png') }}" rel="shortcut icon" />
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css?family=Josefin+Sans:300,300i,400,400i,700,700i" rel="stylesheet">
@@ -66,7 +66,7 @@
                         </form>
                         <div id="search-list"></div>
                     </div>
-                    <div class="col-xl-4 col-lg-5">
+                    <div class="col-xl-3 col-lg-5">
                         <div class="user-panel float-right">
                             <div class="up-item">
                                 <div class="shopping-card">
@@ -84,7 +84,7 @@
                                     @if (session('customer_id'))
                                         <li><i class="flaticon-profile"></i> <span>{{ session('customer_name') }}</span>
                                             <ul class="sub-menu">
-                                                <li><a href="{{ URL::to('') }}">Đơn hàng</a></li>
+                                                <li><a href="{{ URL::to('/your-order') }}">Đơn hàng</a></li>
                                                 <li><a href="{{ URL::to('/logout') }}">Đăng xuất</a></li>
                                             </ul>
                                         </li>

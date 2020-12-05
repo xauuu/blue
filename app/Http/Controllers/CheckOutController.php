@@ -118,6 +118,12 @@ class CheckOutController extends Controller
             echo $output;
         }
     }
+    public function your_order()
+    {
+        $category = Category::all();
+        $order = Order::where('customer_id', session('customer_id'))->orderBy('order_id', 'desc')->get();
+        return view('pages.cart.your-order', compact('category', 'order'));
+    }
     // back end
     public function confirm_order()
     {

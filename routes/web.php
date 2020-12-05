@@ -71,7 +71,8 @@ Route::post('/search', [HomeController::class, 'search']);
 Route::post('/paginate', [HomeController::class, 'paginate']);
 // rating
 Route::post('/add-rating', [ProductDetail::class, 'add_rating']);
-
+// your-order
+Route::get('/your-order', [CheckOutController::class, 'your_order']);
 
 // Back end
 Route::post('/load-statistic', [AdminController::class, 'load_statistic']);
