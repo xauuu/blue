@@ -68,7 +68,7 @@ class AdminController extends Controller
     public function load_chart()
     {
         $now = Carbon::now('Asia/Ho_Chi_Minh');
-        $last_day = $now->yesterday()->toDateString();
+        $last_day = $now->toDateString();
         $last_7_day = $now->subDays(7)->toDateString();
         $statistic = Statistic::whereBetween('order_date', [$last_7_day, $last_day])
             ->orderBy('order_date', 'asc')->get();
