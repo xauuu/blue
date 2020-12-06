@@ -1,8 +1,13 @@
+/*  */
+.product-big-img{
+    width: 100%;
+    height: auto;
+}
 /* your order */
 .your_order{
     margin-top: 20px;
     padding: 10px;
-    box-shadow: 0px 0px 2px 2px #888888;
+    box-shadow: 0px 0px 1px 1px #888888;
 }
 .your_order_header{
     display: flex;
@@ -184,9 +189,8 @@
     color: #d57eeb;
 }
 .product-big-img {
-    height: 500px;
-    width: 100%;
-    object-fit: cover;
+    /* width: 100%; */
+    /* height: auto; */
 }
 .delete {
     font-size: 35px;
