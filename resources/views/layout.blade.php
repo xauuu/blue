@@ -70,14 +70,16 @@
                         <div class="user-panel float-right">
                             <div class="up-item">
                                 <div class="shopping-card">
-                                    <i class="flaticon-bag"></i>
-                                    <span id="slsp">
-                                        @php
-                                        echo Cart::content()->count();
-                                        @endphp
-                                    </span>
+                                    <a href="{{ URL::to('/cart') }}">
+                                        <i class="flaticon-bag"></i>
+                                        <span id="slsp">
+                                            @php
+                                            echo Cart::content()->count();
+                                            @endphp
+                                        </span>
+                                        Giỏ hàng
+                                    </a>
                                 </div>
-                                <a href="{{ URL::to('/cart') }}">Giỏ hàng</a>
                             </div>
                             <div class="up-item">
                                 <ul class="main-menu-us">

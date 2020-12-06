@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Jobs\SendEmail;
 use App\Mail\SendMail;
+use App\Mail\test;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
@@ -55,6 +56,7 @@ class CheckOutController extends Controller
         $order->shipping_id = $shipping_id;
 
         if (session('coupon')) {
+            $couponn = session('coupon');
             foreach (session('coupon') as $item => $cou) {
                 $coupon_code = $cou['coupon_code'];
                 $discount = 0;
@@ -68,6 +70,7 @@ class CheckOutController extends Controller
             $order->discount = $discount;
             $order->order_total = Cart::subtotal(0, '', '') - $discount;
         } else {
+            $couponn = null;
             $order->order_total = Cart::subtotal(0, '', '');
         }
 
@@ -86,12 +89,13 @@ class CheckOutController extends Controller
             $order_detail->product_price = $item->price;
             $order_detail->save();
         }
-        $emailJob = new SendEmail($cart, $all['email']);
-        dispatch($emailJob->delay(Carbon::now()->addMinutes(1)));
+
+        $emailJob = new SendEmail($cart, $all['email'], $all['firstname'] . ' ' . $all['lastname'], $all['phone'], $address, $couponn);
+        dispatch($emailJob);
         // Mail::to($all['email'])->send(new SendMail($cart));
         Cart::destroy();
         session()->forget('coupon');
-        return Redirect::to('/check-out-success');
+        return Redirect::to('/your-order');
     }
     public function check_out_success()
     {
