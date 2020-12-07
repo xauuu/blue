@@ -20,16 +20,27 @@ class CartController extends Controller
     public function add_cart_w_qty(Request $request)
     {
         $product = Product::find($request->product_id);
-        $data = array();
-        $data['id'] = $product->product_id;
-        $data['qty'] = $request->quantity;
-        $data['name'] = $product->product_name;
-        $data['price'] = $product->product_discount;
-        $data['weight'] = '0';
-        $data['options']['image'] = $product->product_img;
-        Cart::add($data);
+        $qty_available = 0;
+        $cart = Cart::search(function ($cartItem, $rowId) use($product) {
+            return $cartItem->id === $product->product_id;
+        });
+        if(!$cart->isEmpty()){
+            $qty_available = $cart->first()->qty;
+        }
+        if ($request->quantity + $qty_available <= $product->product_quantity) {
+            $data = array();
+            $data['id'] = $product->product_id;
+            $data['qty'] = $request->quantity;
+            $data['name'] = $product->product_name;
+            $data['price'] = $product->product_discount;
+            $data['weight'] = '0';
+            $data['options']['image'] = $product->product_img;
+            Cart::add($data);
 
-        echo Cart::content()->count();
+            echo Cart::content()->count();
+        } else {
+            echo 'Số lượng sản phẩm trong kho không đủ';
+        }
     }
     public function add_cart_ajax(Request $request)
     {
@@ -59,7 +70,13 @@ class CartController extends Controller
     public function update_cart(Request $request)
     {
         foreach ($request->qty as $rowId => $qty) {
-            Cart::update($rowId, $qty);
+            $check = Cart::get($rowId);
+            $product = Product::find($check->id);
+            if ($qty < $product->product_quantity) {
+                Cart::update($rowId, $qty);
+            } else {
+                Session::flash('mess', "Số lượng sản phẩm trong kho không đủ");
+            }
         }
         return Redirect::to('/cart');
     }

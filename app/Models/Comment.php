@@ -21,4 +21,8 @@ class Comment extends Model
     function customer(){
         return $this->belongsTo('App\Models\Customer', 'customer_id');
     }
+    public function product()
+    {
+        return $this->belongsTo('App\Models\Product', 'product_id');
+    }
 }

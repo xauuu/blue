@@ -69,7 +69,7 @@
                         </div>
                     </form>
                     </div>
-                    <div class="filter-widget mb-0">
+                    {{-- <div class="filter-widget mb-0">
                         <h2 class="fw-title">color by</h2>
                         <div class="fw-color-choose">
                             <div class="cs-item">
@@ -138,7 +138,7 @@
                                 <label for="xxl-size">XXL</label>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
                     <div class="filter-widget">
                         <h2 class="fw-title">Thương hiệu</h2>
                         <ul class="category-menu">

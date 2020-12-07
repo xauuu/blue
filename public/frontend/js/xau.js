@@ -56,13 +56,22 @@ $(document).ready(function () {
                 _token: _token
             },
             success: function (data) {
-                swal({
-                    text: "Đã thêm vào giỏ hàng",
-                    icon: "success",
-                    buttons: false,
-                    timer: 1500
-                });
-                document.getElementById('slsp').innerHTML = data;
+                if (data == 'Số lượng sản phẩm trong kho không đủ') {
+                    swal({
+                        text: data,
+                        icon: "error",
+                        buttons: false,
+                        timer: 1500
+                    });
+                }else{
+                    swal({
+                        text: "Đã thêm vào giỏ hàng",
+                        icon: "success",
+                        buttons: false,
+                        timer: 1500
+                    });
+                    document.getElementById('slsp').innerHTML = data;
+                }
             }
         });
     });
@@ -217,9 +226,9 @@ $(document).ready(function () {
                 _token: _token
             },
             success: function (data) {
-                if(data){
+                if (data) {
                     alert(data);
-                }else{
+                } else {
                     $('.rating').data('rating', index);
                 }
             }

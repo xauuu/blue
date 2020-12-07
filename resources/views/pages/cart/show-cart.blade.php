@@ -17,6 +17,14 @@
         <div class="container">
             <div class="row mb-4">
                 <div class="col-lg-12">
+                    @if (Session::has('mess'))
+                        <div class="col-lg-6">
+                            <div class="alert alert-danger alert-dismissible fade show">
+                                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                {{ Session::get('mess') }}
+                            </div>
+                        </div>
+                    @endif
                     <form action="{{ URL::to('/update-cart') }}" method="post">
                         @csrf
                         <div class="cart-table">

@@ -8,6 +8,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\CheckOutController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\CouponController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\MailController;
@@ -120,6 +121,11 @@ Route::group(['prefix' => 'admin'], function () {
         // cmt
         Route::get('/comment/{product_id}', [ProductController::class, 'comment']);
         Route::get('/delete-comment/{product_id}', [ProductController::class, 'delete_comment']);
+    });
+    Route::group(['prefix' => 'comment'], function () {
+        Route::get('/show-comment', [CommentController::class, 'show_comment']);
+        Route::get('/show-reply/{comment_id}', [CommentController::class, 'show_reply']);
+        Route::post('/add-reply', [CommentController::class, 'add_reply']);
     });
     // order
     Route::group(['prefix' => 'order'], function () {

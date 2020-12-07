@@ -2,7 +2,7 @@
 <html lang="zxx">
 
 <head>
-    <title>BLUE - Because love you everyday</title>
+    <title>BLUE - Because Love U Everyday</title>
     <meta charset="UTF-8">
     <meta name="description" content=" Divisima | eCommerce Template">
     <meta name="keywords" content="divisima, eCommerce, creative, html">
