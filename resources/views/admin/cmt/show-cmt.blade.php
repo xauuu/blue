@@ -39,7 +39,7 @@
                         <td>{{ $item->customer->customer_name }}</td>
                         <td>{{ $item->comment_content }}</td>
                         <td><a class="btn btn-outline-info" href="{{ URL::to('/admin/comment/show-reply/'.$item->comment_id) }}">Rep</a></td>
-                        <td>{{ $item->product->product_name }}</td>
+                        <td><a href="{{ URL::to('product-detail/'.$item->product->product_slug) }}">{{ $item->product->product_name }}</a></td>
                         <td class="text-nowrap">{{ $item->comment_time }}</td>
                         <td>
                             <a class="btn btn-outline-danger" title="Xoá bình luận"

@@ -242,9 +242,15 @@ class HomeController extends Controller
             return Redirect::to('/login-customer');
         }
     }
-    public function search(Request $request)
+    public function search_ajax(Request $request)
     {
-        $search = Product::where('product_name', 'like', "%{$request->search}%")->get();
+        if (is_numeric($request->search)) {
+            $val1 = $request->search - $request->search * 15 / 100;
+            $val2 = $request->search + $request->search * 15 / 100;
+            $search = Product::whereBetween('product_discount', [$val1, $val2])->get();
+        } else {
+            $search = Product::where('product_name', 'like', "%{$request->search}%")->get();
+        }
         $output = '<ul class="dropdown-menu search">';
         if (count($search)) {
             foreach ($search as $item) {
@@ -261,6 +267,25 @@ class HomeController extends Controller
 
         $output .= '</ul>';
         echo $output;
+    }
+    public function search(Request $request)
+    {
+        $cook = Cookie::get('page');
+        $page = isset($cook) ? $cook : 6;
+
+        $category = Category::where('category_status', 1)->get();
+        $brand = Brand::where('brand_status', 1)->get();
+
+        if (is_numeric($request->search)) {
+            $val1 = $request->search - $request->search * 15 / 100;
+            $val2 = $request->search + $request->search * 15 / 100;
+            $product = Product::whereBetween('product_discount', [$val1, $val2])->paginate($page);
+            $mess = "Kết quả tìm kiếm cho giá sản phẩm từ: " .  number_format($request->search) . " VND";
+        } else {
+            $product = Product::where('product_name', 'like', "%{$request->search}%")->paginate($page);
+            $mess = "Kết quả tìm kiếm cho từ khoá: " . "'" . $request->search . "'";
+        }
+        return view('pages.categories.product-search', compact('category', 'brand', 'product', 'mess'));
     }
     public function paginate(Request $request)
     {

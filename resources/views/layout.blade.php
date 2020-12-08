@@ -55,11 +55,11 @@
                     <div class="col-lg-2 text-center text-lg-left">
                         <!-- logo -->
                         <a href="{{ URL::to('/home') }}" class="site-logo">
-                            <img src="{{ asset('frontend/img/logo.png') }}" alt="">
+                            <img src="{{ asset('frontend/img/logoo.png') }}" alt="">
                         </a>
                     </div>
                     <div class="col-xl-6 col-lg-5">
-                        <form class="header-search-form" autocomplete="off">
+                        <form method="post" action="{{ URL::to('search') }}" class="header-search-form" autocomplete="off">
                             @csrf
                             <input name="search" type="text" placeholder="Nhập tên sản phẩm hoặc giá ....">
                             <button type="submit"><i class="flaticon-search"></i></button>
@@ -140,7 +140,7 @@
     <section class="footer-section">
         <div class="container">
             <div class="footer-logo text-center">
-                <a href="index.html"><img src="{{ asset('frontend/./img/logo-light.png') }}" alt=""></a>
+                <a href="index.html"><img src="{{ asset('frontend/./img/light.png') }}" alt=""></a>
             </div>
             <div class="row">
                 <div class="col-lg-3 col-sm-6">

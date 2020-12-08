@@ -152,7 +152,7 @@ $(document).ready(function () {
     $('input[name=search]').keyup(function (e) {
         var _token = $('input[name=_token]').val();
         var search = $(this).val().trim();
-        var url = $('input[name=this_url]').val() + '/search';
+        var url = $('input[name=this_url]').val() + '/search-ajax';
         if (search != '') {
             $.ajax({
                 type: "post",

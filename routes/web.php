@@ -67,6 +67,7 @@ Route::post('/add-comment', [ProductDetail::class, 'add_comment']);
 Route::post('/reply-comment', [ProductDetail::class, 'reply_comment']);
 
 // search
+Route::post('/search-ajax', [HomeController::class, 'search_ajax']);
 Route::post('/search', [HomeController::class, 'search']);
 // paginate
 Route::post('/paginate', [HomeController::class, 'paginate']);
