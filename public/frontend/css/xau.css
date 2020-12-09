@@ -4,6 +4,9 @@
     height: auto;
 }
 /* your order */
+.card-header{
+    border-bottom: none;
+}
 .your_order{
     margin-top: 20px;
     padding: 10px;
@@ -12,8 +15,6 @@
 .your_order_header{
     display: flex;
     justify-content: space-between;
-    border-bottom: solid 1px #cecece;
-    padding-bottom: 10px
 }
 .your_order_header span{
     margin-left: 10px;

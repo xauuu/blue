@@ -29,7 +29,7 @@
                             <div class="col-md-6">
                                 <input type="text" placeholder="Tên" name="lastname" required>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <select name="city" id="city" class="choose" required>
                                     <option value="">Chọn tỉnh, thành phố</option>
                                     @foreach ($city as $item)
@@ -37,12 +37,12 @@
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <select name="district" id="district" class="choose" required>
                                     <option value="">Chọn quận, huyện</option>
                                 </select>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-12">
                                 <select name="wards" id="wards" required>
                                     <option value="">Chọn xã, phường</option>
                                 </select>
