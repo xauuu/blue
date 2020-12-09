@@ -208,9 +208,16 @@ class HomeController extends Controller
 
         $user = Customer::where('customer_email', $email)->where('customer_pass', $pass)->first();
         if ($user) {
-            Session::put('customer_id', $user->id);
-            Session::put('customer_name', $user->customer_name);
-            return Redirect::to(session('backUrl'));
+            if ($user->customer_status == 0) {
+                Session::put('customer_id', $user->id);
+                Session::put('customer_name', $user->customer_name);
+                return Redirect::to(session('backUrl'));
+            } else {
+                Session::flash('error', "Tài khoản của bạn đã bị khoá");
+                Session::put('customer_id', null);
+                Session::put('customer_name', null);
+                return Redirect::to('/login-customer');
+            }
         } else {
             Session::flash('error', "Bạn nhập sai email hoặc mật khẩu");
             Session::put('customer_id', null);
@@ -237,6 +244,7 @@ class HomeController extends Controller
             $customer->customer_email = $email;
             $customer->customer_name = $name;
             $customer->customer_pass = $pass;
+            $customer->customer_status = 0;
 
             $customer->save();
             return Redirect::to('/login-customer');

@@ -84,6 +84,9 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('/login', [AdminController::class, 'login']);
     Route::post('/checklogin', [AdminController::class, 'check_login']);
     Route::get('/logout', [AdminController::class, 'logout']);
+    Route::get('/user', [AdminController::class, 'user']);
+    Route::get('/delete-user/{user_id}', [AdminController::class, 'delete_user']);
+    Route::get('/lock-user/{user_id}', [AdminController::class, 'lock_user']);
     // Category
     Route::group(['prefix' => 'category'], function () {
         Route::get('/add-category', [CategoryController::class, 'add_category']);

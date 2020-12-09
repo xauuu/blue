@@ -13,7 +13,8 @@ class Customer extends Model
     protected $fillable = [
         'customer_email',
         'customer_name',
-        'customer_pass'
+        'customer_pass',
+        'customer_status'
     ];
     public $timestamps = true;
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Customer;
 use App\Models\Statistic;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -20,6 +21,30 @@ class AdminController extends Controller
         $now = Carbon::now('Asia/Ho_Chi_Minh')->format('Y-m-d');
         $statistic = Statistic::where('order_date', $now)->first();
         return view('admin.admin-home', compact('statistic'));
+    }
+    public function user()
+    {
+        $user = Customer::all();
+        return view('admin.user.show-user', compact('user'));
+    }
+    public function delete_user($user_id)
+    {
+        $user = Customer::find($user_id);
+        $user->delete();
+        return redirect()->back()->with('success', 'Bạn đã xoá tài khoản: '.$user->customer_email);
+    }
+    public function lock_user($user_id)
+    {
+        $user = Customer::find($user_id);
+        if($user->customer_status == 0){
+            $user->customer_status = 1;
+            $user->save();
+            return redirect()->back()->with('success', 'Bạn đã khoá tài khoản: '.$user->customer_email);
+        }else{
+            $user->customer_status = 0;
+            $user->save();
+            return redirect()->back()->with('success', 'Bạn đã mở khoá tài khoản: '.$user->customer_email);
+        }
     }
     public function login()
     {
