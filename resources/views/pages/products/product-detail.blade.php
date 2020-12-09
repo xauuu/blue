@@ -47,12 +47,11 @@
                     <ul class="p-rating">
                         @for ($count = 1; $count <= 5; $count++)
                             @php
-                            if($count <= $rating){ $color='color:#f51167' ; }else { $color='color:#e6e6e6' ; }
-                            @endphp
-                            <li style="{{ $color }}" id="{{ $detail->product_id }}-{{ $count }}" data-index="{{ $count }}"
+                            if($count <= $rating){ $color='color:#f51167' ; }else { $color='color:#e6e6e6' ; } @endphp <li
+                                style="{{ $color }}" id="{{ $detail->product_id }}-{{ $count }}" data-index="{{ $count }}"
                                 data-product_id="{{ $detail->product_id }}" data-rating="{{ $rating }}" class="rating">
                                 <span>★</span>
-                            </li>
+                                </li>
                         @endfor
                         <li class="rat">{{ count($detail->rating) }} đánh giá</li>
                     </ul>
@@ -63,11 +62,11 @@
                     <button id="add-cart-w-qty" type="button" class="site-btn">THÊM VÀO GIỎ HÀNG</button>
                     <div class="blog__sidebar__tags mt-3">
                         @php
-                            $tag = $detail->product_tag;
-                            $tag = explode(",", $tag);
+                        $tag = $detail->product_tag;
+                        $tag = explode(",", $tag);
                         @endphp
                         @foreach ($tag as $tag)
-                            <a href="{{ URL::to('/tag/'.vn_to_str($tag)) }}">{{ $tag }}</a>
+                            <a href="{{ URL::to('/tag/' . vn_to_str($tag)) }}">{{ $tag }}</a>
                         @endforeach
                     </div>
                     <div id="accordion" class="accordion-area">
@@ -166,14 +165,19 @@
                                     </div>
 
                                     <div id="cmt{{ $cmt->comment_id }}" class="collapse mt-3">
-                                        <form onsubmit="return false;">
-                                            @csrf
-                                            <input type="text" id="reply{{ $cmt->comment_id }}" class="form-control"
-                                                placeholder="Nhập phản hồi của bạn">
-                                            <button data-cmt_id="{{ $cmt->comment_id }}" class="btn mt-1 btn-reply"
-                                                type="button">Trả lời</button>
-                                        </form>
+                                        @if (session('customer_id'))
+                                            <form onsubmit="return false;">
+                                                @csrf
+                                                <input type="text" id="reply{{ $cmt->comment_id }}" class="form-control"
+                                                    placeholder="Nhập phản hồi của bạn">
+                                                <button data-cmt_id="{{ $cmt->comment_id }}" class="btn mt-1 btn-reply"
+                                                    type="button">Trả lời</button>
+                                            </form>
+                                        @else
+                                            <div>Bạn cần đăng nhập để trả lời bình luận này</div>
+                                        @endif
                                     </div>
+
                                 </div>
                             </div>
                         @endif

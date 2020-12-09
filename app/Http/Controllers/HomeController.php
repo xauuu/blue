@@ -22,7 +22,8 @@ class HomeController extends Controller
     }
     public function shop()
     {
-        $cook = Cookie::get('page');
+        $customer_id = Session::get('customer_id') != null ? Session::get('customer_id') : 0;
+        $cook = Cookie::get($customer_id);
         $page = isset($cook) ? $cook : 6;
         $category = Category::where('category_status', 1)->get();
         $brand = Brand::where('brand_status', 1)->get();
@@ -63,7 +64,8 @@ class HomeController extends Controller
         $category = Category::where('category_status', 1)->get();
         $brand = Brand::where('brand_status', 1)->get();
 
-        $cook = Cookie::get('page');
+        $customer_id = Session::get('customer_id') != null ? Session::get('customer_id') : 0;
+        $cook = Cookie::get($customer_id);
         $page = isset($cook) ? $cook : 6;
 
         $cate_slug = Category::where('category_slug', $category_slug)->first();
@@ -127,7 +129,8 @@ class HomeController extends Controller
     }
     public function brand($brand_slug)
     {
-        $cook = Cookie::get('page');
+        $customer_id = Session::get('customer_id') != null ? Session::get('customer_id') : 0;
+        $cook = Cookie::get($customer_id);
         $page = isset($cook) ? $cook : 6;
 
         $category = Category::where('category_status', 1)->get();
@@ -177,7 +180,8 @@ class HomeController extends Controller
     }
     public function tag($tag)
     {
-        $cook = Cookie::get('page');
+        $customer_id = Session::get('customer_id') != null ? Session::get('customer_id') : 0;
+        $cook = Cookie::get($customer_id);
         $page = isset($cook) ? $cook : 6;
 
         $category = Category::where('category_status', 1)->get();
@@ -278,7 +282,8 @@ class HomeController extends Controller
     }
     public function search(Request $request)
     {
-        $cook = Cookie::get('page');
+        $customer_id = Session::get('customer_id') != null ? Session::get('customer_id') : 0;
+        $cook = Cookie::get($customer_id);
         $page = isset($cook) ? $cook : 6;
 
         $category = Category::where('category_status', 1)->get();
@@ -298,6 +303,7 @@ class HomeController extends Controller
     public function paginate(Request $request)
     {
         $page = $request->page;
-        Cookie::queue('page', $page, 3600);
+        $id = Session::get('customer_id');
+        Cookie::queue($id, $page, 3600*24*7);
     }
 }

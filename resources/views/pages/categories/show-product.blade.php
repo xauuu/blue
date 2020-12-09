@@ -11,18 +11,21 @@
                 <option value="{{ Request::url() }}?sort=z_a">Tên từ Z-A</option>
             </select>
         </div>
-        <div class="col-lg-4">
-            <span>Hiển thị</span>
-            <select style="width:80px;" class="custom-select" name="pagination">
-                <option disabled selected value="0">Chọn</option>
-                <option value="3">3</option>
-                <option value="6">6</option>
-                <option value="9">9</option>
-                <option value="12">12</option>
-                <option value="15">15</option>
-            </select>
-            <span>sản phẩm</span>
-        </div>
+        @if(session('customer_id') != null)
+            <div class="col-lg-4">
+                <span>Hiển thị</span>
+                <select style="width:80px;" class="custom-select" name="pagination">
+                    <option disabled selected value="0">Chọn</option>
+                    <option value="3">3</option>
+                    <option value="6">6</option>
+                    <option value="9">9</option>
+                    <option value="12">12</option>
+                    <option value="15">15</option>
+                </select>
+                <span>sản phẩm</span>
+            </div>
+        @endif
+
     </div>
     <div class="row">
         @foreach ($product as $item => $pro)
