@@ -25,7 +25,22 @@ class AdminController extends Controller
     public function statistic()
     {
         AuthLogin();
-        return view('admin.statistic.statistic');
+        $now = Carbon::now('Asia/Ho_Chi_Minh');
+        $day = $now->toDateString();
+        $this_week = $now->startOfWeek()->toDateString();
+        $this_month = $now->startOfMonth()->toDateString();
+        $statistic_week = Statistic::selectRaw('SUM(sales) as sales')
+            ->selectRaw('SUM(quantity) as qty')
+            ->selectRaw('SUM(total_order) as total')
+            ->whereBetween('order_date', [$this_week, $day])->first();
+        $statistic_month = Statistic::selectRaw('SUM(sales) as sales')
+            ->selectRaw('SUM(quantity) as qty')
+            ->selectRaw('SUM(total_order) as total')
+            ->whereBetween('order_date', [$this_month, $day])->first();
+        $statistic_total = Statistic::selectRaw('SUM(sales) as sales')
+            ->selectRaw('SUM(quantity) as qty')
+            ->selectRaw('SUM(total_order) as total')->first();
+        return view('admin.statistic.statistic', compact('statistic_week', 'statistic_month', 'statistic_total'));
     }
     public function user()
     {
@@ -37,19 +52,19 @@ class AdminController extends Controller
     {
         $user = Customer::find($user_id);
         $user->delete();
-        return redirect()->back()->with('success', 'Bạn đã xoá tài khoản: '.$user->customer_email);
+        return redirect()->back()->with('success', 'Bạn đã xoá tài khoản: ' . $user->customer_email);
     }
     public function lock_user($user_id)
     {
         $user = Customer::find($user_id);
-        if($user->customer_status == 0){
+        if ($user->customer_status == 0) {
             $user->customer_status = 1;
             $user->save();
-            return redirect()->back()->with('success', 'Bạn đã khoá tài khoản: '.$user->customer_email);
-        }else{
+            return redirect()->back()->with('success', 'Bạn đã khoá tài khoản: ' . $user->customer_email);
+        } else {
             $user->customer_status = 0;
             $user->save();
-            return redirect()->back()->with('success', 'Bạn đã mở khoá tài khoản: '.$user->customer_email);
+            return redirect()->back()->with('success', 'Bạn đã mở khoá tài khoản: ' . $user->customer_email);
         }
     }
     public function login()

@@ -412,9 +412,9 @@
             startDate: moment().subtract(29, 'days'),
             endDate: moment(),
             ranges: {
-            'Hôm nay': [moment(), moment()],
-            'Hôm qua': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
             '7 ngày trước': [moment().subtract(6, 'days'), moment()],
+            'Tuần này': [moment().startOf('isoWeek'), moment().endOf('isoWeek')],
+            'Tuần trước': [moment().subtract(1, 'week').startOf('isoWeek'), moment().subtract(1, 'week').endOf('isoWeek')],
             '30 ngày trước': [moment().subtract(29, 'days'), moment()],
             'Tháng này': [moment().startOf('month'), moment().endOf('month')],
             'Tháng trước': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
