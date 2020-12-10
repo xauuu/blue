@@ -11,7 +11,7 @@ class CommentController extends Controller
 {
     public function show_comment()
     {
-        $comment = Comment::where('reply_id', 0)->orderBy('comment_id', 'desc')->get();
+        $comment = Comment::where('reply_id', 0)->orderBy('comment_id', 'desc')->paginate(10);
         return view('admin.cmt.show-cmt', compact('comment'));
     }
     public function show_reply($comment_id)

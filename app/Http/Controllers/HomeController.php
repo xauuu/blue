@@ -9,8 +9,10 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Redirect;
 use App\Models\Category;
 use App\Models\Customer;
+use App\Models\Customer_Social;
 use App\Models\Product;
 use Illuminate\Support\Facades\Cookie;
+use Socialite;
 
 class HomeController extends Controller
 {
@@ -304,6 +306,93 @@ class HomeController extends Controller
     {
         $page = $request->page;
         $id = Session::get('customer_id');
-        Cookie::queue($id, $page, 3600*24*7);
+        Cookie::queue($id, $page, 3600 * 24 * 7);
+    }
+
+    // login facebook
+    public function login_facebook()
+    {
+        return Socialite::driver('facebook')->redirect();
+    }
+
+    public function callback_facebook()
+    {
+        $provider = Socialite::driver('facebook')->user();
+        $account = Customer_Social::where('provider', 'facebook')->where('provider_user_id', $provider->getId())->first();
+        if ($account) {
+            //login in vao trang quan tri
+            $account_name = Customer::where('id', $account->user)->first();
+            Session::put('customer_name', $account_name->customer_name);
+            Session::put('customer_id', $account_name->id);
+            return redirect(session('backUrl'));
+        } else {
+
+            $customer_social = new Customer_Social([
+                'provider_user_id' => $provider->getId(),
+                'provider' => 'facebook'
+            ]);
+
+            $orang = Customer::where('customer_email', $provider->getEmail())->first();
+
+            if (!$orang) {
+                $orang = Customer::create([
+                    'customer_name' => $provider->getName(),
+                    'customer_email' => $provider->getEmail(),
+                    'customer_pass' => '0',
+                    'customer_status' => 0
+                ]);
+            }
+            $customer_social->login()->associate($orang);
+            $customer_social->save();
+
+            $account_name = Customer::where('id', $customer_social->user)->first();
+
+            Session::put('customer_name', $account_name->customer_name);
+            Session::put('customer_id', $account_name->id);
+            return redirect(session('backUrl'));
+        }
+    }
+
+    public function login_google()
+    {
+        return Socialite::driver('google')->redirect();
+    }
+
+    public function callback_google()
+    {
+        $provider = Socialite::driver('google')->user();
+        $account = Customer_Social::where('provider', 'google')->where('provider_user_id', $provider->getId())->first();
+        if ($account) {
+            //login in vao trang quan tri
+            $account_name = Customer::where('id', $account->user)->first();
+            Session::put('customer_name', $account_name->customer_name);
+            Session::put('customer_id', $account_name->id);
+            return redirect(session('backUrl'));
+        } else {
+
+            $customer_social = new Customer_Social([
+                'provider_user_id' => $provider->getId(),
+                'provider' => 'google'
+            ]);
+
+            $orang = Customer::where('customer_email', $provider->getEmail())->first();
+
+            if (!$orang) {
+                $orang = Customer::create([
+                    'customer_name' => $provider->getName(),
+                    'customer_email' => $provider->getEmail(),
+                    'customer_pass' => '0',
+                    'customer_status' => 0
+                ]);
+            }
+            $customer_social->login()->associate($orang);
+            $customer_social->save();
+
+            $account_name = Customer::where('id', $customer_social->user)->first();
+
+            Session::put('customer_name', $account_name->customer_name);
+            Session::put('customer_id', $account_name->id);
+            return redirect(session('backUrl'));
+        }
     }
 }

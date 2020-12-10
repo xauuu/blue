@@ -38,6 +38,12 @@ Route::post('/check-login', [HomeController::class, 'check_login']);
 Route::get('/registration', [HomeController::class, 'registration']);
 Route::post('/check-registration', [HomeController::class, 'check_registration']);
 Route::get('/logout', [HomeController::class, 'logout']);
+
+//Login facebook
+Route::get('/login-facebook', [HomeController::class, 'login_facebook']);
+Route::get('/login-customer/callback', [HomeController::class, 'callback_facebook']);
+Route::get('/login-google', [HomeController::class, 'login_google']);
+Route::get('/login-customer/google/callback', [HomeController::class, 'callback_google']);
 //
 Route::get('/category/{category_slug}', [HomeController::class, 'category']);
 Route::get('/brand/{brand_slug}', [HomeController::class, 'brand']);

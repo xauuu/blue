@@ -52,6 +52,9 @@
 
             </tbody>
         </table>
+        <div class="float-right mt-2">
+            {!! $comment->render('vendor.pagination.custom') !!}
+        </div>
     </div>
 </div>
 @endsection

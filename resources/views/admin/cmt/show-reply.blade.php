@@ -34,7 +34,7 @@
                     @foreach ($comment as $item)
                         <tr>
                             <td>{{ $item->comment_id }}</td>
-                            <td>{{ $item->customer->customer_email }}</td>
+                            <td>{{ $item->customer->customer_name }}</td>
                             <td>{{ $item->comment_content }}</td>
                             <td>{{ $item->comment_time }}</td>
                             <td>

@@ -51,6 +51,10 @@
                                         <button class="submit-btn3">Đăng nhập</button>
                                     </div>
                                 </div>
+                                <div>
+                                    <a href="{{ URL::to('/login-facebook') }}">Facebook</a>
+                                    <a href="{{ URL::to('/login-google') }}">Google</a>
+                                </div>
                                 <p>Bạn chưa có tài khoản? <a href="{{ URL::to('registration') }}">Đăng kí</a> ngay</p>
                             </form>
                         </div>

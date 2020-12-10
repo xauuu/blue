@@ -131,16 +131,13 @@
                             </li>
                         </ul>
                     </li>
+
                     <li class="sidebar-item {{ Request::is('admin/comment/*') ? 'active' : '' }}">
-                        <a data-target="#cmt" data-toggle="collapse" class="sidebar-link collapsed">
+                        <a class="sidebar-link" href="{{ URL::to('/admin/comment/show-comment') }}">
                             <i class="align-middle" data-feather="message-square"></i> <span class="align-middle">Bình luận</span>
                         </a>
-                        <ul id="cmt" class="sidebar-dropdown list-unstyled collapse " data-parent="#sidebar">
-                            <li class="sidebar-item"><a class="sidebar-link"
-                                    href="{{ URL::to('/admin/comment/show-comment') }}">Xem bình luận</a>
-                            </li>
-                        </ul>
                     </li>
+
                     <li class="sidebar-header">
                         Bài viết
                     </li>
