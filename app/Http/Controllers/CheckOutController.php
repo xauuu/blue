@@ -128,6 +128,13 @@ class CheckOutController extends Controller
         $order = Order::where('customer_id', session('customer_id'))->orderBy('order_id', 'desc')->get();
         return view('pages.cart.your-order', compact('category', 'order'));
     }
+    public function cancel_your_order($order_id)
+    {
+        $order = Order::find($order_id);
+        $order->order_status = 2;
+        $order->save();
+        return redirect()->back();
+    }
     // back end
     public function confirm_order()
     {
@@ -135,7 +142,7 @@ class CheckOutController extends Controller
         $all_order = Order::join('customers', 'orders.customer_id', 'customers.id')
             ->select('orders.*', 'customers.customer_name')
             ->where('order_status', 0)
-            ->orderby('orders.order_id', 'desc')->get();
+            ->orderby('orders.order_id', 'desc')->paginate(10);
         return view('admin.order.confirm-order', compact('all_order'));
     }
     public function success_order()
@@ -144,7 +151,7 @@ class CheckOutController extends Controller
         $all_order = Order::join('customers', 'orders.customer_id', 'customers.id')
             ->select('orders.*', 'customers.customer_name')
             ->where('order_status', 1)
-            ->orderby('orders.order_id', 'desc')->get();
+            ->orderby('orders.order_id', 'desc')->paginate(10);
         return view('admin.order.confirm-order', compact('all_order'));
     }
     public function cancel_order()
@@ -153,7 +160,7 @@ class CheckOutController extends Controller
         $all_order = Order::join('customers', 'orders.customer_id', 'customers.id')
             ->select('orders.*', 'customers.customer_name')
             ->where('order_status', 2)
-            ->orderby('orders.order_id', 'desc')->get();
+            ->orderby('orders.order_id', 'desc')->paginate(10);
         return view('admin.order.confirm-order', compact('all_order'));
     }
     public function all_order()
@@ -161,7 +168,7 @@ class CheckOutController extends Controller
         AuthLogin();
         $all_order = Order::join('customers', 'orders.customer_id', 'customers.id')
             ->select('orders.*', 'customers.customer_name')
-            ->orderby('orders.order_id', 'desc')->get();
+            ->orderby('orders.order_id', 'desc')->paginate(10);
         return view('admin.order.confirm-order', compact('all_order'));
     }
     public function detail_order($order_id)
@@ -210,18 +217,13 @@ class CheckOutController extends Controller
             $statistic_new->total_order = 1;
             $statistic_new->save();
         }
-        return redirect()->back();
+        return redirect()->back()->with('success', 'Bạn đã xác nhận đơn hàng đơn hàng');
     }
     public function xoa_order($order_id)
     {
         $order = Order::find($order_id);
         $order->order_status = '2';
         $order->save();
-        return redirect()->back();
-    }
-    public function carr()
-    {
-        $now = Carbon::now('Asia/Ho_Chi_Minh');
-        echo $now->subDays($now->dayOfWeek - 1)->subWeek()->format('Y-m-d');
+        return redirect()->back()->with('success', 'Bạn đã huỷ đơn hàng');
     }
 }

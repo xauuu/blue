@@ -33,7 +33,7 @@ class test extends Mailable
     public function build()
     {
         return $this->from('qdatqb@gmail.com')
-        ->subject('XXX SHOP. Đặt hàng thành công.')
+        ->subject('BLUE Shop. Đặt hàng thành công.')
         ->markdown('emails.test')
         ->with('details', $this->details)
         ->with('name', $this->name)

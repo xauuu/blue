@@ -22,8 +22,14 @@ class AdminController extends Controller
         $statistic = Statistic::where('order_date', $now)->first();
         return view('admin.admin-home', compact('statistic'));
     }
+    public function statistic()
+    {
+        AuthLogin();
+        return view('admin.statistic.statistic');
+    }
     public function user()
     {
+        AuthLogin();
         $user = Customer::all();
         return view('admin.user.show-user', compact('user'));
     }

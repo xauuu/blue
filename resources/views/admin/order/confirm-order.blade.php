@@ -58,8 +58,7 @@
                 </tbody>
             </table>
             <div class="float-right mt-2">
-                {{-- {!! $product->render('vendor.pagination.custom') !!}
-                --}}
+                {!! $all_order->render('vendor.pagination.custom') !!}
             </div>
         </div>
     </div>

@@ -75,7 +75,7 @@ Route::post('/paginate', [HomeController::class, 'paginate']);
 Route::post('/add-rating', [ProductDetail::class, 'add_rating']);
 // your-order
 Route::get('/your-order', [CheckOutController::class, 'your_order']);
-
+Route::get('/cancel-order/{order_id}', [CheckOutController::class, 'cancel_your_order']);
 // Back end
 Route::post('/load-statistic', [AdminController::class, 'load_statistic']);
 Route::post('/load-chart', [AdminController::class, 'load_chart']);
@@ -84,6 +84,7 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('/login', [AdminController::class, 'login']);
     Route::post('/checklogin', [AdminController::class, 'check_login']);
     Route::get('/logout', [AdminController::class, 'logout']);
+    Route::get('/statistic', [AdminController::class, 'statistic']);
     Route::get('/user', [AdminController::class, 'user']);
     Route::get('/delete-user/{user_id}', [AdminController::class, 'delete_user']);
     Route::get('/lock-user/{user_id}', [AdminController::class, 'lock_user']);

@@ -40,16 +40,24 @@
                         </a>
                     </li>
 
-                    <li class="sidebar-item {{ Request::is('admin/user') ? 'active' : '' }}">
-                        <a class="sidebar-link" href="{{ URL::to('/admin/user') }}">
-                            <i class="align-middle" data-feather="users"></i> <span class="align-middle">Danh sách tài
-                                khoản</span>
+                    <li class="sidebar-item {{ Request::is('admin/statistic') ? 'active' : '' }}">
+                        <a class="sidebar-link" href="{{ URL::to('/admin/statistic') }}">
+                            <i class="align-middle" data-feather="trending-up"></i> <span
+                                class="align-middle">Thống kê</span>
                         </a>
                     </li>
 
                     <li class="sidebar-header">
                         Quản lí
                     </li>
+
+                    <li class="sidebar-item {{ Request::is('admin/user') ? 'active' : '' }}">
+                        <a class="sidebar-link" href="{{ URL::to('/admin/user') }}">
+                            <i class="align-middle" data-feather="users"></i> <span class="align-middle">Tài
+                                khoản</span>
+                        </a>
+                    </li>
+
                     <li class="sidebar-item {{ Request::is('admin/category/*') ? 'active' : '' }}">
                         <a data-target="#cate" data-toggle="collapse" class="sidebar-link collapsed">
                             <i class="align-middle" data-feather="briefcase"></i> <span class="align-middle">Danh
