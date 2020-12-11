@@ -9,6 +9,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('login/vendor/bootstrap/css/bootstrap.min.css') }}">
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="{{ asset('login/css/style.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('login/font-awesome-4.7.0/css/font-awesome.min.css') }}">
     <!--===============================================================================================-->
 </head>
 
@@ -20,7 +21,7 @@
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-xl-7 col-lg-8">
-                        <div class="register-form text-center mt-5">
+                        <div class="register-form text-center mt-3">
                             <!-- Login Heading -->
                             <div class="register-heading">
                                 <span>ĐĂNG NHẬP</span>
@@ -51,9 +52,14 @@
                                         <button class="submit-btn3">Đăng nhập</button>
                                     </div>
                                 </div>
-                                <div>
-                                    <a href="{{ URL::to('/login-facebook') }}">Facebook</a>
-                                    <a href="{{ URL::to('/login-google') }}">Google</a>
+                                <div class="mb-3">
+                                    <div>HOẶC</div>
+                                    <div>
+                                        <a class="fb" href="{{ URL::to('/login-facebook') }}"><i
+                                                class="fa fa-facebook-f"></i></a>
+                                        <a class="gg" href="{{ URL::to('/login-google') }}"><i
+                                                class="fa fa-google"></i></i></a>
+                                    </div>
                                 </div>
                                 <p>Bạn chưa có tài khoản? <a href="{{ URL::to('registration') }}">Đăng kí</a> ngay</p>
                             </form>

@@ -46,20 +46,38 @@ class ProductDetail extends Controller
         $comment->reply_id = 0;
         $comment->save();
 
-        $content = '
-        <div class="blog__comment__item">
-            <div class="blog__comment__item__pic">
-                <div class="cmt-avt">' . $name[0] . '</div>
-            </div>
-            <div class="blog__comment__item__text">
-                <h6>' . session('customer_name') . '</h6>
-                <p>' . $all['content'] . '</p>
-                <ul>
-                    <li><i class="fa fa-clock-o"></i> ' . $date . '</li>
-                    <li><i class="fa fa-share"></i> Trả lời</li>
-                </ul>
-            </div>
-        </div>';
+        if (session('customer_avatar') != '') {
+            $content = '
+            <div class="blog__comment__item">
+                <div class="blog__comment__item__pic">
+                    <img width="85" src="' . session('customer_avatar') . '" alt="">
+                </div>
+                <div class="blog__comment__item__text">
+                    <h6>' . session('customer_name') . '</h6>
+                    <p>' . $all['content'] . '</p>
+                    <ul>
+                        <li><i class="fa fa-clock-o"></i> ' . $date . '</li>
+                        <li><i class="fa fa-share"></i> Trả lời</li>
+                    </ul>
+                </div>
+            </div>';
+        } else {
+            $content = '
+            <div class="blog__comment__item">
+                <div class="blog__comment__item__pic">
+                    <div class="cmt-avt">' . $name[0] . '</div>
+                </div>
+                <div class="blog__comment__item__text">
+                    <h6>' . session('customer_name') . '</h6>
+                    <p>' . $all['content'] . '</p>
+                    <ul>
+                        <li><i class="fa fa-clock-o"></i> ' . $date . '</li>
+                        <li><i class="fa fa-share"></i> Trả lời</li>
+                    </ul>
+                </div>
+            </div>';
+        }
+
         echo $content;
     }
     public function reply_comment(Request $request)
@@ -76,19 +94,36 @@ class ProductDetail extends Controller
         $comment->comment_time = $date;
         $comment->reply_id = $all['cmt_id'];
         $comment->save();
-        $content = '
-        <div class="blog__comment__item  mt-4">
-            <div class="blog__comment__item__pic">
-                <div class="reply-avt">' . $name[0] . '</div>
-            </div>
-            <div class="blog__comment__item__text">
-                <h6>' . session('customer_name') . '</h6>
-                <p>' . $all['content'] . '</p>
-                <ul>
-                    <li><i class="fa fa-clock-o"></i> ' . $date . '</li>
-                </ul>
-            </div>
-        </div>';
+        if (session('customer_avatar') != '') {
+            $content = '
+            <div class="blog__comment__item  mt-4">
+                <div class="blog__comment__item__pic">
+                    <img width="75" src="' . session('customer_avatar') . '" alt="">
+                </div>
+                <div class="blog__comment__item__text">
+                    <h6>' . session('customer_name') . '</h6>
+                    <p>' . $all['content'] . '</p>
+                    <ul>
+                        <li><i class="fa fa-clock-o"></i> ' . $date . '</li>
+                    </ul>
+                </div>
+            </div>';
+        } else {
+            $content = '
+            <div class="blog__comment__item  mt-4">
+                <div class="blog__comment__item__pic">
+                    <div class="reply-avt">' . $name[0] . '</div>
+                </div>
+                <div class="blog__comment__item__text">
+                    <h6>' . session('customer_name') . '</h6>
+                    <p>' . $all['content'] . '</p>
+                    <ul>
+                        <li><i class="fa fa-clock-o"></i> ' . $date . '</li>
+                    </ul>
+                </div>
+            </div>';
+        }
+
         echo $content;
     }
     public function add_rating(Request $request)

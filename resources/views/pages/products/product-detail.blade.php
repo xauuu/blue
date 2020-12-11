@@ -131,7 +131,11 @@
                         @if ($cmt->reply_id == 0)
                             <div class="blog__comment__item">
                                 <div class="blog__comment__item__pic">
-                                    <div class="cmt-avt">{{ $cmt->customer->customer_name[0] }}</div>
+                                    @if ($cmt->customer->customer_avatar != '')
+                                        <img width="85" src="{{ $cmt->customer->customer_avatar }}" alt="">
+                                    @else
+                                        <div class="cmt-avt">{{ $cmt->customer->customer_name[0] }}</div>
+                                    @endif
                                 </div>
                                 <div class="blog__comment__item__text">
                                     <h6>{{ $cmt->customer->customer_name }}</h6>
@@ -147,8 +151,13 @@
                                             @if ($cmt->comment_id == $reply->reply_id)
                                                 <div class="blog__comment__item__text mt-4">
                                                     <div class="blog__comment__item__pic">
-                                                        <div class="reply-avt">{{ $reply->customer->customer_name[0] }}
-                                                        </div>
+                                                        @if ($reply->customer->customer_avatar != '')
+                                                            <img width="75" src="{{ $reply->customer->customer_avatar }}"
+                                                                alt="">
+                                                        @else
+                                                            <div class="reply-avt">{{ $reply->customer->customer_name[0] }}
+                                                            </div>
+                                                        @endif
                                                     </div>
                                                     <div class="blog__comment__item__text">
                                                         <h6>{{ $reply->customer->customer_name }}</h6>

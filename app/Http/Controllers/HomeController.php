@@ -11,6 +11,7 @@ use App\Models\Category;
 use App\Models\Customer;
 use App\Models\Customer_Social;
 use App\Models\Product;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Cookie;
 use Socialite;
 
@@ -204,6 +205,7 @@ class HomeController extends Controller
     {
         Session::put('customer_id', null);
         Session::put('customer_name', null);
+        Session::put('customer_avatar', null);
         session()->forget('coupon');
         return Redirect::to('/home');
     }
@@ -338,6 +340,7 @@ class HomeController extends Controller
                 $orang = Customer::create([
                     'customer_name' => $provider->getName(),
                     'customer_email' => $provider->getEmail(),
+                    'customer_avatar' => $provider->getAvatar(),
                     'customer_pass' => '0',
                     'customer_status' => 0
                 ]);
@@ -363,9 +366,9 @@ class HomeController extends Controller
         $provider = Socialite::driver('google')->user();
         $account = Customer_Social::where('provider', 'google')->where('provider_user_id', $provider->getId())->first();
         if ($account) {
-            //login in vao trang quan tri
             $account_name = Customer::where('id', $account->user)->first();
             Session::put('customer_name', $account_name->customer_name);
+            Session::put('customer_avatar', $account_name->customer_avatar);
             Session::put('customer_id', $account_name->id);
             return redirect(session('backUrl'));
         } else {
@@ -381,6 +384,7 @@ class HomeController extends Controller
                 $orang = Customer::create([
                     'customer_name' => $provider->getName(),
                     'customer_email' => $provider->getEmail(),
+                    'customer_avatar' => $provider->getAvatar(),
                     'customer_pass' => '0',
                     'customer_status' => 0
                 ]);
@@ -391,6 +395,7 @@ class HomeController extends Controller
             $account_name = Customer::where('id', $customer_social->user)->first();
 
             Session::put('customer_name', $account_name->customer_name);
+            Session::put('customer_avatar', $account_name->customer_avatar);
             Session::put('customer_id', $account_name->id);
             return redirect(session('backUrl'));
         }
