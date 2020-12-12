@@ -46,18 +46,20 @@
                                         @foreach ($cart as $item)
                                             <tr>
                                                 <td class="product-col">
-                                                    <img src="{{ URL::asset('uploads/product/' . $item->options->image) }}"
-                                                        alt="">
-                                                    <div class="pc-title">
-                                                        <h4>{{ $item->name }}</h4>
-                                                        <p>{{ number_format($item->price) }} VND</p>
-                                                    </div>
+                                                    <a href="{{ URL::to('product-detail/' . $item->options->slug) }}">
+                                                        <img src="{{ URL::asset('uploads/product/' . $item->options->image) }}"
+                                                            alt="">
+                                                        <div class="pc-title">
+                                                            <h4>{{ $item->name }}</h4>
+                                                            <p>{{ number_format($item->price) }} VND</p>
+                                                        </div>
+                                                    </a>
                                                 </td>
                                                 <td class="quy-col">
                                                     <div class="quantity">
                                                         <div class="pro-qty">
                                                             <input name="qty[{{ $item->rowId }}]" type="text"
-                                                                value="{{ $item->qty }}">
+                                                                value="{{ $item->qty }}" min="1">
                                                         </div>
                                                     </div>
                                                 </td>

@@ -34,6 +34,7 @@ class CartController extends Controller
             $data['name'] = $product->product_name;
             $data['price'] = $product->product_discount;
             $data['weight'] = '0';
+            $data['options']['slug'] = $product->product_slug;
             $data['options']['image'] = $product->product_img;
             Cart::add($data);
 
@@ -51,6 +52,7 @@ class CartController extends Controller
         $data['name'] = $product->product_name;
         $data['price'] = $product->product_discount;
         $data['weight'] = '0';
+        $data['options']['slug'] = $product->product_slug;
         $data['options']['image'] = $product->product_img;
         Cart::add($data);
 

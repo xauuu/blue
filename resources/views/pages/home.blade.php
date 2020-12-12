@@ -125,7 +125,7 @@
 
 
     <!-- Product filter section -->
-    <section class="product-filter-section">
+    {{-- <section class="product-filter-section">
         <div class="container">
             <div class="section-title">
                 <h2>BROWSE TOP SELLING PRODUCTS</h2>
@@ -267,7 +267,7 @@
                 <button class="site-btn sb-line sb-dark">LOAD MORE</button>
             </div>
         </div>
-    </section>
+    </section> --}}
     <!-- Product filter section end -->
 
 @endsection

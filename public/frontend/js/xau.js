@@ -171,6 +171,9 @@ $(document).ready(function () {
             $('#search-list').fadeOut();
         }
     });
+    $(document).click(function(){
+        $("#search-list").hide();
+      })
     // end search
     // pagination
     $('select[name=pagination]').change(function (e) {

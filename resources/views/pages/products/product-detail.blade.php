@@ -60,15 +60,18 @@
                         <div class="pro-qty"><input name="quantity" type="text" value="1"></div>
                     </div>
                     <button id="add-cart-w-qty" type="button" class="site-btn">THÊM VÀO GIỎ HÀNG</button>
-                    <div class="blog__sidebar__tags mt-3">
-                        @php
-                        $tag = $detail->product_tag;
-                        $tag = explode(",", $tag);
-                        @endphp
-                        @foreach ($tag as $tag)
-                            <a href="{{ URL::to('/tag/' . vn_to_str($tag)) }}">{{ $tag }}</a>
-                        @endforeach
-                    </div>
+                    @if ($detail->product_tag)
+                        <div class="blog__sidebar__tags mt-3">
+                            @php
+                            $tag = $detail->product_tag;
+                            $tag = explode(",", $tag);
+                            @endphp
+                            @foreach ($tag as $tag)
+                                <a href="{{ URL::to('/tag/' . vn_to_str($tag)) }}">{{ $tag }}</a>
+                            @endforeach
+                        </div>
+                    @endif
+
                     <div id="accordion" class="accordion-area">
                         <div class="panel">
                             <div class="panel-header" id="headingOne">

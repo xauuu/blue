@@ -207,7 +207,7 @@ class HomeController extends Controller
         Session::put('customer_name', null);
         Session::put('customer_avatar', null);
         session()->forget('coupon');
-        return Redirect::to('/home');
+        return Redirect::back();
     }
     public function check_login(Request $request)
     {
@@ -263,9 +263,9 @@ class HomeController extends Controller
         if (is_numeric($request->search)) {
             $val1 = $request->search - $request->search * 15 / 100;
             $val2 = $request->search + $request->search * 15 / 100;
-            $search = Product::whereBetween('product_discount', [$val1, $val2])->get();
+            $search = Product::whereBetween('product_discount', [$val1, $val2])->take(5)->get();
         } else {
-            $search = Product::where('product_name', 'like', "%{$request->search}%")->get();
+            $search = Product::where('product_name', 'like', "%{$request->search}%")->take(5)->get();
         }
         $output = '<ul class="dropdown-menu search">';
         if (count($search)) {
@@ -325,6 +325,7 @@ class HomeController extends Controller
             //login in vao trang quan tri
             $account_name = Customer::where('id', $account->user)->first();
             Session::put('customer_name', $account_name->customer_name);
+            Session::put('customer_avatar', $account_name->customer_avatar);
             Session::put('customer_id', $account_name->id);
             return redirect(session('backUrl'));
         } else {
@@ -351,6 +352,7 @@ class HomeController extends Controller
             $account_name = Customer::where('id', $customer_social->user)->first();
 
             Session::put('customer_name', $account_name->customer_name);
+            Session::put('customer_avatar', $account_name->customer_avatar);
             Session::put('customer_id', $account_name->id);
             return redirect(session('backUrl'));
         }
