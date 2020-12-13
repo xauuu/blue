@@ -97,9 +97,10 @@ class CheckOutController extends Controller
         session()->forget('coupon');
         return Redirect::to('/your-order');
     }
-    public function check_out_success()
+    public function ssss()
     {
-        return dd('Đặt hàng thành công');
+        $cart = Cart::content();
+        return new test($cart,'a','a','a','');
     }
     public function select(Request $request)
     {

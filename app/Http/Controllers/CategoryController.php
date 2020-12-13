@@ -20,7 +20,7 @@ class CategoryController extends Controller
     {
         AuthLogin();
         $category = Category::all();
-        $categorypa = Category::paginate(3);
+        $categorypa = Category::paginate(10);
         return view('admin.category.all-category', compact('category', 'categorypa'));
     }
     public function save_category(Request $request)

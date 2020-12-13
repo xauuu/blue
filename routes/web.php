@@ -32,6 +32,7 @@ Route::get('/', [HomeController::class, 'home']);
 Route::get('/home', [HomeController::class, 'home']);
 Route::get('/shop', [HomeController::class, 'shop']);
 
+
 // login
 Route::get('/login-customer', [HomeController::class, 'login']);
 Route::post('/check-login', [HomeController::class, 'check_login']);
@@ -125,6 +126,7 @@ Route::group(['prefix' => 'admin'], function () {
         Route::post('/update-product', [ProductController::class, 'update_product']);
         Route::get('/delete-product/{product_id}', [ProductController::class, 'delete_product']);
         Route::get('/product_status/{product_id}', [ProductController::class, 'product_status']);
+        Route::post('/search-product', [ProductController::class, 'search_product']);
         // gallery
         Route::get('/gallery/{product_id}', [GalleryController::class, 'gallery']);
         Route::post('/add-gallery', [GalleryController::class, 'add_gallery']);

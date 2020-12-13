@@ -14,8 +14,16 @@
                     </div>
                 </div>
             @endif
-            <div>
-
+            <div class="float-right">
+                <form autocomplete="off" class="d-none d-sm-inline-block" method="post" action="{{ URL::to('admin/product/search-product') }}">
+                    @csrf
+                    <div class="input-group input-group-navbar">
+                        <input name="search" type="text" class="form-control" placeholder="Nhập tên sản phẩm..." aria-label="Search" required>
+                        <button class="btn" type="submit">
+                            <i class="align-middle" data-feather="search"></i>
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
 

@@ -118,6 +118,15 @@ class ProductController extends Controller
         Session::flash('success', 'Đã cập nhập sản phẩm ' . $product->product_name);
         return Redirect::to('admin/product/all-product');
     }
+    public function search_product(Request $request)
+    {
+        $product = Product::where('product_name', 'LIKE', '%'.$request->search.'%')->paginate(5);
+        if(!$product->isEmpty()){
+            return view('admin.product.all-product', compact('product'));
+        }else{
+            return redirect()->back()->with('success', 'Không tìm thấy từ khoá '.$request->search);
+        }
+    }
     public function comment($product_id)
     {
         $product = Product::find($product_id);

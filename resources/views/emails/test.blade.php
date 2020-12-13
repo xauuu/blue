@@ -214,23 +214,7 @@
                                                 <tr style="vertical-align: top;" valign="top">
                                                     <td style="word-break: break-word; vertical-align: top; padding-top: 5px; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; text-align: center; font-size: 0px;"
                                                         align="center" valign="top">
-                                                        <div class="menu-links">
-                                                            <!--[if mso]>
-<table role="presentation" border="0" cellpadding="0" cellspacing="0" align="center">
-<tr>
-<td style="padding-top:0px;padding-right:20px;padding-bottom:25px;padding-left:20px">
-<![endif]--><a href="http://www.example.com" style="padding-top:0px;padding-bottom:25px;padding-left:20px;padding-right:20px;display:inline;color:#9c786c;font-family:'Cabin', Arial, 'Helvetica Neue', Helvetica, sans-serif;font-size:14px;text-decoration:none;">TRANG
-                                                                CHỦ</a>
-                                                            <!--[if mso]></td><td style="padding-top:0px;padding-right:20px;padding-bottom:25px;padding-left:20px"><![endif]--><a
-                                                                href="http://www.example.com"
-                                                                style="padding-top:0px;padding-bottom:25px;padding-left:20px;padding-right:20px;display:inline;color:#9c786c;font-family:'Cabin', Arial, 'Helvetica Neue', Helvetica, sans-serif;font-size:14px;text-decoration:none;">ĐƠN
-                                                                HÀNG</a>
-                                                            <!--[if mso]></td><td style="padding-top:0px;padding-right:20px;padding-bottom:25px;padding-left:20px"><![endif]--><a
-                                                                href="http://www.example.com"
-                                                                style="padding-top:0px;padding-bottom:25px;padding-left:20px;padding-right:20px;display:inline;color:#9c786c;font-family:'Cabin', Arial, 'Helvetica Neue', Helvetica, sans-serif;font-size:14px;text-decoration:none;">LIÊN
-                                                                HỆ</a>
-                                                            <!--[if mso]></td></tr></table><![endif]-->
-                                                        </div>
+
                                                     </td>
                                                 </tr>
                                             </table>
@@ -407,7 +391,7 @@
                         </div>
                     </div>
                     @php
-                        $total = 0
+                    $total = 0
                     @endphp
                     @foreach ($details as $item)
                         @php

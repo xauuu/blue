@@ -16,7 +16,7 @@ class CommentController extends Controller
     }
     public function show_reply($comment_id)
     {
-        $comment = Comment::where('reply_id', $comment_id)->orderBy('comment_id', 'desc')->get();
+        $comment = Comment::where('reply_id', $comment_id)->orderBy('comment_id', 'asc')->get();
         return view('admin.cmt.show-reply', compact('comment', 'comment_id'));
     }
     public function add_reply(Request $request)
