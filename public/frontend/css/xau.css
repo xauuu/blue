@@ -1,3 +1,18 @@
+#img{
+    border: 3px solid #cecece;
+    border-radius: 10px;
+}
+.avatar-edit{
+    position: absolute;
+    top: -10px;
+    left: 100px;
+    height: 24px;
+    width: 24px;
+    border-radius: 50px;
+    background: #cecece;
+    text-align: center;
+    cursor: pointer;
+}
 /*  */
 .product-col a{
     display: table;

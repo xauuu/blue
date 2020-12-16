@@ -402,4 +402,10 @@ class HomeController extends Controller
             return redirect(session('backUrl'));
         }
     }
+    public function my_account()
+    {
+        $category = Category::all();
+        $customer = Customer::where('id', session('customer_id'))->first();
+        return view('pages.my-account', compact('category', 'customer'));
+    }
 }

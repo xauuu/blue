@@ -63,7 +63,7 @@ $(document).ready(function () {
                         buttons: false,
                         timer: 1500
                     });
-                }else{
+                } else {
                     swal({
                         text: "Đã thêm vào giỏ hàng",
                         icon: "success",
@@ -171,9 +171,9 @@ $(document).ready(function () {
             $('#search-list').fadeOut();
         }
     });
-    $(document).click(function(){
+    $(document).click(function () {
         $("#search-list").hide();
-      })
+    })
     // end search
     // pagination
     $('select[name=pagination]').change(function (e) {
@@ -261,5 +261,14 @@ $(document).ready(function () {
         }
         return false;
     });
-
 });
+function readURL(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+            $('#img').attr('src', e.target.result);
+        };
+        reader.readAsDataURL(input.files[0]);
+    }
+}

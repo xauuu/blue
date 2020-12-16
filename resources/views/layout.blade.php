@@ -84,7 +84,7 @@
                             <div class="up-item">
                                 <ul class="main-menu-us">
                                     @if (session('customer_id'))
-                                        <li><i class="flaticon-profile"></i> <span>{{ session('customer_name') }}</span>
+                                        <li><a href="{{ URL::to('my-account') }}"><i class="flaticon-profile"></i><span>{{ session('customer_name') }}</span></a>
                                             <ul class="sub-menu">
                                                 <li><a href="{{ URL::to('/your-order') }}">Đơn hàng</a></li>
                                                 <li><a href="{{ URL::to('/logout') }}">Đăng xuất</a></li>

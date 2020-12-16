@@ -40,6 +40,8 @@ Route::get('/registration', [HomeController::class, 'registration']);
 Route::post('/check-registration', [HomeController::class, 'check_registration']);
 Route::get('/logout', [HomeController::class, 'logout']);
 
+Route::get('/my-account', [HomeController::class, 'my_account']);
+
 //Login facebook
 Route::get('/login-facebook', [HomeController::class, 'login_facebook']);
 Route::get('/login-customer/callback', [HomeController::class, 'callback_facebook']);
@@ -83,6 +85,8 @@ Route::post('/add-rating', [ProductDetail::class, 'add_rating']);
 // your-order
 Route::get('/your-order', [CheckOutController::class, 'your_order']);
 Route::get('/cancel-order/{order_id}', [CheckOutController::class, 'cancel_your_order']);
+
+
 // Back end
 Route::post('/load-statistic', [AdminController::class, 'load_statistic']);
 Route::post('/load-chart', [AdminController::class, 'load_chart']);
@@ -179,4 +183,3 @@ Route::group(['prefix' => 'admin'], function () {
         Route::get('/status-post/{post_id}', [PostController::class, 'status_post']);
     });
 });
-Route::get('/send-mail', [MailController::class, 'send_mail']);

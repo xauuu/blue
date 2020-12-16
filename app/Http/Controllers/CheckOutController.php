@@ -97,11 +97,6 @@ class CheckOutController extends Controller
         session()->forget('coupon');
         return Redirect::to('/your-order');
     }
-    public function ssss()
-    {
-        $cart = Cart::content();
-        return new test($cart,'a','a','a','');
-    }
     public function select(Request $request)
     {
         $data = $request->all();
