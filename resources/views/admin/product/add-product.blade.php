@@ -85,3 +85,16 @@
         </div>
     </div>
 @endsection
+@push('scripts')
+<script>
+    CKEDITOR.replace('xau');
+    CKEDITOR.replace('xau1', {
+        filebrowserBrowseUrl: '{{ asset('ckeditor/ckfinder/ckfinder.html') }}',
+        filebrowserImageBrowseUrl: '{{ asset('ckeditor/ckfinder/ckfinder.html?type=Images') }}',
+        filebrowserFlashBrowseUrl : '{{ asset('ckeditor/ckfinder/ckfinder.html?type=Flash') }}',
+        filebrowserUploadUrl : '{{ asset('ckeditor/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files') }}',
+        filebrowserImageUploadUrl : '{{ asset('ckeditor/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images') }}',
+        filebrowserFlashUploadUrl : '{{ asset('ckeditor/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Flash') }}'
+    });
+</script>
+@endpush

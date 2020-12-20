@@ -14,11 +14,27 @@
                     </div>
                 </div>
             @endif
+            <div class="float-left ">
+                <form class="d-sm-inline-block">
+                    <div class="input-group">
+                        <label>Hiển thị</label>
+                        <select class="form-control ml-2" name="entries" onchange="this.form.submit();">
+                            <option value="5">5</option>
+                            <option value="10">10</option>
+                            <option value="15">15</option>
+                            <option value="20">20</option>
+                            <option value="25">25</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
             <div class="float-right">
-                <form autocomplete="off" class="d-none d-sm-inline-block" method="post" action="{{ URL::to('admin/product/search-product') }}">
+                <form autocomplete="off" class="d-none d-sm-inline-block" method="post"
+                    action="{{ URL::to('admin/product/search-product') }}">
                     @csrf
                     <div class="input-group input-group-navbar">
-                        <input name="search" type="text" class="form-control" placeholder="Nhập tên sản phẩm..." aria-label="Search" required>
+                        <input name="search" type="text" class="form-control" placeholder="Nhập tên sản phẩm..."
+                            aria-label="Search" required>
                         <button class="btn" type="submit">
                             <i class="align-middle" data-feather="search"></i>
                         </button>
@@ -42,9 +58,19 @@
                         <th scope="col">Thao tác (*)</th>
                     </tr>
                 </thead>
-                <tbody>
+                <style type="text/css">
+                    #product_order .ui-state-hightlight {
+                        padding: 24px;
+                        background-color: #ffffcc;
+                        border: 1px dotted #ccc;
+                        cursor: move;
+                        margin-top: 12px;
+                    }
+
+                </style>
+                <tbody id="product_order">
                     @foreach ($product as $item => $value1)
-                        <tr>
+                        <tr id="{{ $value1->product_id }}">
                             <td>{{ $value1->product_name }}</td>
                             <td><img width="150" src="{{ URL::to('uploads/product/' . $value1->product_img) }}"
                                     alt="{{ $value1->product_name }}"></td>
@@ -106,7 +132,6 @@
                             </td>
                         </tr>
                     @endforeach
-
                 </tbody>
             </table>
             <div class="float-right mt-2">
@@ -115,3 +140,31 @@
         </div>
     </div>
 @endsection
+@push('scripts')
+    <script>
+        $(document).ready(function() {
+            $('#product_order').sortable({
+                placeholder: 'ui-state-hightlight',
+                update: function(event, ui) {
+                    var page_id_array = new Array();
+                    var _token = $('input[name="_token"]').val();
+                    $('#product_order tr').each(function() {
+                        page_id_array.push($(this).attr("id"));
+                    });
+                    $.ajax({
+                        type: "post",
+                        url: "{{ url('/admin/product/arrange-product') }}",
+                        data: {
+                            page_id_array: page_id_array,
+                            _token: _token
+                        },
+                        success: function(result) {
+                            console.log(result);
+                        }
+                    });
+                }
+            });
+        });
+
+    </script>
+@endpush

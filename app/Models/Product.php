@@ -23,7 +23,8 @@ class Product extends Model
         'product_discount',
         'product_detail',
         'product_img',
-        'product_status'
+        'product_status',
+        'product_order'
     ];
     public $timestamps = true;
     function brand(){

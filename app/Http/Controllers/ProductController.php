@@ -24,7 +24,12 @@ class ProductController extends Controller
     public function all_product()
     {
         AuthLogin();
-        $product = Product::orderBy('product_id', 'desc')->paginate(5);
+        if(isset($_GET['entries'])){
+            $paginate = $_GET['entries'];
+            $product = Product::orderBy('product_order', 'asc')->paginate($paginate);
+        }else{
+            $product = Product::orderBy('product_order', 'asc')->paginate(5);
+        }
         return view('admin.product.all-product', compact('product'));
     }
     public function save_product(Request $request)
@@ -140,5 +145,14 @@ class ProductController extends Controller
     }
     // end backend
     //
+    public function arrange_product(Request $request)
+    {
+        $product_id = $request->page_id_array;
 
+        foreach($product_id as $key => $value){
+            $product = Product::find($value);
+            $product->product_order = $key;
+            $product->save();
+        }
+    }
 }

@@ -139,6 +139,8 @@ Route::group(['prefix' => 'admin'], function () {
         // cmt
         Route::get('/comment/{product_id}', [ProductController::class, 'comment']);
         Route::get('/delete-comment/{product_id}', [ProductController::class, 'delete_comment']);
+        // arrange
+        Route::post('/arrange-product', [ProductController::class, 'arrange_product']);
     });
     Route::group(['prefix' => 'comment'], function () {
         Route::get('/show-comment', [CommentController::class, 'show_comment']);

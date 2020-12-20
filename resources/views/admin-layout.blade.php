@@ -21,6 +21,7 @@
 </head>
 
 <body>
+    @csrf
     <div class="wrapper">
         <nav id="sidebar" class="sidebar">
             <div class="sidebar-content js-simplebar">
@@ -290,7 +291,7 @@
                                         4 New Messages
                                     </div>
                                 </div>
-                                <div class="list-group">
+                                {{-- <div class="list-group">
                                     <a href="#" class="list-group-item">
                                         <div class="row g-0 align-items-center">
                                             <div class="col-2">
@@ -347,7 +348,7 @@
                                             </div>
                                         </div>
                                     </a>
-                                </div>
+                                </div> --}}
                                 <div class="dropdown-menu-footer">
                                     <a href="#" class="text-muted">Show all messages</a>
                                 </div>
@@ -420,270 +421,7 @@
     <script src="{{ asset('backend/js/moment.min.js') }}"></script>
     <script src="{{ asset('backend/js/daterangepicker.min.js') }}"></script>
     <script src="{{ asset('backend/js/main.js') }}"></script>
-    <script>
-        $('#picker').daterangepicker({
-            startDate: moment().subtract(29, 'days'),
-            endDate: moment(),
-            ranges: {
-            '7 ngày trước': [moment().subtract(6, 'days'), moment()],
-            'Tuần này': [moment().startOf('isoWeek'), moment().endOf('isoWeek')],
-            'Tuần trước': [moment().subtract(1, 'week').startOf('isoWeek'), moment().subtract(1, 'week').endOf('isoWeek')],
-            '30 ngày trước': [moment().subtract(29, 'days'), moment()],
-            'Tháng này': [moment().startOf('month'), moment().endOf('month')],
-            'Tháng trước': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
-            }
-        },
-        function (start, end){
-            $('#datepicker').html(start.format('YYYY-MM-DD') + ' - ' + end.format('YYYY-MM-DD'));
-            var start = start.format('YYYY-MM-DD');
-            var end = end.format('YYYY-MM-DD');
-            var _token = $('input[name=_token]').val();
-            $.ajax({
-                type: "post",
-                url: "{{ url('/load-statistic') }}",
-                data:{
-                    start: start,
-                    end: end,
-                    _token: _token
-                },
-                dataType: "json",
-                success: function (data) {
-                    var labels = [];
-                    var dat = [];
-                    var order = [];
-                    $.each(data, function (key, value) {
-                    labels.push(value.order_date);
-                    dat.push(value.profit);
-                    order.push(value.order);
-                    })
-                    chart.data.labels = labels;
-                    chart.data.datasets[0].data = dat;
-                    chart.data.datasets[1].data = order;
-                    chart.update();
-                }
-            });
-        });
-        var ctx = document.getElementById("chartjs-dashboard-line").getContext("2d");
-        var gradient = ctx.createLinearGradient(0, 0, 0, 225);
-        gradient.addColorStop(0, "rgba(255, 217, 112, 1)");
-        gradient.addColorStop(1, "rgba(255, 217, 112, 0)");
-        var gradient1 = ctx.createLinearGradient(0, 0, 0, 225);
-        gradient1.addColorStop(0, "rgba(133, 146, 219, 1)");
-        gradient1.addColorStop(1, "rgba(133, 146, 219, 0)");
-        var chart = new Chart(document.getElementById("chartjs-dashboard-line"), {
-                type: "line",
-                data: {
-                    labels: [],
-                    datasets: [{
-                        label: "Thu nhập",
-                        fill: true,
-                        backgroundColor: gradient,
-                        borderColor: window.theme.warning,
-                        data: []
-                    }, {
-                        label: "Đơn hàng",
-                        fill: true,
-                        backgroundColor: gradient1,
-                        borderColor: window.theme.primary,
-                        data: []
-                    }]
-                },
-                options: {
-                    maintainAspectRatio: false,
-                    legend: {
-                        display: true
-                    },
-                    tooltips: {
-                        intersect: false,
-                        callbacks: {
-                            label: function(tooltipItem, data) {
-                                var label = data.datasets[tooltipItem.datasetIndex].label || '';
-                                if (label) {
-                                    label += ': ';
-                                }
-                                label += tooltipItem.yLabel.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+' đ'
-                                return label;
-                            }
-                        }
-                    },
-                    hover: {
-                        intersect: true
-                    },
-                    plugins: {
-                        filler: {
-                            propagate: false
-                        }
-                    },
-                    scales: {
-                        xAxes: [{
-                            reverse: true,
-                            gridLines: {
-                                color: "rgba(0,0,0,0.0)"
-                            }
-                        }],
-                        yAxes: [{
-                            ticks: {
-                                stepSize: 2000000,
-                                callback: function(value, index, values) {
-                                    if(parseInt(value) >= 1000){
-                                        return  value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+' đ';
-                                    } else {
-                                        return value;
-                                    }
-                                }
-                            },
-                            display: true,
-                            borderDash: [3, 3],
-                            gridLines: {
-                                color: "rgba(0,0,0,0.0)"
-                            }
-                        }]
-                    }
-                }
-            });
-            function load_data(){
-                var _token = $('input[name=_token]').val();
-                $.ajax({
-                    type: "post",
-                    url: "{{ url('/load-chart') }}",
-                    data:{
-                        _token: _token
-                    },
-                    dataType: "json",
-                    success: function (data) {
-                        var labels = [];
-                        var dat = [];
-                        var order = [];
-                        $.each(data, function (key, value) {
-                        labels.push(value.order_date);
-                        dat.push(value.profit);
-                        order.push(value.order);
-                        })
-                        chart.data.labels = labels;
-                        chart.data.datasets[0].data = dat;
-                        chart.data.datasets[1].data = order;
-                        chart.update();
-                    }
-                });
-            }
-            load_data();
-    </script>
-    <script>
-		document.addEventListener("DOMContentLoaded", function() {
-			// Pie chart
-			new Chart(document.getElementById("chartjs-dashboard-pie"), {
-				type: "pie",
-				data: {
-					labels: ["Chrome", "Firefox", "IE"],
-					datasets: [{
-						data: [4306, 3801, 1689],
-						backgroundColor: [
-							window.theme.primary,
-							window.theme.warning,
-							window.theme.danger
-						],
-						borderWidth: 5
-					}]
-				},
-				options: {
-					responsive: !window.MSInputMethodContext,
-					maintainAspectRatio: false,
-					legend: {
-						display: false
-					},
-					cutoutPercentage: 75
-				}
-			});
-		});
-	</script>
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            var markers = [{
-                    coords: [31.230391, 121.473701],
-                    name: "Shanghai"
-                },
-                {
-                    coords: [37.532600, 127.024612],
-                    name: "Seoul"
-                },
-                {
-                    coords: [55.751244, 37.618423],
-                    name: "Moscow"
-                },
-                {
-                    coords: [35.689487, 139.691711],
-                    name: "Tokyo"
-                },
-                {
-                    coords: [17.483, 106.600],
-                    name: "Quang Binh"
-                },
-                {
-                    coords: [40.7127837, -74.0059413],
-                    name: "New York"
-                },
-                {
-                    coords: [34.052235, -118.243683],
-                    name: "Los Angeles"
-                },
-                {
-                    coords: [41.878113, -87.629799],
-                    name: "Chicago"
-                },
-                {
-                    coords: [51.507351, -0.127758],
-                    name: "London"
-                },
-                {
-                    coords: [40.416775, -3.703790],
-                    name: "Madrid "
-                }
-            ];
-            var map = new JsVectorMap({
-                map: "world",
-                selector: "#world_map",
-                zoomButtons: true,
-                markers: markers,
-                markerStyle: {
-                    initial: {
-                        r: 9,
-                        strokeWidth: 7,
-                        stokeOpacity: .4,
-                        fill: window.theme.primary
-                    },
-                    hover: {
-                        fill: window.theme.primary,
-                        stroke: window.theme.primary
-                    }
-                }
-            });
-            window.addEventListener("resize", () => {
-                map.updateSize();
-            });
-        });
-
-    </script>
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            document.getElementById("datetimepicker-dashboard").flatpickr({
-                inline: true,
-                prevArrow: "<span class=\"fas fa-chevron-left\" title=\"Previous month\"></span>",
-                nextArrow: "<span class=\"fas fa-chevron-right\" title=\"Next month\"></span>",
-            });
-        });
-
-    </script>
-    <script>
-        CKEDITOR.replace('xau');
-        CKEDITOR.replace('xau1', {
-            filebrowserBrowseUrl: '{{ asset('ckeditor/ckfinder/ckfinder.html') }}',
-            filebrowserImageBrowseUrl: '{{ asset('ckeditor/ckfinder/ckfinder.html?type=Images') }}',
-            filebrowserFlashBrowseUrl : '{{ asset('ckeditor/ckfinder/ckfinder.html?type=Flash') }}',
-            filebrowserUploadUrl : '{{ asset('ckeditor/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files') }}',
-            filebrowserImageUploadUrl : '{{ asset('ckeditor/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images') }}',
-            filebrowserFlashUploadUrl : '{{ asset('ckeditor/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Flash') }}'
-        });
-    </script>
+    @stack('scripts')
 </body>
 
 </html>
