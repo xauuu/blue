@@ -35,7 +35,7 @@
 
                     <li class="sidebar-item {{ Request::is('admin/dashboard') ? 'active' : '' }}">
                         <a class="sidebar-link" href="{{ URL::to('/admin/dashboard') }}">
-                            <i class="align-middle" data-feather="sliders"></i> <span
+                            <i class="align-middle" data-feather="airplay"></i> <span
                                 class="align-middle">Dashboard</span>
                         </a>
                     </li>
@@ -167,6 +167,22 @@
                             </li>
                             <li class="sidebar-item"><a class="sidebar-link"
                                     href="{{ URL::to('/admin/post/all-post') }}">Xem bài viết</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-header">
+                        Giao diện
+                    </li>
+                    <li class="sidebar-item {{ Request::is('admin/slider/*') ? 'active' : '' }}">
+                        <a data-target="#slider" data-toggle="collapse" class="sidebar-link collapsed">
+                            <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Slider</span>
+                        </a>
+                        <ul id="slider" class="sidebar-dropdown list-unstyled collapse " data-parent="#sidebar">
+                            <li class="sidebar-item"><a class="sidebar-link"
+                                    href="{{ URL::to('/admin/slider/add-slider') }}">Thêm slider</a>
+                            </li>
+                            <li class="sidebar-item"><a class="sidebar-link"
+                                    href="{{ URL::to('/admin/slider/all-slider') }}">Danh sách slider</a>
                             </li>
                         </ul>
                     </li>

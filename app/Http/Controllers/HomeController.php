@@ -11,8 +11,10 @@ use App\Models\Category;
 use App\Models\Customer;
 use App\Models\Customer_Social;
 use App\Models\Product;
+use App\Models\Slider;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\File;
 use Socialite;
 
 class HomeController extends Controller
@@ -21,7 +23,8 @@ class HomeController extends Controller
     {
         $category = Category::all();
         $product_latest = Product::latest()->limit(8)->get();
-        return view('pages.home', compact('category', 'product_latest'));
+        $slider = Slider::all();
+        return view('pages.home', compact('category', 'product_latest', 'slider'));
     }
     public function shop()
     {
@@ -407,5 +410,20 @@ class HomeController extends Controller
         $category = Category::all();
         $customer = Customer::where('id', session('customer_id'))->first();
         return view('pages.my-account', compact('category', 'customer'));
+    }
+    public function update_account(Request $request)
+    {
+        $customer = Customer::find(session('customer_id'));
+        $customer->customer_name = $request->name;
+        $customer->customer_email = $request->email;
+        if ($request->hasFile('img')) {
+            $file = $request->file('img');
+            $name = vn_to_str($request->name);
+            $img_name = $name . '-' . 'avatar' . '-' . date('mdYHis') . '.' . $file->getClientOriginalExtension();
+            $file->move('uploads/avatar', $img_name);
+            $customer->customer_avatar = url('/').'/uploads/avatar/'.$img_name;
+        }
+        $customer->save();
+        return redirect()->back();
     }
 }

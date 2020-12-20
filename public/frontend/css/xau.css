@@ -718,7 +718,16 @@
 .blog__comment__item__pic img {
     border-radius: 50%;
 }
-
+.blog__comment__item__pic .avac {
+    width: 85px;
+    height: 85px;
+    object-fit: cover;
+}
+.blog__comment__item__pic .avar {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+}
 .blog__comment__item__text {
     overflow: hidden;
 }

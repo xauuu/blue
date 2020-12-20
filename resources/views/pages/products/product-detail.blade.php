@@ -135,7 +135,7 @@
                             <div class="blog__comment__item">
                                 <div class="blog__comment__item__pic">
                                     @if ($cmt->customer->customer_avatar != '')
-                                        <img width="85" src="{{ $cmt->customer->customer_avatar }}" alt="">
+                                        <img class="avac" src="{{ $cmt->customer->customer_avatar }}" alt="">
                                     @else
                                         <div class="cmt-avt">{{ $cmt->customer->customer_name[0] }}</div>
                                     @endif
@@ -155,7 +155,7 @@
                                                 <div class="blog__comment__item__text mt-4">
                                                     <div class="blog__comment__item__pic">
                                                         @if ($reply->customer->customer_avatar != '')
-                                                            <img width="75" src="{{ $reply->customer->customer_avatar }}"
+                                                            <img class="avar" src="{{ $reply->customer->customer_avatar }}"
                                                                 alt="">
                                                         @else
                                                             <div class="reply-avt">{{ $reply->customer->customer_name[0] }}

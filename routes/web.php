@@ -14,6 +14,7 @@ use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\MailController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductDetail;
+use App\Http\Controllers\SliderController;
 use App\Models\Product;
 
 /*
@@ -41,7 +42,7 @@ Route::post('/check-registration', [HomeController::class, 'check_registration']
 Route::get('/logout', [HomeController::class, 'logout']);
 
 Route::get('/my-account', [HomeController::class, 'my_account']);
-
+Route::post('/update-account', [HomeController::class, 'update_account']);
 //Login facebook
 Route::get('/login-facebook', [HomeController::class, 'login_facebook']);
 Route::get('/login-customer/callback', [HomeController::class, 'callback_facebook']);
@@ -181,5 +182,14 @@ Route::group(['prefix' => 'admin'], function () {
         Route::post('/update-post', [PostController::class, 'update_post']);
         Route::get('/delete-post/{post_id}', [PostController::class, 'delete_post']);
         Route::get('/status-post/{post_id}', [PostController::class, 'status_post']);
+    });
+    Route::group(['prefix' => 'slider'], function () {
+        Route::get('/add-slider', [SliderController::class, 'add_slider']);
+        Route::get('/all-slider', [SliderController::class, 'all_slider']);
+        Route::post('/save-slider', [SliderController::class, 'save_slider']);
+        Route::get('/edit-slider/{slider_id}', [SliderController::class, 'edit_slider']);
+        Route::post('/update-slider', [SliderController::class, 'update_slider']);
+        Route::get('/delete-slider/{slider_id}', [SliderController::class, 'delete_slider']);
+        Route::get('/status-slider/{slider_id}', [SliderController::class, 'status_slider']);
     });
 });
