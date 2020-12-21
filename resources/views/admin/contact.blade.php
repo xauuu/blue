@@ -26,6 +26,11 @@
                                 value="{{ $contact->contact_address }}">
                         </div>
                         <div class="mb-3">
+                            <label class="form-label">Công ty</label>
+                            <input type="text" class="form-control" name="contact_company"
+                                value="{{ $contact->contact_company }}">
+                        </div>
+                        <div class="mb-3">
                             <label class="form-label">Số điện thoại</label>
                             <input type="text" class="form-control" name="contact_phone"
                                 value="{{ $contact->contact_phone }}">

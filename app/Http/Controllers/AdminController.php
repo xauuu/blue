@@ -140,6 +140,7 @@ class AdminController extends Controller
         $contact->contact_address = $request->contact_address;
         $contact->contact_phone = $request->contact_phone;
         $contact->contact_email = $request->contact_email;
+        $contact->contact_company = $request->contact_company;
         $contact->save();
         return Redirect::back()->with('success', 'Đã cập nhật thông tin liên hệ');
     }

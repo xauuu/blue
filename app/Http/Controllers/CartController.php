@@ -61,8 +61,9 @@ class CartController extends Controller
 
     public function show_cart()
     {
+        $contact = Contact::first();
         $category = Category::all();
-        return view('pages.cart.show-cart', compact('category'));
+        return view('pages.cart.show-cart', compact('category', 'contact'));
     }
     public function delete_item($rowId)
     {

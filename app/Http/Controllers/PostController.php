@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Redirect;
 use App\Models\CategoryPost;
+use App\Models\Contact;
 use App\Models\Post;
 use App\Models\PostComment;
 use Illuminate\Support\Facades\File;
@@ -164,12 +165,14 @@ class PostController extends Controller
     //
     public function blog()
     {
+        $contact = Contact::first();
         $category = Category::all();
         $post = Post::all();
-        return view('pages.blog.blog', compact('category', 'post'));
+        return view('pages.blog.blog', compact('category', 'post', 'contact'));
     }
     public function blog_detail($post_slug)
     {
+        $contact = Contact::first();
         $category = Category::all();
         $post_detail = Post::where('post_slug', $post_slug)->first();
         // luot xem
@@ -178,7 +181,7 @@ class PostController extends Controller
         // end luot xem
         $category_post = CategoryPost::all();
         $recent_post = Post::whereNotIn('post_slug', [$post_slug])->latest()->limit(5)->get();
-        return view('pages.blog.blog-detail', compact('category', 'post_detail','category_post','recent_post'));
+        return view('pages.blog.blog-detail', compact('category', 'post_detail','category_post','recent_post', 'contact'));
     }
     public function add_post_comment(Request $request)
     {

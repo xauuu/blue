@@ -12,6 +12,7 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\CouponController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\MailController;
+use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductDetail;
 use App\Http\Controllers\SliderController;
@@ -89,7 +90,10 @@ Route::post('/add-rating', [ProductDetail::class, 'add_rating']);
 Route::get('/your-order', [CheckOutController::class, 'your_order']);
 Route::get('/cancel-order/{order_id}', [CheckOutController::class, 'cancel_your_order']);
 // contact
-Route::get('/contact', [HomeController::class, 'contact']);
+Route::get('/contact', [PageController::class, 'contact']);
+// faq
+Route::get('/faq', [PageController::class, 'faq']);
+
 
 // Back end
 Route::post('/load-statistic', [AdminController::class, 'load_statistic']);

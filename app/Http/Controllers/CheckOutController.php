@@ -13,6 +13,7 @@ use App\Models\Product;
 use App\Models\Category;
 use App\Models\Brand;
 use App\Models\City;
+use App\Models\Contact;
 use App\Models\District;
 use App\Models\Shipping;
 use App\Models\Order;
@@ -26,10 +27,11 @@ class CheckOutController extends Controller
 {
     public function check_out()
     {
+        $contact = Contact::first();
         $category = Category::all();
         $city = City::orderBy('matp', 'asc')->get();
         if (session('customer_id')) {
-            return view('pages.cart.check-out', compact('category', 'city'));
+            return view('pages.cart.check-out', compact('category', 'city', 'contact'));
         } else {
             return Redirect::to('/login-customer');
         }
@@ -120,9 +122,10 @@ class CheckOutController extends Controller
     }
     public function your_order()
     {
+        $contact = Contact::first();
         $category = Category::all();
         $order = Order::where('customer_id', session('customer_id'))->orderBy('order_id', 'desc')->get();
-        return view('pages.cart.your-order', compact('category', 'order'));
+        return view('pages.cart.your-order', compact('category', 'order', 'contact'));
     }
     public function cancel_your_order($order_id)
     {

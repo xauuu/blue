@@ -15,6 +15,7 @@
 
 
     <!-- Stylesheets -->
+    {{-- <link rel="stylesheet" href="{{ asset('frontend/css/style.bundle.css') }}" /> --}}
     <link rel="stylesheet" href="{{ asset('frontend/css/bootstrap.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('frontend/css/font-awesome.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('frontend/css/flaticon.css') }}" />
@@ -26,6 +27,7 @@
     <link rel="stylesheet" href="{{ asset('frontend/css/easydropdown.css') }}" />
     <link rel="stylesheet" href="{{ asset('frontend/css/style.css') }}" />
     <link rel="stylesheet" href="{{ asset('frontend/css/xau.css') }}" />
+
 
 
     <!--[if lt IE 9]>
@@ -66,7 +68,7 @@
                         </form>
                         <div id="search-list"></div>
                     </div>
-                    <div class="col-xl-3 col-lg-5">
+                    <div class="col-xl-4 col-lg-5">
                         <div class="user-panel float-right">
                             <div class="up-item">
                                 <div class="shopping-card">
@@ -192,19 +194,19 @@
                         <h2>Information</h2>
                         <div class="con-info">
                             <span>C.</span>
-                            <p>VKU </p>
+                            <p>{{ $contact->contact_company }} </p>
                         </div>
                         <div class="con-info">
                             <span>A.</span>
-                            <p>Quang Binh, Viet Nam </p>
+                            <p>{{ $contact->contact_address }} </p>
                         </div>
                         <div class="con-info">
                             <span>P.</span>
-                            <p>+84886381845</p>
+                            <p>{{ $contact->contact_phone }}</p>
                         </div>
                         <div class="con-info">
                             <span>E.</span>
-                            <p>tqdat.19it1@vku.udn.vn</p>
+                            <p>{{ $contact->contact_email }}</p>
                         </div>
                     </div>
                 </div>

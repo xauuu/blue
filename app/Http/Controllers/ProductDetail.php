@@ -11,6 +11,7 @@ use App\Models\Product;
 use App\Models\Category;
 use App\Models\Brand;
 use App\Models\Comment;
+use App\Models\Contact;
 use App\Models\Rating;
 
 class ProductDetail extends Controller
@@ -18,7 +19,7 @@ class ProductDetail extends Controller
     public function product_detail($product_slug)
     {
         $category = Category::where('category_status', 1)->get();
-
+        $contact = Contact::first();
         $pro_slug = Product::where('product_slug', $product_slug)->first();
         $product_id = $pro_slug->product_id;
 
@@ -30,7 +31,7 @@ class ProductDetail extends Controller
         $related = Product::where('category_id', $detail->category_id)->get();
         $rating = Rating::where('product_id', $product_id)->avg('rating');
         $rating = round($rating);
-        return view('pages.products.product-detail', compact('category', 'detail', 'related', 'rating'));
+        return view('pages.products.product-detail', compact('category', 'detail', 'related', 'rating', 'contact'));
     }
     public function add_comment(Request $request)
     {

@@ -32,12 +32,12 @@ return [
     'facebook' => [
         'client_id' => '1269305420109881',
         'client_secret' => 'd7de17b39b7b62c440a8585131e31f29',
-        'redirect' => 'http://localhost/WEB_Laravel/public/login-customer/callback'
+        'redirect' => 'https://shopblue.com/WEB_Laravel/public/login-customer/callback'
     ],
     'google' => [
         'client_id' => '480333666223-behtvqqle6di8408ug7c3o8p066i6q04.apps.googleusercontent.com',
         'client_secret' => 'gzm2XaOnD4qj7bnzD1uHtbRU',
-        'redirect' => 'http://localhost/WEB_Laravel/public/login-customer/google/callback'
+        'redirect' => 'https://shopblue.com/WEB_Laravel/public/login-customer/google/callback'
     ],
 
 

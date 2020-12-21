@@ -25,7 +25,8 @@ class HomeController extends Controller
         $category = Category::all();
         $product_latest = Product::latest()->limit(8)->get();
         $slider = Slider::all();
-        return view('pages.home', compact('category', 'product_latest', 'slider'));
+        $contact = Contact::first();
+        return view('pages.home', compact('category', 'product_latest', 'slider', 'contact'));
     }
     public function shop()
     {
@@ -34,7 +35,7 @@ class HomeController extends Controller
         $page = isset($cook) ? $cook : 6;
         $category = Category::where('category_status', 1)->get();
         $brand = Brand::where('brand_status', 1)->get();
-
+        $contact = Contact::first();
         if (isset($_GET['sort'])) {
             $sort = $_GET['sort'];
             if ($sort == 'tang_dan') {
@@ -64,13 +65,13 @@ class HomeController extends Controller
         } else {
             $product = Product::where('product_status', 1)->paginate($page);
         }
-        return view('pages.categories.show-product', compact('product', 'category', 'brand'));
+        return view('pages.categories.show-product', compact('product', 'category', 'brand', 'contact'));
     }
     public function category($category_slug)
     {
         $category = Category::where('category_status', 1)->get();
         $brand = Brand::where('brand_status', 1)->get();
-
+        $contact = Contact::first();
         $customer_id = Session::get('customer_id') != null ? Session::get('customer_id') : 0;
         $cook = Cookie::get($customer_id);
         $page = isset($cook) ? $cook : 6;
@@ -132,14 +133,14 @@ class HomeController extends Controller
                 })->where('product_quantity', '>', 0)->paginate($page);
         }
 
-        return view('pages.categories.show-product', compact('product', 'category', 'brand'));
+        return view('pages.categories.show-product', compact('product', 'category', 'brand', 'contact'));
     }
     public function brand($brand_slug)
     {
         $customer_id = Session::get('customer_id') != null ? Session::get('customer_id') : 0;
         $cook = Cookie::get($customer_id);
         $page = isset($cook) ? $cook : 6;
-
+        $contact = Contact::first();
         $category = Category::where('category_status', 1)->get();
         $brand = Brand::where('brand_status', 1)->get();
 
@@ -183,14 +184,14 @@ class HomeController extends Controller
                 ->paginate($page);
         }
 
-        return view('pages.categories.show-product', compact('product', 'category', 'brand'));
+        return view('pages.categories.show-product', compact('product', 'category', 'brand', 'contact'));
     }
     public function tag($tag)
     {
         $customer_id = Session::get('customer_id') != null ? Session::get('customer_id') : 0;
         $cook = Cookie::get($customer_id);
         $page = isset($cook) ? $cook : 6;
-
+        $contact = Contact::first();
         $category = Category::where('category_status', 1)->get();
         $brand = Brand::where('brand_status', 1)->get();
 
@@ -199,7 +200,7 @@ class HomeController extends Controller
             ->orWhere('product_tag', 'LIKE', '%' . $tag . '%')
             ->orWhere('product_slug', 'LIKE', '%' . $tag . '%')
             ->paginate($page);
-        return view('pages.categories.show-product', compact('product', 'category', 'brand'));
+        return view('pages.categories.show-product', compact('product', 'category', 'brand', 'contact'));
     }
     public function login()
     {
@@ -276,8 +277,9 @@ class HomeController extends Controller
             foreach ($search as $item) {
                 $output .= '
                     <li>
-                        <a class="dropdown-item" href="' . url('/product-detail/' . $item->product_slug) . '">' . $item->product_name . '
-                        <span class="search-price">' . number_format($item->product_discount) . ' VND</span>
+                        <a class="dropdown-item" href="' . url('/product-detail/' . $item->product_slug) . '">
+                        <span>' . $item->product_name . ' -&nbsp</span>
+                        <span> ' . number_format($item->product_discount) . ' VND</span>
                         </a>
                     </li>';
             }
@@ -408,9 +410,10 @@ class HomeController extends Controller
     }
     public function my_account()
     {
+        $contact = Contact::first();
         $category = Category::all();
         $customer = Customer::where('id', session('customer_id'))->first();
-        return view('pages.my-account', compact('category', 'customer'));
+        return view('pages.my-account', compact('category', 'customer', 'contact'));
     }
     public function update_account(Request $request)
     {
@@ -427,10 +430,5 @@ class HomeController extends Controller
         $customer->save();
         return redirect()->back();
     }
-    public function contact()
-    {
-        $category = Category::all();
-        $contact = Contact::first();
-        return view('pages.contact', compact('category', 'contact'));
-    }
+
 }

@@ -13,7 +13,8 @@ class Contact extends Model
     protected $fillable = [
         'contact_name',
         'contact_phone',
-        'contact_address'
+        'contact_address',
+        'contact_company'
     ];
     public $timestamps = false;
 }
