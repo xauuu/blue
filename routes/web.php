@@ -57,6 +57,8 @@ Route::get('/tag/{tag}', [HomeController::class, 'tag']);
 // blog
 Route::get('/blog', [PostController::class, 'blog']);
 Route::get('/blog-detail/{post_slug}', [PostController::class, 'blog_detail']);
+// comment post
+Route::post('/add-post-cmt', [PostController::class, 'add_post_comment']);
 // cart
 Route::post('/add-cart', [CartController::class, 'add_cart_w_qty']);
 Route::post('/add-cart-ajax', [CartController::class, 'add_cart_ajax']);
@@ -86,7 +88,8 @@ Route::post('/add-rating', [ProductDetail::class, 'add_rating']);
 // your-order
 Route::get('/your-order', [CheckOutController::class, 'your_order']);
 Route::get('/cancel-order/{order_id}', [CheckOutController::class, 'cancel_your_order']);
-
+// contact
+Route::get('/contact', [HomeController::class, 'contact']);
 
 // Back end
 Route::post('/load-statistic', [AdminController::class, 'load_statistic']);
@@ -194,4 +197,6 @@ Route::group(['prefix' => 'admin'], function () {
         Route::get('/delete-slider/{slider_id}', [SliderController::class, 'delete_slider']);
         Route::get('/status-slider/{slider_id}', [SliderController::class, 'status_slider']);
     });
+    Route::get('/contact', [AdminController::class, 'contact']);
+    Route::post('/update-contact', [AdminController::class, 'update_contact']);
 });

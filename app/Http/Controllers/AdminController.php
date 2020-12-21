@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Contact;
 use App\Models\Customer;
 use App\Models\Statistic;
 use Carbon\Carbon;
@@ -127,5 +128,19 @@ class AdminController extends Controller
             );
         }
         echo json_encode($chart);
+    }
+    public function contact()
+    {
+        $contact = Contact::first();
+        return view('admin.contact', compact('contact'));
+    }
+    public function update_contact(Request $request)
+    {
+        $contact = Contact::first();
+        $contact->contact_address = $request->contact_address;
+        $contact->contact_phone = $request->contact_phone;
+        $contact->contact_email = $request->contact_email;
+        $contact->save();
+        return Redirect::back()->with('success', 'Đã cập nhật thông tin liên hệ');
     }
 }

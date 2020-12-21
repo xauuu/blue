@@ -187,6 +187,11 @@
                             </li>
                         </ul>
                     </li>
+                    <li class="sidebar-item {{ Request::is('admin/contact') ? 'active' : '' }}">
+                        <a class="sidebar-link" href="{{ URL::to('/admin/contact') }}">
+                            <i class="align-middle" data-feather="phone"></i> <span class="align-middle">Liên hệ</span>
+                        </a>
+                    </li>
                 </ul>
 
             </div>

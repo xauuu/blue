@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Redirect;
 use App\Models\CategoryPost;
 use App\Models\Post;
+use App\Models\PostComment;
 use Illuminate\Support\Facades\File;
 
 class PostController extends Controller
@@ -178,5 +179,46 @@ class PostController extends Controller
         $category_post = CategoryPost::all();
         $recent_post = Post::whereNotIn('post_slug', [$post_slug])->latest()->limit(5)->get();
         return view('pages.blog.blog-detail', compact('category', 'post_detail','category_post','recent_post'));
+    }
+    public function add_post_comment(Request $request)
+    {
+        $post_comment = new PostComment();
+        $post_comment->customer_id = session('customer_id');
+        $post_comment->post_id = $request->post_id;
+        $post_comment->post_comment_content = $request->content;
+        $post_comment->post_comment_time = date('d \t\h\á\n\g m, Y');
+        $post_comment->save();
+        if (session('customer_avatar') != '') {
+            $content = '
+            <div class="blog__comment__item">
+                <div class="blog__comment__item__pic">
+                    <img width="85" src="' . session('customer_avatar') . '" alt="">
+                </div>
+                <div class="blog__comment__item__text">
+                    <h6>' . session('customer_name') . '</h6>
+                    <p>' . $request->content . '</p>
+                    <ul>
+                        <li><i class="fa fa-clock-o"></i> ' . date('d \t\h\á\n\g m, Y') . '</li>
+                    </ul>
+                </div>
+            </div>';
+        } else {
+            $content = '
+            <div class="blog__comment__item">
+                <div class="blog__comment__item__pic">
+                    <div class="cmt-avt">' . session('customer_name')[0] . '</div>
+                </div>
+                <div class="blog__comment__item__text">
+                    <h6>' . session('customer_name') . '</h6>
+                    <p>' . $request->content . '</p>
+                    <ul>
+                        <li><i class="fa fa-clock-o"></i> ' . date('d \t\h\á\n\g m, Y') . '</li>
+                    </ul>
+                </div>
+            </div>';
+        }
+
+        echo $content;
+
     }
 }

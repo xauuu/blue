@@ -238,6 +238,27 @@ $(document).ready(function () {
         });
     });
     // end rating
+    // comment blog
+    $('#post_cmt').click(function (e) {
+        var post_id = $(this).data('post_id');
+        var content = $('#cmt').val();
+        var _token = $('input[name=_token]').val();
+        var url = $('input[name=this_url]').val() + '/add-post-cmt';
+        $.ajax({
+            type: "post",
+            url: url,
+            data: {
+                post_id: post_id,
+                content: content,
+                _token: _token
+            },
+            success: function (result) {
+                $('#cmt').val('');
+                $('.blog__details__comment').append(result);
+            }
+        });
+    });
+    // end comment blog
     // back to top
     var btn = $('#backtotop');
     $(window).scroll(function () {

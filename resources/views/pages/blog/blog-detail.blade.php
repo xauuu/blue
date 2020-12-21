@@ -36,7 +36,8 @@
                                 <div class="col-lg-6 col-md-6 col-sm-6">
                                     <div class="blog__details__btn__item">
                                         @isset($post_detail->prev)
-                                        <h6><a href="{{ URL::to('/blog-detail/' . $post_detail->prev->post_slug) }}"><i class="fa fa-angle-left"></i> Previous posts</a></h6>
+                                            <h6><a href="{{ URL::to('/blog-detail/' . $post_detail->prev->post_slug) }}"><i
+                                                        class="fa fa-angle-left"></i> Previous posts</a></h6>
                                         @endisset
 
                                     </div>
@@ -53,54 +54,41 @@
                             </div>
                         </div>
                         <div class="blog__details__comment">
-                            <h5>3 Comment</h5>
-                            <a href="#" class="leave-btn">Leave a comment</a>
-                            <div class="blog__comment__item">
-                                <div class="blog__comment__item__pic">
-                                    <img width="90" src="{{ URL::asset('uploads/xau.jpg') }}" alt="">
+                            <h5>Bình luận</h5>
+                            <a href="#" class="leave-btn">Để lại bình luận</a>
+                            @foreach ($post_detail->comment as $item)
+                                <div class="blog__comment__item">
+                                    <div class="blog__comment__item__pic">
+                                        @if ($item->customer->customer_avatar != '')
+                                            <img class="avac" src="{{ $item->customer->customer_avatar }}" alt="">
+                                        @else
+                                            <div class="cmt-avt">{{ $item->customer->customer_name[0] }}</div>
+                                        @endif
+                                    </div>
+                                    <div class="blog__comment__item__text">
+                                        <h6>{{ $item->customer->customer_name }}</h6>
+                                        <p>{{ $item->post_comment_content }}</p>
+                                        <ul>
+                                            <li><i class="fa fa-clock-o"></i> {{ $item->post_comment_time }}</li>
+                                        </ul>
+                                    </div>
                                 </div>
-                                <div class="blog__comment__item__text">
-                                    <h6>Brandon Kelley</h6>
-                                    <p>Duis voluptatum. Id vis consequat consetetur dissentiet, ceteros commune perpetua
-                                        mei et. Simul viderer facilisis egimus tractatos splendi.</p>
-                                    <ul>
-                                        <li><i class="fa fa-clock-o"></i> Seb 17, 2019</li>
-                                        <li><i class="fa fa-heart-o"></i> 12</li>
-                                        <li><i class="fa fa-share"></i> 1</li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="blog__comment__item blog__comment__item--reply">
-                                <div class="blog__comment__item__pic">
-                                    <img width="90" src="{{ URL::asset('uploads/xau.jpg') }}" alt="">
-                                </div>
-                                <div class="blog__comment__item__text">
-                                    <h6>Brandon Kelley</h6>
-                                    <p>Consequat consetetur dissentiet, ceteros commune perpetua mei et. Simul viderer
-                                        facilisis egimus ulla mcorper.</p>
-                                    <ul>
-                                        <li><i class="fa fa-clock-o"></i> Seb 17, 2019</li>
-                                        <li><i class="fa fa-heart-o"></i> 12</li>
-                                        <li><i class="fa fa-share"></i> 1</li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="blog__comment__item">
-                                <div class="blog__comment__item__pic">
-                                    <img width="90" src="{{ URL::asset('uploads/xau.jpg') }}" alt="">
-                                </div>
-                                <div class="blog__comment__item__text">
-                                    <h6>Brandon Kelley</h6>
-                                    <p>Duis voluptatum. Id vis consequat consetetur dissentiet, ceteros commune perpetua
-                                        mei et. Simul viderer facilisis egimus tractatos splendi.</p>
-                                    <ul>
-                                        <li><i class="fa fa-clock-o"></i> Seb 17, 2019</li>
-                                        <li><i class="fa fa-heart-o"></i> 12</li>
-                                        <li><i class="fa fa-share"></i> 1</li>
-                                    </ul>
-                                </div>
-                            </div>
+                            @endforeach
+
                         </div>
+                        @if (session('customer_id'))
+                            <div class="mt-5">
+                                <form>
+                                    @csrf
+                                    <textarea id="cmt" rows="3" placeholder="Viết bình luận ...."></textarea>
+                                    <button id="post_cmt" type="button" data-post_id="{{ $post_detail->post_id }}"
+                                        class="btn btn-danger">Gửi bình
+                                        luận</button>
+                                </form>
+                            </div>
+                        @else
+                            <div>Bạn cần đăng nhập để bình luận sản phẩm này</div>
+                        @endif
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-4">
@@ -129,9 +117,9 @@
                                     </div>
                                     <div class="blog__feature__item__text">
                                         <h6 style="white-space: nowrap;
-                                            width: 200px;
-                                            overflow: hidden;
-                                            text-overflow: ellipsis;">{{ $item->post_title }}</h6>
+                                                        width: 200px;
+                                                        overflow: hidden;
+                                                        text-overflow: ellipsis;">{{ $item->post_title }}</h6>
                                         <span>{{ date('d F, Y', strtotime($item->created_at)) }}</span>
                                     </div>
                                 </a>

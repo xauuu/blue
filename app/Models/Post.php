@@ -36,4 +36,8 @@ class Post extends Model
     {
         return $this->hasOne(Post::class, 'category_post_id', 'category_post_id')->where('post_id', '<', $this->post_id)->latest()->take(1);
     }
+    public function comment()
+    {
+        return $this->hasMany(PostComment::class, 'post_id');
+    }
 }

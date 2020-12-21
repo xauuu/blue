@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Redirect;
 use App\Models\Category;
+use App\Models\Contact;
 use App\Models\Customer;
 use App\Models\Customer_Social;
 use App\Models\Product;
@@ -425,5 +426,11 @@ class HomeController extends Controller
         }
         $customer->save();
         return redirect()->back();
+    }
+    public function contact()
+    {
+        $category = Category::all();
+        $contact = Contact::first();
+        return view('pages.contact', compact('category', 'contact'));
     }
 }

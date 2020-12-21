@@ -128,7 +128,7 @@
                         @endif
                     @endforeach
                     <li><a href="{{ URL::to('/blog') }}">Blog</a></li>
-                    <li><a href="#">Liên hệ</a></li>
+                    <li><a href="{{ URL::to('/contact') }}">Liên hệ</a></li>
                 </ul>
             </div>
         </nav>
