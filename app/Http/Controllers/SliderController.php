@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Faq;
 use App\Models\Slider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
@@ -9,6 +10,7 @@ use Illuminate\Support\Facades\Redirect;
 
 class SliderController extends Controller
 {
+    // slider
     public function add_slider()
     {
         return  view('admin.slider.add-slider');
@@ -68,5 +70,43 @@ class SliderController extends Controller
         }
         $slider->save();
         return Redirect::to('/admin/slider/all-slider')->with('success', "Đã cập nhật slider");
+    }
+    // faq
+    public function add_faq()
+    {
+        return  view('admin.faq.add-faq');
+    }
+    public function save_faq(Request $request)
+    {
+        $faq = new Faq();
+        $faq->faq_question = $request->faq_question;
+        $faq->faq_answer = $request->faq_answer;
+
+        $faq->save();
+        return Redirect::to('admin/faq/all-faq')->with('success', 'Đã thêm câu hỏi mới');
+    }
+    public function all_faq()
+    {
+        $faq = Faq::all();
+        return view('admin.faq.all-faq', compact('faq'));
+    }
+    public function delete_faq($faq_id)
+    {
+        $faq = Faq::find($faq_id);
+        $faq->delete();
+        return redirect()->back()->with('success', "Đã xoá câu hỏi");
+    }
+    public function edit_faq($faq_id)
+    {
+        $faq = Faq::find($faq_id);
+        return view('admin.faq.edit-faq', compact('faq'));
+    }
+    public function update_faq(Request $request)
+    {
+        $faq = Faq::find($request->faq_id);
+        $faq->faq_question = $request->faq_question;
+        $faq->faq_answer = $request->faq_answer;
+        $faq->save();
+        return Redirect::to('/admin/faq/all-faq')->with('success', "Đã cập nhật câu hỏi");
     }
 }

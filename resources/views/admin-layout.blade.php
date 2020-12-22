@@ -192,6 +192,11 @@
                             <i class="align-middle" data-feather="phone"></i> <span class="align-middle">Liên hệ</span>
                         </a>
                     </li>
+                    <li class="sidebar-item {{ Request::is('admin/faq') ? 'active' : '' }}">
+                        <a class="sidebar-link" href="{{ URL::to('/admin/faq/all-faq') }}">
+                            <i class="align-middle" data-feather="help-circle"></i> <span class="align-middle">FAQ</span>
+                        </a>
+                    </li>
                 </ul>
 
             </div>

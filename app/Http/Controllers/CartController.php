@@ -13,6 +13,7 @@ use App\Models\Coupon;
 use App\Models\Shipping;
 use App\Models\Order;
 use App\Models\OrderDetail;
+use App\Models\Contact;
 use Cart;
 
 class CartController extends Controller

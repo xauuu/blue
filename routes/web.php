@@ -192,6 +192,7 @@ Route::group(['prefix' => 'admin'], function () {
         Route::get('/delete-post/{post_id}', [PostController::class, 'delete_post']);
         Route::get('/status-post/{post_id}', [PostController::class, 'status_post']);
     });
+    // slider
     Route::group(['prefix' => 'slider'], function () {
         Route::get('/add-slider', [SliderController::class, 'add_slider']);
         Route::get('/all-slider', [SliderController::class, 'all_slider']);
@@ -201,6 +202,16 @@ Route::group(['prefix' => 'admin'], function () {
         Route::get('/delete-slider/{slider_id}', [SliderController::class, 'delete_slider']);
         Route::get('/status-slider/{slider_id}', [SliderController::class, 'status_slider']);
     });
+    // contact
     Route::get('/contact', [AdminController::class, 'contact']);
     Route::post('/update-contact', [AdminController::class, 'update_contact']);
+    // faq
+    Route::group(['prefix' => 'faq'], function () {
+        Route::get('/add-faq', [SliderController::class, 'add_faq']);
+        Route::get('/all-faq', [SliderController::class, 'all_faq']);
+        Route::post('/save-faq', [SliderController::class, 'save_faq']);
+        Route::get('/edit-faq/{faq_id}', [SliderController::class, 'edit_faq']);
+        Route::post('/update-faq', [SliderController::class, 'update_faq']);
+        Route::get('/delete-faq/{faq_id}', [SliderController::class, 'delete_faq']);
+    });
 });
