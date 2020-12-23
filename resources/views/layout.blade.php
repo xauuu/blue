@@ -15,8 +15,8 @@
 
 
     <!-- Stylesheets -->
-    {{-- <link rel="stylesheet" href="{{ asset('frontend/css/style.bundle.css') }}" /> --}}
     <link rel="stylesheet" href="{{ asset('frontend/css/bootstrap.min.css') }}" />
+    @stack('css')
     <link rel="stylesheet" href="{{ asset('frontend/css/font-awesome.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('frontend/css/flaticon.css') }}" />
     <link rel="stylesheet" href="{{ asset('frontend/css/slicknav.min.css') }}" />
@@ -61,7 +61,8 @@
                         </a>
                     </div>
                     <div class="col-xl-6 col-lg-5">
-                        <form method="post" action="{{ URL::to('search') }}" class="header-search-form" autocomplete="off">
+                        <form method="post" action="{{ URL::to('search') }}" class="header-search-form"
+                            autocomplete="off">
                             @csrf
                             <input name="search" type="text" placeholder="Nhập tên sản phẩm hoặc giá ....">
                             <button type="submit"><i class="flaticon-search"></i></button>
@@ -86,7 +87,8 @@
                             <div class="up-item">
                                 <ul class="main-menu-us">
                                     @if (session('customer_id'))
-                                        <li><a href="{{ URL::to('my-account') }}"><i class="flaticon-profile"></i><span>{{ session('customer_name') }}</span></a>
+                                        <li><a href="{{ URL::to('my-account') }}"><i
+                                                    class="flaticon-profile"></i><span>{{ session('customer_name') }}</span></a>
                                             <ul class="sub-menu">
                                                 <li><a href="{{ URL::to('/your-order') }}">Đơn hàng</a></li>
                                                 <li><a href="{{ URL::to('/logout') }}">Đăng xuất</a></li>
@@ -242,7 +244,31 @@
     <script src="{{ asset('frontend/js/main.js') }}"></script>
     <script src="{{ asset('frontend/js/xau.js') }}"></script>
     <script src="{{ asset('frontend/js/jquery.easydropdown.min.js') }}"></script>
+    <div id="fb-root"></div>
+    <script>
+        window.fbAsyncInit = function() {
+            FB.init({
+                xfbml: true,
+                version: 'v9.0'
+            });
+        };
 
+        (function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s);
+            js.id = id;
+            js.src = 'https://connect.facebook.net/vi_VN/sdk/xfbml.customerchat.js';
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+
+    </script>
+
+    <!-- Your Chat Plugin code -->
+    <div class="fb-customerchat" attribution=setup_tool page_id="100895738606966" theme_color="#ff5ca1"
+        logged_in_greeting="Xin chào, Shop có thể giúp gì cho bạn?"
+        logged_out_greeting="Xin chào, Shop có thể giúp gì cho bạn?">
+    </div>
 </body>
 
 </html>
