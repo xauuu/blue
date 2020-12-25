@@ -32,7 +32,7 @@
                                 <div class="input-box">
                                     <div class="single-input-fields">
                                         <label>Email</label>
-                                        <input type="email" placeholder="Nhập email" name="email">
+                                        <input type="email" placeholder="Nhập email" name="email" value="{{ old('email') }}">
                                         @if (session('error'))
                                             <label class="error">
                                                 {{ session('error') }}

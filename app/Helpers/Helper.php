@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Auth;
 
 if (!function_exists('helper')) {
     function helper()
@@ -12,7 +13,7 @@ if (!function_exists('helper')) {
 if (!function_exists('AuthLogin')) {
     function AuthLogin()
     {
-        $id = Session::get('admin_id');
+        $id = Auth::id();
         if($id){
             return Redirect::to('admin/dashboard');
         }else{

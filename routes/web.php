@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
@@ -16,6 +17,7 @@ use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductDetail;
 use App\Http\Controllers\SliderController;
+use App\Http\Controllers\UserController;
 use App\Models\Product;
 
 /*
@@ -100,13 +102,19 @@ Route::post('/load-statistic', [AdminController::class, 'load_statistic']);
 Route::post('/load-chart', [AdminController::class, 'load_chart']);
 Route::group(['prefix' => 'admin'], function () {
     Route::get('/dashboard', [AdminController::class, 'index']);
-    Route::get('/login', [AdminController::class, 'login']);
-    Route::post('/checklogin', [AdminController::class, 'check_login']);
-    Route::get('/logout', [AdminController::class, 'logout']);
+    Route::get('/login', [AuthController::class, 'login']);
+    Route::post('/checklogin', [AuthController::class, 'check_login']);
+    Route::get('/logout', [AuthController::class, 'logout']);
     Route::get('/statistic', [AdminController::class, 'statistic']);
-    Route::get('/user', [AdminController::class, 'user']);
-    Route::get('/delete-user/{user_id}', [AdminController::class, 'delete_user']);
-    Route::get('/lock-user/{user_id}', [AdminController::class, 'lock_user']);
+    Route::get('/customer', [AdminController::class, 'customer']);
+    Route::get('/delete-customer/{customer_id}', [AdminController::class, 'customer_user']);
+    Route::get('/lock-customer/{customer_id}', [AdminController::class, 'customer_user']);
+
+    // User
+    Route::group(['prefix' => 'user'], function () {
+        Route::get('/all-user', [UserController::class, 'index']);
+        Route::post('/assign-roles', [UserController::class, 'assign_roles']);
+    });
     // Category
     Route::group(['prefix' => 'category'], function () {
         Route::get('/add-category', [CategoryController::class, 'add_category']);

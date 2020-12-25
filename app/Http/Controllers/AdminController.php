@@ -43,21 +43,21 @@ class AdminController extends Controller
             ->selectRaw('SUM(total_order) as total')->first();
         return view('admin.statistic.statistic', compact('statistic_week', 'statistic_month', 'statistic_total'));
     }
-    public function user()
+    public function customer()
     {
         AuthLogin();
         $user = Customer::all();
         return view('admin.user.show-user', compact('user'));
     }
-    public function delete_user($user_id)
+    public function delete_customer($customer_id)
     {
-        $user = Customer::find($user_id);
+        $user = Customer::find($customer_id);
         $user->delete();
         return redirect()->back()->with('success', 'Bạn đã xoá tài khoản: ' . $user->customer_email);
     }
-    public function lock_user($user_id)
+    public function lock_customer($customer_id)
     {
-        $user = Customer::find($user_id);
+        $user = Customer::find($customer_id);
         if ($user->customer_status == 0) {
             $user->customer_status = 1;
             $user->save();
@@ -68,33 +68,7 @@ class AdminController extends Controller
             return redirect()->back()->with('success', 'Bạn đã mở khoá tài khoản: ' . $user->customer_email);
         }
     }
-    public function login()
-    {
-        return view('admin-login');
-    }
-    public function check_login(Request $request)
-    {
-        $email = $request->email;
-        $password = $request->password;
 
-        $admin = DB::table('admin')->where('email', $email)->where('password', $password)->first();
-        if ($admin) {
-            Session::put('admin_name', $admin->name);
-            Session::put('admin_id', $admin->admin_id);
-            Session::put('admin_avt', $admin->avatar);
-            return Redirect::to('admin/dashboard');
-        } else {
-            Session::flash('error', 'Bạn nhập sai email hoặc mật khẩu');
-            return Redirect::to('admin/login');
-        }
-    }
-    public function logout()
-    {
-        Session::put('admin_name', null);
-        Session::put('admin_id', null);
-        Session::put('admin_avt', null);
-        return Redirect::to('admin/login');
-    }
     public function load_statistic(Request $request)
     {
         $start = $request->start;

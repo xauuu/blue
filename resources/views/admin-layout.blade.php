@@ -51,13 +51,14 @@
                     <li class="sidebar-header">
                         Quản lí
                     </li>
-
-                    <li class="sidebar-item {{ Request::is('admin/user') ? 'active' : '' }}">
-                        <a class="sidebar-link" href="{{ URL::to('/admin/user') }}">
+                    @hasrole(['admin', 'manage'])
+                    <li class="sidebar-item {{ Request::is('admin/customer') ? 'active' : '' }}">
+                        <a class="sidebar-link" href="{{ URL::to('/admin/customer') }}">
                             <i class="align-middle" data-feather="users"></i> <span class="align-middle">Tài
-                                khoản</span>
+                                khoản khách hàng</span>
                         </a>
                     </li>
+                    @endhasrole
 
                     <li class="sidebar-item {{ Request::is('admin/category/*') ? 'active' : '' }}">
                         <a data-target="#cate" data-toggle="collapse" class="sidebar-link collapsed">
@@ -369,17 +370,11 @@
                                 data-toggle="dropdown">
                                 <i class="align-middle" data-feather="settings"></i>
                             </a>
-                            @php
-                            $id = Session::get('admin_id');
-                            $name = Session::get('admin_name');
-                            $avatar = Session::get('admin_avt');
-                            @endphp
-                            @if ($id)
                                 <a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#"
                                     data-toggle="dropdown">
-                                    <img src="{{ asset('uploads/' . $avatar) }}" class="avatar img-fluid rounded mr-1"
-                                        alt="{{ $name }}" />
-                                    <span class="text-dark">{{ $name }}</span>
+                                    <img src="{{ asset('uploads/' . Auth::user()->avatar) }}" class="avatar img-fluid rounded mr-1"
+                                        alt="" />
+                                    <span class="text-dark">{{ Auth::user()->name }}</span>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right">
                                     <a class="dropdown-item" href="pages-profile.html"><i class="align-middle mr-1"
@@ -392,11 +387,6 @@
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item" href="{{ URL::to('admin/logout') }}">Đăng xuất</a>
                                 </div>
-                            @else
-                                <a class="nav-link d-none d-sm-inline-block" href="{{ URL::to('admin/login') }}">Đăng
-                                    nhập</a>
-                            @endif
-
                             {{--
                             --}}
                         </li>

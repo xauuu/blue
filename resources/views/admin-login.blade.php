@@ -43,7 +43,7 @@
                                         <div>
                                             <label class="form-label">Email</label>
                                             <input class="form-control form-control-lg" type="email" name="email"
-                                                placeholder="Nhập email của bạn" required/>
+                                                placeholder="Nhập email của bạn" value="{{ old('email') }}"/>
                                         </div>
                                         @php
                                             $err = Session::get('error');
@@ -54,7 +54,7 @@
                                         <div class="mt-3 mb-3">
                                             <label class="form-label">Mật khẩu</label>
                                             <input class="form-control form-control-lg" type="password" name="password"
-                                                placeholder="Nhập mật khẩu của bạn" required/>
+                                                placeholder="Nhập mật khẩu của bạn"/>
                                             <small>
                                                 <a href="pages-reset-password.html">Quên mật khẩu?</a>
                                             </small>
