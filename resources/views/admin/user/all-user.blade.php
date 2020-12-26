@@ -37,7 +37,10 @@
                             @csrf
                             <tr>
                                 <td>{{ $item->name }}</td>
-                                <td><input type="hidden" name="email" value="{{ $item->email }}"></td>
+                                <td><input type="hidden" name="email" value="{{ $item->email }}">
+                                    <input type="hidden" name="admin_id" value="{{ $item->admin_id }}">
+                                    {{ $item->email }}
+                                </td>
                                 <td>
                                     <input type="checkbox" name="admin_role" {{ $item->hasRole('admin') ? 'checked' : '' }}>
                                 </td>
@@ -50,6 +53,7 @@
                                 </td>
                                 <td>
                                     <button type="submit" class="btn btn-outline-success">Add</button>
+                                    <a class="btn btn-outline-danger" href="{{ URL::to('/admin/user/delete-user/'.$item->admin_id) }}">Delete</a>
                                 </td>
                             </tr>
                         </form>

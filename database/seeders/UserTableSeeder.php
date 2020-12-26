@@ -23,19 +23,19 @@ class UserTableSeeder extends Seeder
         $admin = Admin::create([
             'email' => 'xau@admin.com',
             'password' => md5('123456'),
-            'name' => 'Tran Quang Dat',
+            'name' => 'Trần Quang Đạt',
             'avatar' => 'xau.jpg'
         ]);
         $manage = Admin::create([
-            'email' => 'xau@manage.com',
+            'email' => 'tan@manage.com',
             'password' => md5('123456'),
-            'name' => 'Tran Quang Dat',
+            'name' => 'Lê Văn Tân',
             'avatar' => 'xau.jpg'
         ]);
         $user = Admin::create([
-            'email' => 'xau@user.com',
+            'email' => 'tai@user.com',
             'password' => md5('123456'),
-            'name' => 'Tran Quang Dat',
+            'name' => 'Đặng Quang Tài',
             'avatar' => 'xau.jpg'
         ]);
         $admin->roles()->attach($adminRoles);
