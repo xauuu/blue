@@ -241,9 +241,11 @@
     <script src="{{ asset('frontend/js/jquery.zoom.min.js') }}"></script>
     <script src="{{ asset('frontend/js/jquery-ui.min.js') }}"></script>
     <script src="{{ asset('frontend/js/sweetalert.min.js') }}"></script>
+    <script src="{{ asset('frontend/js/jquery.countdown.min.js') }}"></script>
     <script src="{{ asset('frontend/js/main.js') }}"></script>
     <script src="{{ asset('frontend/js/xau.js') }}"></script>
     <script src="{{ asset('frontend/js/jquery.easydropdown.min.js') }}"></script>
+    @stack('script')
     <div id="fb-root"></div>
     <script>
         window.fbAsyncInit = function() {

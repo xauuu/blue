@@ -4,7 +4,7 @@
     <section class="hero-section">
         <div class="hero-slider owl-carousel">
             @foreach ($slider as $item)
-                <div class="hs-item set-bg" data-setbg="{{ asset('uploads/slider/'.$item->slider_img) }}">
+                <div class="hs-item set-bg" data-setbg="{{ asset('uploads/slider/' . $item->slider_img) }}">
                     <div class="container">
                         <div class="row">
                             <div class="col-xl-6 col-lg-7 text-white">
@@ -23,7 +23,8 @@
                 </div>
             @endforeach
 
-            {{-- <div class="hs-item set-bg" data-setbg="{{ asset('frontend/img/bg-2.jpg') }}">
+            {{-- <div class="hs-item set-bg"
+                data-setbg="{{ asset('frontend/img/bg-2.jpg') }}">
                 <div class="container">
                     <div class="row">
                         <div class="col-xl-6 col-lg-7 text-white">
@@ -122,7 +123,45 @@
     </section>
     <!-- letest product section end -->
 
-
+    <section class="discount">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 p-0">
+                    <div class="discount__pic">
+                        <img src="img/discount.jpg" alt="">
+                    </div>
+                </div>
+                <div class="col-lg-6 p-0">
+                    <div class="discount__text">
+                        <div class="discount__text__title">
+                            <span>Giảm giá</span>
+                            <h2>Tết 2020</h2>
+                            <h5><span>Giảm</span> 50%</h5>
+                        </div>
+                        <div class="discount__countdown" id="countdown-time">
+                            <div class="countdown__item">
+                                <span>20</span>
+                                <p>Days</p>
+                            </div>
+                            <div class="countdown__item">
+                                <span>18</span>
+                                <p>Hour</p>
+                            </div>
+                            <div class="countdown__item">
+                                <span>46</span>
+                                <p>Min</p>
+                            </div>
+                            <div class="countdown__item">
+                                <span>05</span>
+                                <p>Sec</p>
+                            </div>
+                        </div>
+                        <a href="#">Shop now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <!-- Product filter section -->
     {{-- <section class="product-filter-section">
@@ -271,3 +310,16 @@
     <!-- Product filter section end -->
 
 @endsection
+@push('script')
+    <script>
+        var timerdate = "2020/12/30"
+
+        $("#countdown-time").countdown(timerdate, function(event) {
+            $(this).html(event.strftime("<div class='countdown__item'><span>%D</span> <p>Ngày</p> </div>" +
+                "<div class='countdown__item'><span>%H</span> <p>Giờ</p> </div>" +
+                "<div class='countdown__item'><span>%M</span> <p>Phút</p> </div>" +
+                "<div class='countdown__item'><span>%S</span> <p>Giây</p> </div>"));
+        });
+
+    </script>
+@endpush
