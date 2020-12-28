@@ -13,12 +13,9 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\CouponController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\MailController;
-use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductDetail;
-use App\Http\Controllers\SliderController;
-use App\Http\Controllers\UserController;
-use App\Models\Product;
+use App\Http\Controllers\PageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -92,9 +89,9 @@ Route::post('/add-rating', [ProductDetail::class, 'add_rating']);
 Route::get('/your-order', [CheckOutController::class, 'your_order']);
 Route::get('/cancel-order/{order_id}', [CheckOutController::class, 'cancel_your_order']);
 // contact
-Route::get('/contact', [PageController::class, 'contact']);
+Route::get('/contact', [HomeController::class, 'contact']);
 // faq
-Route::get('/faq', [PageController::class, 'faq']);
+Route::get('/faq', [HomeController::class, 'faq']);
 
 
 // Back end
@@ -225,14 +222,14 @@ Route::group(['prefix' => 'admin'], function () {
     // slider
     Route::group(['prefix' => 'slider'], function () {
         Route::group(['middleware' => 'roles'], function () {
-            Route::get('/add-slider', [SliderController::class, 'add_slider']);
-            Route::post('/save-slider', [SliderController::class, 'save_slider']);
-            Route::get('/edit-slider/{slider_id}', [SliderController::class, 'edit_slider']);
-            Route::post('/update-slider', [SliderController::class, 'update_slider']);
-            Route::get('/delete-slider/{slider_id}', [SliderController::class, 'delete_slider']);
-            Route::get('/status-slider/{slider_id}', [SliderController::class, 'status_slider']);
+            Route::get('/add-slider', [PageController::class, 'add_slider']);
+            Route::post('/save-slider', [PageController::class, 'save_slider']);
+            Route::get('/edit-slider/{slider_id}', [PageController::class, 'edit_slider']);
+            Route::post('/update-slider', [PageController::class, 'update_slider']);
+            Route::get('/delete-slider/{slider_id}', [PageController::class, 'delete_slider']);
+            Route::get('/status-slider/{slider_id}', [PageController::class, 'status_slider']);
         });
-        Route::get('/all-slider', [SliderController::class, 'all_slider']);
+        Route::get('/all-slider', [PageController::class, 'all_slider']);
     });
     // contact
     Route::get('/contact', [AdminController::class, 'contact']);
@@ -240,12 +237,23 @@ Route::group(['prefix' => 'admin'], function () {
     // faq
     Route::group(['prefix' => 'faq'], function () {
         Route::group(['middleware' => 'roles'], function () {
-            Route::get('/add-faq', [SliderController::class, 'add_faq']);
-            Route::post('/save-faq', [SliderController::class, 'save_faq']);
-            Route::get('/edit-faq/{faq_id}', [SliderController::class, 'edit_faq']);
-            Route::post('/update-faq', [SliderController::class, 'update_faq']);
-            Route::get('/delete-faq/{faq_id}', [SliderController::class, 'delete_faq']);
+            Route::get('/add-faq', [PageController::class, 'add_faq']);
+            Route::post('/save-faq', [PageController::class, 'save_faq']);
+            Route::get('/edit-faq/{faq_id}', [PageController::class, 'edit_faq']);
+            Route::post('/update-faq', [PageController::class, 'update_faq']);
+            Route::get('/delete-faq/{faq_id}', [PageController::class, 'delete_faq']);
         });
-        Route::get('/all-faq', [SliderController::class, 'all_faq']);
+        Route::get('/all-faq', [PageController::class, 'all_faq']);
+    });
+    // sale
+    Route::group(['prefix' => 'sale'], function () {
+        Route::group(['middleware' => 'roles'], function () {
+            Route::get('/add-sale', [PageController::class, 'add_sale']);
+            Route::post('/save-sale', [PageController::class, 'save_sale']);
+            Route::get('/edit-sale/{sale_id}', [PageController::class, 'edit_sale']);
+            Route::post('/update-sale', [PageController::class, 'update_sale']);
+            Route::get('/delete-sale/{sale_id}', [PageController::class, 'delete_sale']);
+        });
+        Route::get('/all-sale', [PageController::class, 'all_sale']);
     });
 });

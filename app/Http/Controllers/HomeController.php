@@ -12,6 +12,7 @@ use App\Models\Contact;
 use App\Models\Customer;
 use App\Models\Customer_Social;
 use App\Models\Product;
+use App\Models\Sale;
 use App\Models\Slider;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Cookie;
@@ -26,7 +27,8 @@ class HomeController extends Controller
         $product_latest = Product::latest()->limit(8)->get();
         $slider = Slider::all();
         $contact = Contact::first();
-        return view('pages.home', compact('category', 'product_latest', 'slider', 'contact'));
+        $sale = Sale::first();
+        return view('pages.home', compact('category', 'product_latest', 'slider', 'contact', 'sale'));
     }
     public function shop()
     {
@@ -316,7 +318,19 @@ class HomeController extends Controller
         $id = Session::get('customer_id');
         Cookie::queue($id, $page, 3600 * 24 * 7);
     }
-
+    public function contact()
+    {
+        $category = Category::all();
+        $contact = Contact::first();
+        return view('pages.contact', compact('category', 'contact'));
+    }
+    public function faq()
+    {
+        $category = Category::all();
+        $contact = Contact::first();
+        $faq = Faq::all();
+        return view('pages.faq', compact('category', 'contact', 'faq'));
+    }
     // login facebook
     public function login_facebook()
     {

@@ -206,6 +206,14 @@
                         Giao diện
                     </li>
 
+                    @hasrole(['admin', 'manage'])
+                    <li class="sidebar-item {{ Request::is('admin/sale') ? 'active' : '' }}">
+                        <a class="sidebar-link" href="{{ URL::to('/admin/sale/all-sale') }}">
+                            <i class="align-middle" data-feather="percent"></i> <span class="align-middle">Siêu sale</span>
+                        </a>
+                    </li>
+                    @endhasrole
+
                     <li class="sidebar-item {{ Request::is('admin/slider/*') ? 'active' : '' }}">
                         <a data-target="#slider" data-toggle="collapse" class="sidebar-link collapsed">
                             <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Slider</span>

@@ -809,7 +809,8 @@ textarea#cmt {
 
 .discount__pic img {
 	min-width: 100%;
-	height: 100%;
+    height: 390px;
+    object-fit: cover;
 }
 
 .discount__text {
@@ -869,7 +870,8 @@ textarea#cmt {
 .discount__text__title h2 {
 	font-size: 60px;
 	color: #ca1515;
-	/* font-family: "Cookie", cursive; */
+    font-family: 'Dancing Script', cursive;
+    font-weight: 700;
 	line-height: 46px;
 	margin-bottom: 10px;
 }
@@ -902,7 +904,7 @@ textarea#cmt {
 
 .countdown__item span {
 	font-size: 30px;
-	font-weight: 600;
+	font-weight: 500;
 	color: #111111;
 	display: inline-block;
 }

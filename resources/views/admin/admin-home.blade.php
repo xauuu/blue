@@ -254,7 +254,7 @@
                             if (label) {
                                 label += ': ';
                             }
-                            label += tooltipItem.yLabel.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+' đ'
+                            label += tooltipItem.yLabel.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
                             return label;
                         }
                     }
@@ -279,7 +279,7 @@
                             stepSize: 2000000,
                             callback: function(value, index, values) {
                                 if(parseInt(value) >= 1000){
-                                    return  value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+' đ';
+                                    return  value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
                                 } else {
                                     return value;
                                 }
