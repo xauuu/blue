@@ -14,7 +14,8 @@ class Sale extends Model
         'product_id',
         'sale_name',
         'sale_time',
-        'sale_percent'
+        'sale_percent',
+        'sale_status'
     ];
     public $timestamps = false;
     public function product()

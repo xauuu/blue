@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-
 use App\Models\Slider;
 use App\Models\Faq;
 use App\Models\Sale;
 use App\Models\Product;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\File;
@@ -127,7 +127,7 @@ class PageController extends Controller
         $sale->product_id = $request->product_id;
         $sale->sale_percent = $request->sale_percent;
         $sale->sale_time = $request->sale_time;
-
+        $sale->sale_status = 1;
         $product = Product::find($request->product_id);
         $product->product_discount = $product->product_price - $product->product_price*$request->sale_percent/100;
         $product->save();
@@ -177,5 +177,22 @@ class PageController extends Controller
             'sale_percent' => 'required|max:255',
             'sale_time' => 'required|max:255'
         ]);
+    }
+    public function te()
+    {
+        $sale = Sale::where('sale_status', 1)->get();
+        $day = Carbon::now('Asia/Ho_Chi_Minh')->format('Y/m/d');
+        foreach ($sale as $item) {
+            if ($day > $item->sale_time) {
+                $update_sale = Sale::find($item->sale_id);
+                $update_sale->status = 0;
+
+                $product = Product::find($item->product_id);
+                $product->product_discount = $product->product_price;
+                $product->save();
+
+                $update_sale->save();
+            }
+        }
     }
 }

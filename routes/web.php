@@ -16,6 +16,7 @@ use App\Http\Controllers\MailController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductDetail;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -257,3 +258,4 @@ Route::group(['prefix' => 'admin'], function () {
         Route::get('/all-sale', [PageController::class, 'all_sale']);
     });
 });
+Route::get('/te', [PageController::class, 'te']);

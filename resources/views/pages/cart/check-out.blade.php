@@ -60,13 +60,18 @@
                         <div class="cf-title">Phương thức thanh toán</div>
                         <div class="payment-list">
                             <div class="row radio mb-1">
-                                <input id="sex-male" type="radio" name="payment" value="Thanh toán khi nhận hàng"
+                                <input id="cod" type="radio" name="payment" value="Thanh toán khi nhận hàng"
                                     checked="checked" />
-                                <label for="sex-male">Thanh toán khi nhận hàng</label>
+                                <label for="cod">Thanh toán khi nhận hàng</label>
                             </div>
                             <div class="row radio">
-                                <input id="sex-female" type="radio" name="payment" value="Thanh toán bằng thẻ tín dụng" />
-                                <label for="sex-female">Thanh toán bằng thẻ tín dụng</label>
+                                <input id="card" type="radio" name="payment" value="Thanh toán bằng thẻ tín dụng" />
+                                <label for="card">Thanh toán bằng thẻ tín dụng</label>
+                            </div>
+                            <div class="row radio">
+                                <input id="paypal" type="radio" name="payment" value="Thanh toán bằng paypal" />
+                                <label for="paypal"><div id="paypal-button"></div></label>
+
                             </div>
                         </div>
 
@@ -121,3 +126,46 @@
     </section>
     <!-- checkout section end -->
 @endsection
+@push('script')
+    <script src="https://www.paypalobjects.com/api/checkout.js"></script>
+    <script>
+        paypal.Button.render({
+            // Configure environment
+            env: 'sandbox',
+            client: {
+                sandbox: 'AcMOrkH5wqTm5dHz_daobRLpRiXGRYvO1WoFqHAu7zQqNNRYi7Nbo9Ljuei36CYHO3NiqdvdDWCOtI6C',
+                production: 'demo_production_client_id'
+            },
+            // Customize button (optional)
+            locale: 'en_US',
+            style: {
+                size: 'small',
+                color: 'gold',
+                shape: 'pill',
+            },
+
+            // Enable Pay Now checkout flow (optional)
+            commit: true,
+
+            // Set up a payment
+            payment: function(data, actions) {
+                return actions.payment.create({
+                    transactions: [{
+                        amount: {
+                            total: '0.01',
+                            currency: 'USD'
+                        }
+                    }]
+                });
+            },
+            // Execute the payment
+            onAuthorize: function(data, actions) {
+                return actions.payment.execute().then(function() {
+                    // Show a confirmation message to the buyer
+                    window.alert('Thanh toán thành công');
+                });
+            }
+        }, '#paypal-button');
+
+    </script>
+@endpush
