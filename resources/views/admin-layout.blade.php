@@ -18,6 +18,7 @@
     <link href="{{ asset('/backend/css/bootstrap-tagsinput.css') }}" rel="stylesheet">
     <link href="{{ asset('/backend/css/jquery-ui.css') }}" rel="stylesheet">
     <link href="{{ asset('/backend/css/daterangepicker.css') }}" rel="stylesheet">
+    <link href="{{ asset('/backend/css/datatables.bundle.css') }}" rel="stylesheet">
 </head>
 
 <body>
@@ -459,13 +460,21 @@
     <script src="{{ asset('backend/js/app.js') }}"></script>
     <script src="{{ asset('backend/js/jquery-3.5.0.min.js') }}"></script>
     <script src="{{ asset('backend/js/bootstrap-tagsinput.min.js') }}"></script>
+    {{-- Ckeditor --}}
     <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
+    {{-- Validate --}}
     <script src="{{ asset('backend/js/jquery.validate.min.js') }}"></script>
     <script src="{{ asset('backend/js/additional-methods.min.js') }}"></script>
     <script src="{{ asset('backend/js/validate.js') }}"></script>
+    {{-- End Validate --}}
+    {{-- Date Picker --}}
     <script src="{{ asset('backend/js/jquery-ui.js') }}"></script>
     <script src="{{ asset('backend/js/moment.min.js') }}"></script>
     <script src="{{ asset('backend/js/daterangepicker.min.js') }}"></script>
+    {{-- End date picker --}}
+    {{-- Data Table --}}
+    <script src="{{ asset('backend/js/datatables.bundle.js') }}"></script>
+    {{-- End Data Table --}}
     <script src="{{ asset('backend/js/main.js') }}"></script>
     @stack('scripts')
 </body>

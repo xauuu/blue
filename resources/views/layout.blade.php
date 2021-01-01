@@ -26,6 +26,7 @@
     <link rel="stylesheet" href="{{ asset('frontend/css/animate.css') }}" />
     <link rel="stylesheet" href="{{ asset('frontend/css/sweetalert.css') }}" />
     <link rel="stylesheet" href="{{ asset('frontend/css/easydropdown.css') }}" />
+    <link rel="stylesheet" href="{{ asset('frontend/css/jquery.fancybox.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('frontend/css/style.css') }}" />
     <link rel="stylesheet" href="{{ asset('frontend/css/xau.css') }}" />
 
@@ -246,6 +247,7 @@
     <script src="{{ asset('frontend/js/main.js') }}"></script>
     <script src="{{ asset('frontend/js/xau.js') }}"></script>
     <script src="{{ asset('frontend/js/jquery.easydropdown.min.js') }}"></script>
+    <script src="{{ asset('frontend/js/jquery.fancybox.min.js') }}"></script>
     @stack('script')
     <div id="fb-root"></div>
     <script>
