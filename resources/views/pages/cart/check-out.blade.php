@@ -70,7 +70,30 @@
                             </div>
                             <div class="row radio">
                                 <input id="paypal" type="radio" name="payment" value="Thanh toán bằng paypal" />
-                                <label for="paypal"><div id="paypal-button"></div></label>
+                                <label for="paypal">
+                                    @if (session('coupon'))
+                                        @foreach (session('coupon') as $item => $cou)
+                                            @if ($cou['coupon_feature'] == 1)
+                                                @php
+                                                $total_coupon = $cou['coupon_number']*Cart::subtotal(0, '', '')/100;
+                                                @endphp
+                                            @else
+                                                @php
+                                                $total_coupon = $cou['coupon_number'];
+                                                @endphp
+                                            @endif
+                                            @php
+                                            $usd = (Cart::subtotal(0, '', '') - $total_coupon)/23080;
+                                            @endphp
+                                        @endforeach
+                                    @else
+                                        @php
+                                        $usd = Cart::subtotal(0, '', '')/23080;
+                                        @endphp
+                                    @endif
+                                    <input type="hidden" name="usd" value="{{ round($usd, 2) }}">
+                                    <div id="paypal-button"></div>
+                                </label>
 
                             </div>
                         </div>
@@ -129,6 +152,7 @@
 @push('script')
     <script src="https://www.paypalobjects.com/api/checkout.js"></script>
     <script>
+        var usd = $('input[name=usd]').val();
         paypal.Button.render({
             // Configure environment
             env: 'sandbox',
@@ -152,7 +176,7 @@
                 return actions.payment.create({
                     transactions: [{
                         amount: {
-                            total: '0.01',
+                            total: `${usd}`,
                             currency: 'USD'
                         }
                     }]

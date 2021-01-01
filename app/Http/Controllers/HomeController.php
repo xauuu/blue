@@ -27,7 +27,7 @@ class HomeController extends Controller
         $product_latest = Product::latest()->limit(8)->get();
         $slider = Slider::all();
         $contact = Contact::first();
-        $sale = Sale::first();
+        $sale = Sale::where('sale_status', 1)->first();
         return view('pages.home', compact('category', 'product_latest', 'slider', 'contact', 'sale'));
     }
     public function shop()

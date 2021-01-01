@@ -137,6 +137,7 @@ class PageController extends Controller
     }
     public function all_sale()
     {
+        $this->te();
         $sale = Sale::all();
         return view('admin.sale.all-sale', compact('sale'));
     }
@@ -162,7 +163,7 @@ class PageController extends Controller
         $sale->product_id = $request->product_id;
         $sale->sale_percent = $request->sale_percent;
         $sale->sale_time = $request->sale_time;
-
+        $sale->sale_status = 1;
         $product = Product::find($request->product_id);
         $product->product_discount = $product->product_price - $product->product_price*$request->sale_percent/100;
         $product->save();
@@ -185,7 +186,7 @@ class PageController extends Controller
         foreach ($sale as $item) {
             if ($day > $item->sale_time) {
                 $update_sale = Sale::find($item->sale_id);
-                $update_sale->status = 0;
+                $update_sale->sale_status = 0;
 
                 $product = Product::find($item->product_id);
                 $product->product_discount = $product->product_price;
