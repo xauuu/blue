@@ -167,7 +167,7 @@ class PostController extends Controller
     {
         $contact = Contact::first();
         $category = Category::all();
-        $post = Post::all();
+        $post = Post::orderBy('post_id', 'desc')->get();
         return view('pages.blog.blog', compact('category', 'post', 'contact'));
     }
     public function blog_detail($post_slug)
