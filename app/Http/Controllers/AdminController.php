@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Contact;
 use App\Models\Customer;
+use App\Models\Order;
 use App\Models\Product;
 use App\Models\Statistic;
 use Carbon\Carbon;
@@ -22,8 +23,9 @@ class AdminController extends Controller
         AuthLogin();
         $now = Carbon::now('Asia/Ho_Chi_Minh')->format('Y-m-d');
         $statistic = Statistic::where('order_date', $now)->first();
+        $new_order = Order::where('order_date', $now)->where('order_status', 0)->get();
         $product_view = Product::all();
-        return view('admin.admin-home', compact('statistic', 'product_view'));
+        return view('admin.admin-home', compact('statistic', 'product_view', 'new_order'));
     }
     public function statistic()
     {

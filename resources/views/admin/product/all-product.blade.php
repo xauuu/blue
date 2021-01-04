@@ -17,8 +17,8 @@
             <div class="float-left ">
                 <form class="d-sm-inline-block">
                     <div class="input-group">
-                        <label>Hiển thị</label>
-                        <select class="form-control ml-2" name="entries" onchange="this.form.submit();">
+                        <label class="input-group-text">Hiển thị</label>
+                        <select class="form-select ml-2" name="entries" onchange="this.form.submit();">
                             <option value="5">5</option>
                             <option value="10">10</option>
                             <option value="15">15</option>
@@ -55,7 +55,7 @@
                         <th scope="col">Trạng thái</th>
                         <th scope="col">Bình luận</th>
                         <th scope="col">Chi tiết</th>
-                        <th scope="col">Thao tác (*)</th>
+                        <th scope="col">Thao tác</th>
                     </tr>
                 </thead>
                 <style type="text/css">
@@ -72,7 +72,7 @@
                     @foreach ($product as $item => $value1)
                         <tr id="{{ $value1->product_id }}">
                             <td>{{ $value1->product_name }}</td>
-                            <td><img width="150" src="{{ URL::to('uploads/product/' . $value1->product_img) }}"
+                            <td><img width="100" src="{{ URL::to('uploads/product/' . $value1->product_img) }}"
                                     alt="{{ $value1->product_name }}"></td>
                             <td>
                                 <a class="btn btn-outline-success" title="Thêm thư viên ảnh cho sản phẩm"
@@ -121,7 +121,7 @@
                                     </div>
                                 </div>
                             </td>
-                            <td>
+                            <td class="text-nowrap">
                                 <a class="btn btn-outline-danger" title="Xoá sản phẩm"
                                     onclick="return confirm('Xoá sản phẩm: {{ $value1->product_name }}')"
                                     href="{{ URL::to('/admin/product/delete-product/' . $value1->product_id) }}">

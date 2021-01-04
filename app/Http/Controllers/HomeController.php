@@ -25,10 +25,11 @@ class HomeController extends Controller
     {
         $category = Category::all();
         $product_latest = Product::latest()->limit(8)->get();
+        $product_sale = Product::orderBy('product_sale_quantity', 'desc')->take(8)->get();
         $slider = Slider::all();
         $contact = Contact::first();
         $sale = Sale::where('sale_status', 1)->first();
-        return view('pages.home', compact('category', 'product_latest', 'slider', 'contact', 'sale'));
+        return view('pages.home', compact('category', 'product_latest', 'product_sale', 'slider', 'contact', 'sale'));
     }
     public function shop()
     {

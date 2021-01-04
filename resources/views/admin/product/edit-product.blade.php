@@ -24,8 +24,8 @@
                         <div class="mb-3">
                             <label class="form-label">Mô tả</label>
                             <textarea id="xau" class="form-control" name="product_desc" rows="3">
-                                                                {!!  $product->product_detail !!}
-                                                            </textarea>
+                                                                    {!!  $product->product_detail !!}
+                                                                </textarea>
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Danh mục</label>
@@ -89,8 +89,8 @@
                         <div class="mb-3">
                             <label class="form-label">Chi tiết</label>
                             <textarea id="xau1" class="form-control" name="product_detail" rows="3">
-                                                                {!!  $product->product_detail !!}
-                                                            </textarea>
+                                                                    {!!  $product->product_detail !!}
+                                                                </textarea>
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Tags</label>
@@ -104,3 +104,17 @@
         </div>
     </div>
 @endsection
+@push('scripts')
+    <script>
+        CKEDITOR.replace('xau');
+        CKEDITOR.replace('xau1', {
+            filebrowserBrowseUrl: '{{ asset('ckeditor/ckfinder/ckfinder.html') }}',
+            filebrowserImageBrowseUrl: '{{ asset('ckeditor/ckfinder/ckfinder.html?type=Images') }}',
+            filebrowserFlashBrowseUrl : '{{ asset('ckeditor/ckfinder/ckfinder.html?type=Flash') }}',
+            filebrowserUploadUrl : '{{ asset('ckeditor/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files') }}',
+            filebrowserImageUploadUrl : '{{ asset('ckeditor/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images') }}',
+            filebrowserFlashUploadUrl : '{{ asset('ckeditor/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Flash') }}'
+        });
+    </script>
+@endpush
+

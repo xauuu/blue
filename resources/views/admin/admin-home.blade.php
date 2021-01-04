@@ -15,8 +15,14 @@
                             <div class="col-sm-3">
                                 <div class="card">
                                     <div class="card-body">
-                                        <h5 class="card-title mb-4">Lượng truy cập</h5>
-                                        <h3 class="mt-1 mb-3">14.212</h3>
+                                        <h5 class="card-title mb-4">Đơn hàng mới</h5>
+                                        <h3 class="mt-1 mb-3">
+                                            @if ($new_order)
+                                                {{ count($new_order) }}
+                                            @else
+                                                0
+                                            @endif
+                                        </h3>
                                         {{-- <div class="mb-1">
                                             <span class="text-success"> <i class="mdi mdi-arrow-bottom-right"></i> 5.25%
                                             </span>
@@ -120,6 +126,7 @@
                                         <th>Tên sản phẩm</th>
                                         <th>Giá</th>
                                         <th>Lượt xem</th>
+                                        <th>Số lượng đã bán</th>
                                         <th>Số lượng tồn</th>
                                     </tr>
                                 </thead>
@@ -130,6 +137,7 @@
                                             <td>{{ $item->product_name }}</td>
                                             <td>{{ number_format($item->product_discount) }} VND</td>
                                             <td>{{ $item->product_view }}</td>
+                                            <td>{{ $item->product_sale_quantity }}</td>
                                             <td>{{ $item->product_quantity }}</td>
                                         </tr>
                                     @endforeach
@@ -207,7 +215,9 @@
     <script>
         $(document).ready(function() {
             $('#kt_datatable').DataTable({
-                "order": [[ 0, "asc" ]]
+                "order": [
+                    [0, "asc"]
+                ]
             });
         });
 

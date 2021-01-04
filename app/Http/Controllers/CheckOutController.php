@@ -196,8 +196,8 @@ class CheckOutController extends Controller
         foreach ($order->order_detail as $item) {
             $product = Product::find($item->product->product_id);
             $product_sold = $item->quantity;
-            $product_remain = $product->product_quantity - $product_sold;
-            $product->product_quantity = $product_remain;
+            $product->product_quantity = $product->product_quantity - $product_sold;
+            $product->product_sale_quantity = $product->product_sale_quantity + $product_sold;
             $product->save();
             $quantity += $item->quantity;
         }

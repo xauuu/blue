@@ -62,7 +62,7 @@
                         <div class="feature-icon">
                             <img src="{{ asset('frontend/img/icons/1.png') }}" alt="#">
                         </div>
-                        <h2>THANH TOÁN AN TOÀN NHANH CHÓNG</h2>
+                        <h2>THANH TOÁN AN TOÀN</h2>
                     </div>
                 </div>
                 <div class="col-md-4 p-0 feature">
@@ -78,14 +78,13 @@
                         <div class="feature-icon">
                             <img src="{{ asset('frontend/img/icons/3.png') }}" alt="#">
                         </div>
-                        <h2>GIAO HÀNG MIỄN PHÍ VÀ NHANH CHÓNG</h2>
+                        <h2>GIAO HÀNG MIỄN PHÍ</h2>
                     </div>
                 </div>
             </div>
         </div>
     </section>
     <!-- Features section end -->
-
 
     <!-- letest product section -->
     <section class="top-letest-product-section">
@@ -122,6 +121,57 @@
         </div>
     </section>
     <!-- letest product section end -->
+    <!-- Product filter section -->
+    <section class="product-filter-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>SẢN PHẨM BÁN CHẠY</h2>
+            </div>
+            <ul class="product-filter-menu">
+                <li><a href="#">TOPS</a></li>
+                <li><a href="#">JUMPSUITS</a></li>
+                <li><a href="#">LINGERIE</a></li>
+                <li><a href="#">JEANS</a></li>
+                <li><a href="#">DRESSES</a></li>
+                <li><a href="#">COATS</a></li>
+                <li><a href="#">JUMPERS</a></li>
+                <li><a href="#">LEGGINGS</a></li>
+            </ul>
+            <div class="row">
+                @foreach ($product_sale as $item => $pro)
+                    <div class="col-lg-3 col-sm-6">
+                        <form>
+                            {{ csrf_field() }}
+                            <div class="product-item">
+                                <div class="pi-pic">
+                                    <a href="{{ URL::to('product-detail/' . $pro->product_slug) }}">
+                                        <img src="{{ asset('uploads/product/' . $pro->product_img) }}" alt="">
+                                    </a>
+                                    <div class="pi-links">
+                                        <button data-id="{{ $pro->product_id }}" type="button" name="add-cart" class="add-card">
+                                            <i class="flaticon-bag"></i><span>Add to cart</span>
+                                        </button>
+                                        <a href="#" class="wishlist-btn"><i class="flaticon-heart"></i></a>
+                                    </div>
+                                </div>
+                                <div class="pi-text">
+                                    <h6>{{ number_format($pro->product_discount) }} VND</h6>
+                                    <a href="{{ URL::to('product-detail/' . $pro->product_slug) }}">
+                                        <p>{{ $pro->product_name }}</p>
+                                    </a>
+                                </div>
+                            </div>
+                        </form>
+                </div>
+                @endforeach
+
+            </div>
+            <div class="text-center pt-5">
+                <a href="{{ URL::to('/shop') }}" class="site-btn sb-line sb-dark">XEM THÊM</a>
+            </div>
+        </div>
+    </section>
+    <!-- Product filter section end -->
     @isset($sale)
         <section class="discount m-4">
             <div class="container">
@@ -318,7 +368,9 @@
 @isset($sale)
     @push('script')
         <script>
-            var timerdate = {!! json_encode($sale->sale_time) !!};
+            var timerdate = {
+                !!json_encode($sale - > sale_time) !!
+            };
 
             $("#countdown-time").countdown(timerdate, function(event) {
                 $(this).html(event.strftime("<div class='countdown__item'><span>%D</span> <p>Ngày</p> </div>" +
