@@ -21,6 +21,7 @@
                     <tr class="text-nowrap">
                         <th scope="col">Tên sale</th>
                         <th scope="col">Sản phẩm</th>
+                        <th scope="col">Ảnh</th>
                         <th scope="col">Sale</th>
                         <th scope="col">Thời gian kết thúc</th>
                         <th scope="col">Thao tác</th>
@@ -31,6 +32,7 @@
                         <tr>
                             <td>{{ $item->sale_name }}</td>
                             <td>{{ $item->product->product_name }}</td>
+                            <td><img width="150" src="{{ asset('uploads/sale/'.$item->sale_img) }}" alt="{{ $item->product->product_name }}"> </td>
                             <td>{{ $item->sale_percent }}%</td>
                             <td>{{ $item->sale_time }}</td>
                             <td>

@@ -181,7 +181,7 @@
                 <div class="row">
                     <div class="col-lg-6 p-0">
                         <div class="discount__pic">
-                            <img src="{{ asset('uploads/product/' . $sale->product->product_img) }}" alt="">
+                            <img src="{{ asset('uploads/sale/' . $sale->sale_img) }}" alt="">
                         </div>
                     </div>
                     <div class="col-lg-6 p-0">
@@ -368,9 +368,7 @@
 @isset($sale)
     @push('script')
         <script>
-            var timerdate = {
-                !!json_encode($sale - > sale_time) !!
-            };
+            var timerdate = {!!json_encode($sale->sale_time) !!};
 
             $("#countdown-time").countdown(timerdate, function(event) {
                 $(this).html(event.strftime("<div class='countdown__item'><span>%D</span> <p>Ngày</p> </div>" +

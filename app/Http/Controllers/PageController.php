@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Redirect;
+
 class PageController extends Controller
 {
     // slider
@@ -128,8 +129,14 @@ class PageController extends Controller
         $sale->sale_percent = $request->sale_percent;
         $sale->sale_time = $request->sale_time;
         $sale->sale_status = 1;
+
+        $file = $request->sale_img;
+        $img_name = vn_to_str($request->sale_name) . '-' . date('mdYHis') . '.' . $file->getClientOriginalExtension();
+        $file->move('uploads/sale', $img_name);
+        $sale->sale_img = $img_name;
+
         $product = Product::find($request->product_id);
-        $product->product_discount = $product->product_price - $product->product_price*$request->sale_percent/100;
+        $product->product_discount = $product->product_price - $product->product_price * $request->sale_percent / 100;
         $product->save();
 
         $sale->save();
@@ -148,7 +155,7 @@ class PageController extends Controller
         $product->product_discount = $product->product_price;
         $product->save();
         $sale->delete();
-        return redirect()->back()->with('success', "Đã xoá siêu sale ".$sale->sale_name);
+        return redirect()->back()->with('success', "Đã xoá siêu sale " . $sale->sale_name);
     }
     public function edit_sale($sale_id)
     {
@@ -164,12 +171,20 @@ class PageController extends Controller
         $sale->sale_percent = $request->sale_percent;
         $sale->sale_time = $request->sale_time;
         $sale->sale_status = 1;
+
+        if ($request->hasFile('sale_img')) {
+            $file = $request->sale_img;
+            $img_name = vn_to_str($request->sale_name) . '-' . date('mdYHis') . '.' . $file->getClientOriginalExtension();
+            $file->move('uploads/sale', $img_name);
+            $sale->sale_img = $img_name;
+        }
+
         $product = Product::find($request->product_id);
-        $product->product_discount = $product->product_price - $product->product_price*$request->sale_percent/100;
+        $product->product_discount = $product->product_price - $product->product_price * $request->sale_percent / 100;
         $product->save();
 
         $sale->save();
-        return Redirect::to('/admin/sale/all-sale')->with('success', "Đã cập nhật siêu sale ".$sale->sale_name);
+        return Redirect::to('/admin/sale/all-sale')->with('success', "Đã cập nhật siêu sale " . $sale->sale_name);
     }
     public function validation($request)
     {

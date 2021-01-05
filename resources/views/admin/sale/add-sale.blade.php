@@ -7,7 +7,7 @@
                     <h2 class="mt-3">Thêm Sale</h2>
                 </div>
                 <div class="card-body">
-                    <form method="POST" action="{{ URL::to('/admin/sale/save-sale') }}">
+                    <form method="POST" action="{{ URL::to('/admin/sale/save-sale') }}" enctype="multipart/form-data">
                         {{ csrf_field() }}
                         <div class="mb-3">
                             <label class="form-label">Tên sale</label>
@@ -21,6 +21,10 @@
                                     <option value="{{ $item->product_id }}">{{ $item->product_name }}</option>
                                 @endforeach
                             </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Hình ảnh</label>
+                            <input type="file" class="form-control" name="sale_img" accept="image/*" required>
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Phần trăm giảm</label>
