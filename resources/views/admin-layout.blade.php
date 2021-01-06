@@ -35,21 +35,21 @@
                         Dashboard
                     </li>
 
-                    <li class="sidebar-item {{ Request::is('admin/dashboard') ? 'active' : '' }}">
+                    <li class="sidebar-item {{ ActiveSegment(2, 'dashboard') }}">
                         <a class="sidebar-link" href="{{ URL::to('/admin/dashboard') }}">
                             <i class="align-middle" data-feather="airplay"></i> <span
                                 class="align-middle">Dashboard</span>
                         </a>
                     </li>
 
-                    <li class="sidebar-item {{ Request::is('admin/statistic') ? 'active' : '' }}">
+                    <li class="sidebar-item {{ ActiveSegment(2, 'statistic') }}">
                         <a class="sidebar-link" href="{{ URL::to('/admin/statistic') }}">
                             <i class="align-middle" data-feather="trending-up"></i> <span class="align-middle">Thống
                                 kê</span>
                         </a>
                     </li>
                     @hasrole(['admin'])
-                    <li class="sidebar-item {{ Request::is('admin/user') ? 'active' : '' }}">
+                    <li class="sidebar-item {{ ActiveSegment(2, 'user') }}">
                         <a class="sidebar-link" href="{{ URL::to('/admin/user/all-user') }}">
                             <i class="align-middle" data-feather="user"></i> <span class="align-middle">User</span>
                         </a>
@@ -61,7 +61,7 @@
                     </li>
 
                     @hasrole(['admin', 'manage'])
-                    <li class="sidebar-item {{ Request::is('admin/customer') ? 'active' : '' }}">
+                    <li class="sidebar-item {{ ActiveSegment(2, 'customer') }}">
                         <a class="sidebar-link" href="{{ URL::to('/admin/customer') }}">
                             <i class="align-middle" data-feather="users"></i> <span class="align-middle">Tài
                                 khoản khách hàng</span>
@@ -69,86 +69,91 @@
                     </li>
                     @endhasrole
 
-                    <li class="sidebar-item {{ Request::is('admin/category/*') ? 'active' : '' }}">
+                    <li class="sidebar-item {{ ActiveSegment(2, 'category') }}">
                         <a data-target="#cate" data-toggle="collapse" class="sidebar-link collapsed">
                             <i class="align-middle" data-feather="briefcase"></i> <span class="align-middle">Danh
                                 mục</span>
                         </a>
-                        <ul id="cate" class="sidebar-dropdown list-unstyled collapse " data-parent="#sidebar">
+                        <ul id="cate" class="sidebar-dropdown list-unstyled {{ collapse('admin/category/*') }}"
+                            data-parent="#sidebar">
                             @hasrole(['admin', 'manage'])
-                            <li class="sidebar-item"><a class="sidebar-link"
+                            <li class="sidebar-item {{ ActiveSegment(3, 'add-category') }}"><a class="sidebar-link"
                                     href="{{ URL::to('/admin/category/add-category') }}">Thêm danh mục</a></li>
                             @endhasrole
-                            <li class="sidebar-item"><a class="sidebar-link"
+                            <li class="sidebar-item {{ ActiveSegment(3, 'all-category') }}"><a class="sidebar-link"
                                     href="{{ URL::to('/admin/category/all-category') }}">Xem danh mục</a></li>
                         </ul>
                     </li>
 
-                    <li class="sidebar-item {{ Request::is('admin/brand/*') ? 'active' : '' }}">
+                    <li class="sidebar-item {{ ActiveSegment(2, 'brand') }}">
                         <a data-target="#bra" data-toggle="collapse" class="sidebar-link collapsed">
                             <i class="align-middle" data-feather="layers"></i> <span class="align-middle">Thương
                                 hiệu</span>
                         </a>
-                        <ul id="bra" class="sidebar-dropdown list-unstyled collapse " data-parent="#sidebar">
+                        <ul id="bra" class="sidebar-dropdown list-unstyled {{ collapse('admin/brand/*') }}"
+                            data-parent="#sidebar">
                             @hasrole(['admin', 'manage'])
-                            <li class="sidebar-item"><a class="sidebar-link"
+                            <li class="sidebar-item {{ ActiveSegment(3, 'add-brand') }}"><a class="sidebar-link"
                                     href="{{ URL::to('/admin/brand/add-brand') }}">Thêm thương hiệu</a>
                             </li>
                             @endhasrole
-                            <li class="sidebar-item"><a class="sidebar-link"
+                            <li class="sidebar-item {{ ActiveSegment(3, 'all-brand') }}"><a class="sidebar-link"
                                     href="{{ URL::to('/admin/brand/all-brand') }}">Xem thương hiệu</a>
                             </li>
                         </ul>
                     </li>
 
-                    <li class="sidebar-item {{ Request::is('admin/product/*') ? 'active' : '' }}">
+                    <li class="sidebar-item {{ ActiveSegment(2, 'product') }}">
                         <a data-target="#pro" data-toggle="collapse" class="sidebar-link collapsed">
                             <i class="align-middle" data-feather="send"></i> <span class="align-middle">Sản phẩm</span>
                         </a>
-                        <ul id="pro" class="sidebar-dropdown list-unstyled collapse " data-parent="#sidebar">
+                        <ul id="pro" class="sidebar-dropdown list-unstyled {{ collapse('admin/product/*') }}"
+                            data-parent="#sidebar">
                             @hasrole(['admin', 'manage'])
-                            <li class="sidebar-item"><a class="sidebar-link"
+                            <li class="sidebar-item {{ ActiveSegment(3, 'add-product') }}"><a class="sidebar-link"
                                     href="{{ URL::to('/admin/product/add-product') }}">Thêm sản phẩm</a>
                             </li>
                             @endhasrole
-                            <li class="sidebar-item"><a class="sidebar-link"
+                            <li class="sidebar-item {{ ActiveSegment(3, 'all-product') }}"><a class="sidebar-link"
                                     href="{{ URL::to('/admin/product/all-product') }}">Xem sản phẩm</a>
                             </li>
                         </ul>
                     </li>
 
-                    <li class="sidebar-item {{ Request::is('admin/order/*') ? 'active' : '' }}">
+                    <li class="sidebar-item {{ ActiveSegment(2, 'order') }}">
                         <a data-target="#order" data-toggle="collapse" class="sidebar-link collapsed">
                             <i class="align-middle" data-feather="shopping-cart"></i> <span class="align-middle">Đơn
                                 hàng</span>
                         </a>
-                        <ul id="order" class="sidebar-dropdown list-unstyled collapse " data-parent="#sidebar">
-                            <li class="sidebar-item"><a class="sidebar-link"
+                        <ul id="order" class="sidebar-dropdown list-unstyled {{ collapse('admin/order/*') }}"
+                            data-parent="#sidebar">
+                            <li class="sidebar-item {{ ActiveSegment(3, 'confirm-order') }}"><a class="sidebar-link"
                                     href="{{ URL::to('/admin/order/confirm-order') }}">Xác nhận đơn hàng</a>
                             </li>
-                            <li class="sidebar-item"><a class="sidebar-link"
+                            <li class="sidebar-item {{ ActiveSegment(3, 'success-order') }}"><a class="sidebar-link"
                                     href="{{ URL::to('/admin/order/success-order') }}">Đơn hàng đã xác nhận</a>
                             </li>
-                            <li class="sidebar-item"><a class="sidebar-link"
+                            <li class="sidebar-item {{ ActiveSegment(3, 'cancel-order') }}"><a class="sidebar-link"
                                     href="{{ URL::to('/admin/order/cancel-order') }}">Đơn hàng đã huỷ</a>
                             </li>
-                            <li class="sidebar-item"><a class="sidebar-link"
+                            <li class="sidebar-item {{ ActiveSegment(3, 'all-order') }}"><a class="sidebar-link"
                                     href="{{ URL::to('/admin/order/all-order') }}">Xem tất cả đơn hàng</a>
                             </li>
                         </ul>
                     </li>
 
                     @hasrole(['admin', 'manage'])
-                    <li class="sidebar-item {{ Request::is('admin/coupon/*') ? 'active' : '' }}">
+                    <li class="sidebar-item {{ ActiveSegment(2, 'coupon') }}">
                         <a data-target="#coupon" data-toggle="collapse" class="sidebar-link collapsed">
                             <i class="align-middle" data-feather="slack"></i> <span class="align-middle">Mã giảm
                                 giá</span>
                         </a>
-                        <ul id="coupon" class="sidebar-dropdown list-unstyled collapse " data-parent="#sidebar">
-                            <li class="sidebar-item"><a class="sidebar-link"
+                        <ul id="coupon" class="sidebar-dropdown list-unstyled {{ collapse('admin/coupon/*') }}"
+                            data-parent="#sidebar">
+                            <li class="sidebar-item {{ ActiveSegment(3, 'add-coupon') }}"><a class="sidebar-link"
                                     href="{{ URL::to('/admin/coupon/add-coupon') }}">Thêm mã giảm giá</a>
                             </li>
-                            <li class="sidebar-item"><a class="sidebar-link"
+                            <li class="sidebar-item{{ ActiveSegment(3, 'all-coupon') }}"><a class="sidebar-link"
                                     href="{{ URL::to('/admin/coupon/all-coupon') }}">Xem mã giảm giá</a>
                             </li>
                         </ul>
@@ -156,7 +161,7 @@
                     @endhasrole
 
                     @hasrole(['admin', 'manage'])
-                    <li class="sidebar-item {{ Request::is('admin/comment/*') ? 'active' : '' }}">
+                    <li class="sidebar-item {{ ActiveSegment(2, 'comment') }}">
                         <a class="sidebar-link" href="{{ URL::to('/admin/comment/show-comment') }}">
                             <i class="align-middle" data-feather="message-square"></i> <span class="align-middle">Bình
                                 luận</span>
@@ -168,36 +173,39 @@
                         Bài viết
                     </li>
 
-                    <li class="sidebar-item">
+                    <li class="sidebar-item {{ ActiveSegment(2, 'category_post') }}">
                         <a data-target="#catepost" data-toggle="collapse" class="sidebar-link collapsed">
                             <i class="align-middle" data-feather="list"></i> <span class="align-middle">Danh
                                 mục bài viết</span>
                         </a>
-                        <ul id="catepost" class="sidebar-dropdown list-unstyled collapse " data-parent="#sidebar">
+                        <ul id="catepost" class="sidebar-dropdown list-unstyled {{ collapse('admin/category_post/*') }}"
+                            data-parent="#sidebar">
                             @hasrole(['admin', 'manage'])
-                            <li class="sidebar-item"><a class="sidebar-link"
-                                    href="{{ URL::to('/admin/post/add-category-post') }}">Thêm danh mục bài viết</a>
+                            <li class="sidebar-item {{ ActiveSegment(3, 'add-category-post') }}"><a class="sidebar-link"
+                                    href="{{ URL::to('/admin/category_post/add-category-post') }}">Thêm danh mục bài
+                                    viết</a>
                             </li>
                             @endhasrole
-                            <li class="sidebar-item"><a class="sidebar-link"
-                                    href="{{ URL::to('/admin/post/all-category-post') }}">Xem
+                            <li class="sidebar-item {{ ActiveSegment(3, 'all-category-post') }}"><a class="sidebar-link"
+                                    href="{{ URL::to('/admin/category_post/all-category-post') }}">Xem
                                     danh mục bài viết</a>
                             </li>
                         </ul>
                     </li>
 
-                    <li class="sidebar-item {{ Request::is('admin/category-post/*') ? 'active' : '' }}">
+                    <li class="sidebar-item {{ ActiveSegment(2, 'post') }}">
                         <a data-target="#post" data-toggle="collapse" class="sidebar-link collapsed">
                             <i class="align-middle" data-feather="file-text"></i> <span class="align-middle">Bài
                                 viết</span>
                         </a>
-                        <ul id="post" class="sidebar-dropdown list-unstyled collapse " data-parent="#sidebar">
+                        <ul id="post" class="sidebar-dropdown list-unstyled {{ collapse('admin/post/*') }}"
+                            data-parent="#sidebar">
                             @hasrole(['admin', 'manage'])
-                            <li class="sidebar-item"><a class="sidebar-link"
+                            <li class="sidebar-item {{ ActiveSegment(3, 'add-post') }}"><a class="sidebar-link"
                                     href="{{ URL::to('/admin/post/add-post') }}">Thêm bài viết</a>
                             </li>
                             @endhasrole
-                            <li class="sidebar-item"><a class="sidebar-link"
+                            <li class="sidebar-item {{ ActiveSegment(3, 'all-post') }}"><a class="sidebar-link"
                                     href="{{ URL::to('/admin/post/all-post') }}">Xem bài viết</a>
                             </li>
                         </ul>
@@ -208,9 +216,10 @@
                     </li>
 
                     @hasrole(['admin', 'manage'])
-                    <li class="sidebar-item {{ Request::is('admin/sale') ? 'active' : '' }}">
+                    <li class="sidebar-item {{ ActiveSegment(2, 'sale') }}">
                         <a class="sidebar-link" href="{{ URL::to('/admin/sale/all-sale') }}">
-                            <i class="align-middle" data-feather="percent"></i> <span class="align-middle">Siêu sale</span>
+                            <i class="align-middle" data-feather="percent"></i> <span class="align-middle">Siêu
+                                sale</span>
                         </a>
                     </li>
                     @endhasrole
@@ -232,14 +241,14 @@
                     </li>
 
                     @hasrole(['admin', 'manage'])
-                    <li class="sidebar-item {{ Request::is('admin/contact') ? 'active' : '' }}">
+                    <li class="sidebar-item {{ ActiveSegment(2, 'contact') }}">
                         <a class="sidebar-link" href="{{ URL::to('/admin/contact') }}">
                             <i class="align-middle" data-feather="phone"></i> <span class="align-middle">Liên hệ</span>
                         </a>
                     </li>
                     @endhasrole
 
-                    <li class="sidebar-item {{ Request::is('admin/faq') ? 'active' : '' }}">
+                    <li class="sidebar-item {{ ActiveSegment(2, 'faq') }}">
                         <a class="sidebar-link" href="{{ URL::to('/admin/faq/all-faq') }}">
                             <i class="align-middle" data-feather="help-circle"></i> <span
                                 class="align-middle">FAQ</span>

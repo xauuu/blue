@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Request;
 
 if (!function_exists('helper')) {
     function helper()
@@ -21,10 +22,29 @@ if (!function_exists('AuthLogin')) {
         }
     }
 }
-if (!function_exists('active')) {
-    function active($path, $active = 'active')
+if (!function_exists('collapse')) {
+    function collapse($path)
     {
-        return call_user_func_array('Request::is', (array)$path) ? $active : '';
+        return call_user_func_array('Request::is', (array)$path) ? 'collapse show' : 'collapse';
+    }
+}
+if (!function_exists('ActivePath')) {
+    function ActivePath($path)
+    {
+        return Request::is($path) ? 'active' : '';
+    }
+}
+
+if (!function_exists('ActiveSegment')) {
+    function ActiveSegment($segment, $value)
+    {
+        if(!is_array($value)) {
+            return Request::segment($segment) == $value ? 'active' : '';
+        }
+        foreach ($value as $v) {
+            if(Request::segment($segment) == $v) return 'active';
+        }
+        return '';
     }
 }
 if (!function_exists('vn_to_str')) {

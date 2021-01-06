@@ -1001,7 +1001,11 @@ ol {
 	color: #111111;
 	margin-bottom: 0;
 }
-
+.product-item img{
+    width: 100%;
+    height: 350px;
+    object-fit: cover;
+}
 /* -----------------------
   Product filter section
 -------------------------*/

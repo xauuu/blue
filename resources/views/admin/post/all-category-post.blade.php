@@ -39,17 +39,17 @@
                             <td>
                                 @if ($value1->category_post_status == 0)
                                     <a
-                                        href="{{ URL::to('admin/post/status-category-post/' . $value1->category_post_id) }}">Ẩn</a>
+                                        href="{{ URL::to('admin/category_post/status-category-post/' . $value1->category_post_id) }}">Ẩn</a>
                                 @else
-                                    <a href="{{ URL::to('admin/post/status-category-post/' . $value1->category_post_id) }}">Hiển
+                                    <a href="{{ URL::to('admin/category_post/status-category-post/' . $value1->category_post_id) }}">Hiển
                                         thị</a>
                                 @endif
                             </td>
                             <td>
                                 <a class="btn btn-outline-danger" onclick="return confirm('Xoá danh mục này')"
-                                    href="{{ URL::to('/admin/post/delete-category-post/' . $value1->category_post_id) }}">
+                                    href="{{ URL::to('/admin/category_post/delete-category-post/' . $value1->category_post_id) }}">
                                     <i class="align-middle" data-feather="trash-2"></i></a>
-                                <a class="btn btn-outline-warning" href="{{ URL::to('/admin/post/edit-category-post/' . $value1->category_post_id) }}">
+                                <a class="btn btn-outline-warning" href="{{ URL::to('/admin/category_post/edit-category-post/' . $value1->category_post_id) }}">
                                     <i class="align-middle" data-feather="edit"></i></a>
                             </td>
                         </tr>

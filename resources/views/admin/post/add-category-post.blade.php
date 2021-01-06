@@ -7,7 +7,7 @@
                     <h2 class="mt-3">Thêm danh mục bài viết</h2>
                 </div>
                 <div class="card-body">
-                    <form method="POST" action="{{ URL::to('/admin/post/save-category-post') }}">
+                    <form method="POST" action="{{ URL::to('/admin/category_post/save-category-post') }}">
                         {{ csrf_field() }}
                         <div class="mb-3">
                             <label class="form-label">Tên danh mục bài viết</label>

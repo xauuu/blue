@@ -7,7 +7,7 @@
                     <h2 class="mt-3">Cập nhật danh mục bài viết</h2>
                 </div>
                 <div class="card-body">
-                    <form method="POST" action="{{ URL::to('/admin/post/update-category-post') }}">
+                    <form method="POST" action="{{ URL::to('/admin/category_post/update-category-post') }}">
                         {{ csrf_field() }}
                         <input type="hidden" name="category_post_id" value="{{ $cate_post->category_post_id }}">
                         <div class="mb-3">

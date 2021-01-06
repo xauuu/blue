@@ -70,7 +70,7 @@ Route::post('/check-coupon', [CartController::class, 'check_coupon']);
 
 // check-out
 Route::get('/check-out', [CheckOutController::class, 'check_out']);
-Route::post('/save-checkout', [CheckOutController::class, 'save_checkout']);
+Route::post('/save-to-checkout', [CheckOutController::class, 'save_checkout']);
 Route::get('/check-out-success', [CheckOutController::class, 'check_out_success']);
 Route::post('/select', [CheckOutController::class, 'select']);
 
@@ -196,9 +196,8 @@ Route::group(['prefix' => 'admin'], function () {
             Route::get('/delete-coupon/{brand_id}', [CouponController::class, 'delete_coupon']);
         });
     });
-    //post
-    Route::group(['prefix' => 'post'], function () {
-        // category post
+    // category post
+    Route::group(['prefix' => 'category_post'], function () {
         Route::group(['middleware' => 'roles'], function () {
             Route::get('/add-category-post', [PostController::class, 'add_category_post']);
             Route::post('/save-category-post', [PostController::class, 'save_category_post']);
@@ -208,8 +207,9 @@ Route::group(['prefix' => 'admin'], function () {
             Route::get('/status-category-post/{category_post_id}', [PostController::class, 'status_category_post']);
         });
         Route::get('/all-category-post', [PostController::class, 'all_category_post']);
-
-        // post
+    });
+    //post
+    Route::group(['prefix' => 'post'], function () {
         Route::group(['middleware' => 'roles'], function () {
             Route::get('/add-post', [PostController::class, 'add_post']);
             Route::post('/save-post', [PostController::class, 'save_post']);

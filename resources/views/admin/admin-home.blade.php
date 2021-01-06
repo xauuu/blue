@@ -15,7 +15,18 @@
                             <div class="col-sm-3">
                                 <div class="card">
                                     <div class="card-body">
-                                        <h5 class="card-title mb-4">Đơn hàng mới</h5>
+                                        <div class="row">
+                                            <div class="col mt-0">
+                                                <h5 class="card-title">Đơn hàng</h5>
+                                            </div>
+                                            <div class="col-auto">
+                                                <div class="avatar">
+                                                    <div class="avatar-title rounded-circle bg-primary-light">
+                                                        <i class="align-middle" data-feather="shopping-cart"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                         <h3 class="mt-1 mb-3">
                                             @if ($new_order)
                                                 {{ count($new_order) }}
@@ -34,7 +45,18 @@
                             <div class="col-sm-3">
                                 <div class="card">
                                     <div class="card-body">
-                                        <h5 class="card-title mb-4">Đã bán</h5>
+                                        <div class="row">
+                                            <div class="col mt-0">
+                                                <h5 class="card-title">Đã bán</h5>
+                                            </div>
+                                            <div class="col-auto">
+                                                <div class="avatar">
+                                                    <div class="avatar-title rounded-circle bg-primary-light">
+                                                        <i class="align-middle" data-feather="shopping-bag"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                         <h3 class="mt-1 mb-3">
                                             @if ($statistic)
                                                 {{ $statistic->quantity }}
@@ -54,7 +76,19 @@
                             <div class="col-sm-3">
                                 <div class="card">
                                     <div class="card-body">
-                                        <h5 class="card-title mb-4">Thu nhập</h5>
+                                        <div class="row">
+                                            <div class="col mt-0">
+                                                <h5 class="card-title">Thu nhập</h5>
+                                            </div>
+
+                                            <div class="col-auto">
+                                                <div class="avatar">
+                                                    <div class="avatar-title rounded-circle bg-primary-light">
+                                                        <i class="align-middle" data-feather="dollar-sign"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                         <h3 class="mt-1 mb-3">
                                             @if ($statistic)
                                                 {{ number_format($statistic->sales) }}
@@ -73,7 +107,18 @@
                             <div class="col-sm-3">
                                 <div class="card">
                                     <div class="card-body">
-                                        <h5 class="card-title mb-4">Đơn hàng</h5>
+                                        <div class="row">
+                                            <div class="col mt-0">
+                                                <h5 class="card-title">Đơn hàng</h5>
+                                            </div>
+                                            <div class="col-auto">
+                                                <div class="avatar">
+                                                    <div class="avatar-title rounded-circle bg-primary-light">
+                                                        <i class="align-middle" data-feather="shopping-cart"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                         <h3 class="mt-1 mb-3">
                                             @if ($statistic)
                                                 {{ $statistic->total_order }}
@@ -108,7 +153,7 @@
                         </div>
                         <div class="card-body py-3">
                             <div class="chart chart-sm">
-                                <canvas id="chartjs-dashboard-line" style="height: 368px;"></canvas>
+                                <canvas id="chartjs-dashboard-line" style="height: 450px;"></canvas>
                             </div>
                         </div>
                     </div>
@@ -321,26 +366,25 @@
                 scales: {
                     xAxes: [{
                         reverse: true,
-                        gridLines: {
-                            color: "rgba(0,0,0,0.0)"
-                        }
+                        // gridLines: {
+                        //     color: "rgba(0,0,0,0.0)"
+                        // }
                     }],
                     yAxes: [{
                         ticks: {
-                            stepSize: 2000000,
+                            min: 0,
+                            beginAtZero: true,
                             callback: function(value, index, values) {
-                                if (parseInt(value) >= 1000) {
+                                if (Math.floor(value) === value) {
                                     return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-                                } else {
-                                    return value;
                                 }
                             }
                         },
                         display: true,
                         borderDash: [3, 3],
-                        gridLines: {
-                            color: "rgba(0,0,0,0.0)"
-                        }
+                        // gridLines: {
+                        //     color: "rgba(0,0,0,0.0)"
+                        // }
                     }]
                 }
             }
