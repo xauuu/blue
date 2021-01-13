@@ -85,6 +85,19 @@ $(document).ready(function () {
     proQty.prepend('<span class="dec qtybtn">-</span>');
     proQty.append('<span class="inc qtybtn">+</span>');
     proQty.on('click', '.qtybtn', function () {
+        topbar.config({
+            autoRun      : false,
+            barThickness : 4,
+            barColors    : {
+              '0'        : 'rgba(26,  188, 156, .7)',
+              '.3'       : 'rgba(41,  128, 185, .7)',
+              '1.0'      : 'rgba(231, 76,  60,  .7)'
+            },
+            shadowBlur   : 5,
+            shadowColor  : 'rgba(0, 0, 0, .5)',
+            className    : 'topbar',
+          })
+        topbar.show();
         var $button = $(this);
         var oldValue = $button.parent().find('input').val();
         if ($button.hasClass('inc')) {
@@ -122,7 +135,8 @@ $(document).ready(function () {
                     $.each(resutl, function (key, item) {
                         total.html(item['total_col']);
                         $('.subtotal').html(item['total_cost']);
-                        toastr.success('Đã cập nhật giỏ hàng')
+                        toastr.success('Đã cập nhật giỏ hàng');
+                        topbar.hide()
                     });
                 }
             }
@@ -135,7 +149,7 @@ $(document).ready(function () {
         var _token = $('input[name=_token]').val();
         swal({
             title: "Bạn có chắc?",
-            text: "Xoá sản phẩm này khỏi giỏ hàng",
+            text: "Muốn xoá sản phẩm này khỏi giỏ hàng",
             icon: "warning",
             buttons: true,
             dangerMode: true,
@@ -151,7 +165,9 @@ $(document).ready(function () {
                         },
                         success: function (result) {
                             tr.remove();
-                            swal("Đã xoá sản phẩm", {
+                            swal({
+                                title: "Đã xoá!",
+                                text: "Sản phẩm đã được xoá khỏi giỏ hàng",
                                 icon: "success",
                             });
                             $('.subtotal').html(result);

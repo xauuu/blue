@@ -33,9 +33,9 @@
                                 <table>
                                     <thead>
                                         <tr>
-                                            <th class="product-th">Sản phẩm</th>
-                                            <th class="quy-th">Số lượng</th>
-                                            <th class="total-th">Tổng tiền</th>
+                                            <th style="width: 60%;" class="product-th">Sản phẩm</th>
+                                            <th style="width: 15%;" class="quy-th">Số lượng</th>
+                                            <th style="width: 25%;" class="total-th">Tổng tiền</th>
                                             <th></th>
                                         </tr>
                                     </thead>
