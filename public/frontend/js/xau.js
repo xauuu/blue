@@ -17,6 +17,7 @@ $(document).ready(function () {
                     value: "ok",
                 }
             },
+            dangerMode: true,
         })
             .then((value) => {
                 switch (value) {
@@ -77,6 +78,89 @@ $(document).ready(function () {
     });
     // end add cart
 
+    /*-------------------
+            Quantity change
+    --------------------- */
+    var proQty = $('.pro-qty');
+    proQty.prepend('<span class="dec qtybtn">-</span>');
+    proQty.append('<span class="inc qtybtn">+</span>');
+    proQty.on('click', '.qtybtn', function () {
+        var $button = $(this);
+        var oldValue = $button.parent().find('input').val();
+        if ($button.hasClass('inc')) {
+            var newVal = parseFloat(oldValue) + 1;
+        } else {
+            // Don't allow decrementing below zero
+            if (oldValue > 1) {
+                var newVal = parseFloat(oldValue) - 1;
+            } else {
+                newVal = 1;
+            }
+        }
+        $button.parent().find('input').val(newVal);
+        // ajax
+        var url = $('input[name=this_url]').val() + '/update-cart';
+        var _token = $('input[name=_token]').val();
+        var inp = $button.parent().find('input');
+        var total = $button.closest('td').next().find('h4');
+        var rowId = inp.attr('name');
+        var qty = inp.val();
+        $.ajax({
+            type: "post",
+            url: url,
+            data: {
+                rowId: rowId,
+                qty: qty,
+                _token: _token
+            },
+            dataType: "json",
+            success: function (resutl) {
+                if (resutl == 0) {
+                    $button.parent().find('input').val(oldValue);
+                    toastr.warning('Số lượng sản phẩm trong kho không đủ')
+                } else {
+                    $.each(resutl, function (key, item) {
+                        total.html(item['total_col']);
+                        $('.subtotal').html(item['total_cost']);
+                        toastr.success('Đã cập nhật giỏ hàng')
+                    });
+                }
+            }
+        });
+    });
+    $('.delete').click(function (e) {
+        var tr = $(this).closest('tr');
+        var rowId = $(this).data('id');
+        var url = $('input[name=this_url]').val() + '/delete-cart';
+        var _token = $('input[name=_token]').val();
+        swal({
+            title: "Bạn có chắc?",
+            text: "Xoá sản phẩm này khỏi giỏ hàng",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+            .then((willDelete) => {
+                if (willDelete) {
+                    $.ajax({
+                        type: "post",
+                        url: url,
+                        data: {
+                            rowId: rowId,
+                            _token: _token
+                        },
+                        success: function (result) {
+                            tr.remove();
+                            swal("Đã xoá sản phẩm", {
+                                icon: "success",
+                            });
+                            $('.subtotal').html(result);
+                        }
+                    });
+                }
+            });
+
+    });
     //
     $('.choose').change(function (e) {
         var action = $(this).attr('id');

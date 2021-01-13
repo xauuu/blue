@@ -19,9 +19,9 @@
                             <label class="col-xl-3 col-lg-3 col-form-label">Avatar</label>
                             <div class="col-lg-9 col-xl-8">
                                 @if ($customer->customer_avatar)
-                                    <img id="img" width="100" src="{{ $customer->customer_avatar }}" alt="">
+                                    <img id="img" src="{{ $customer->customer_avatar }}" alt="">
                                 @else
-                                    <img id="img" width="100" src="{{ asset('uploads/avatar/avatar-none.png') }}" alt="">
+                                    <img id="img" src="{{ asset('uploads/avatar/avatar-none.png') }}" alt="">
                                 @endif
                                 <label class="avatar-edit" for="avatar"><i class="flaticon-edit"></i></label>
                                 <input id="avatar" class="mt-2 d-none" type="file" name="img" onchange="readURL(this);" accept="image/*">

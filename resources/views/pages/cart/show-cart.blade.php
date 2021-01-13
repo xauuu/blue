@@ -58,7 +58,7 @@
                                                 <td class="quy-col">
                                                     <div class="quantity">
                                                         <div class="pro-qty">
-                                                            <input name="qty[{{ $item->rowId }}]" type="text"
+                                                            <input name="{{ $item->rowId }}" type="text"
                                                                 value="{{ $item->qty }}" min="1">
                                                         </div>
                                                     </div>
@@ -66,8 +66,7 @@
                                                 <td class="total-col">
                                                     <h4>{{ number_format($item->price * $item->qty) }} VND</h4>
                                                 </td>
-                                                <td class="size-col"><a class="delete"
-                                                        href="{{ URL::to('delete-item/' . $item->rowId) }}">×</a></td>
+                                                <td class="size-col"><button class="delete" data-id="{{ $item->rowId }}" type="button">×</button></td>
                                             </tr>
                                         @endforeach
 
@@ -76,7 +75,7 @@
                                 </table>
                             </div>
                             <div class="total-cost">
-                                <h6>Tổng cộng <span>{{ number_format(Cart::subtotal(0, '', '')) }} VND</span></h6>
+                                <h6>Tổng cộng <span class="subtotal">{{ number_format(Cart::subtotal(0, '', '')) }} VND</span></h6>
                             </div>
                         </div>
                         <div class="row justify-content-between mt-2">
@@ -84,8 +83,7 @@
                                 <a href="{{ URL::to('/shop') }}" class="site-btn sb-dark">Tiếp tục mua hàng</a>
                             </div>
                             <div class="col-lg-3 card-right">
-                                <button style="padding: 18px 47px 14px;" type="submit" class="site-btn sb-dark">Cập
-                                    nhật</button>
+
                             </div>
                         </div>
                     </form>
@@ -125,7 +123,7 @@
                     <div class="col-lg-5 card-right">
                         <div class="checkout-cart mb-3">
                             <ul class="price-list">
-                                <li>Tổng<span>{{ number_format(Cart::subtotal(0, '', '')) }} VND</span></li>
+                                <li>Tổng<span class="subtotal">{{ number_format(Cart::subtotal(0, '', '')) }} VND</span></li>
                                 <li>Phí vận chuyển<span>free</span></li>
                                 @if (session('coupon'))
                                     @foreach (session('coupon') as $item => $cou)
@@ -145,7 +143,7 @@
                                         </li>
                                     @endforeach
                                 @else
-                                    <li class="total">Tổng cộng<span>{{ number_format(Cart::subtotal(0, '', '')) }}
+                                    <li class="total">Tổng cộng<span class="subtotal">{{ number_format(Cart::subtotal(0, '', '')) }}
                                             VND</span>
                                     </li>
                                 @endif

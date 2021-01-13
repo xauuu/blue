@@ -13,7 +13,7 @@
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css?family=Josefin+Sans:300,300i,400,400i,700,700i" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.gstatic.com">
-<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;600;700&display=swap" rel="stylesheet">
 
     <!-- Stylesheets -->
     <link rel="stylesheet" href="{{ asset('frontend/css/bootstrap.min.css') }}" />
@@ -27,6 +27,7 @@
     <link rel="stylesheet" href="{{ asset('frontend/css/sweetalert.css') }}" />
     <link rel="stylesheet" href="{{ asset('frontend/css/easydropdown.css') }}" />
     <link rel="stylesheet" href="{{ asset('frontend/css/jquery.fancybox.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('frontend/css/toastr.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('frontend/css/style.css') }}" />
     <link rel="stylesheet" href="{{ asset('frontend/css/xau.css') }}" />
 
@@ -89,8 +90,15 @@
                             <div class="up-item">
                                 <ul class="main-menu-us">
                                     @if (session('customer_id'))
-                                        <li><a href="{{ URL::to('my-account') }}"><i
-                                                    class="flaticon-profile"></i><span>{{ session('customer_name') }}</span></a>
+                                        <li>
+                                            <a href="{{ URL::to('my-account') }}">
+                                                @if (session('customer_avatar') == '')
+                                                    <i class="flaticon-profile"></i>
+                                                @else
+                                                    <img class="avatar" src="{{ session('customer_avatar') }}" alt="">
+                                                @endif
+                                                <span>{{ session('customer_name') }}</span>
+                                            </a>
                                             <ul class="sub-menu">
                                                 <li><a href="{{ URL::to('/your-order') }}">Đơn hàng</a></li>
                                                 <li><a href="{{ URL::to('/logout') }}">Đăng xuất</a></li>
@@ -248,6 +256,7 @@
     <script src="{{ asset('frontend/js/xau.js') }}"></script>
     <script src="{{ asset('frontend/js/jquery.easydropdown.min.js') }}"></script>
     <script src="{{ asset('frontend/js/jquery.fancybox.min.js') }}"></script>
+    <script src="{{ asset('frontend/js/toastr.min.js') }}"></script>
     @stack('script')
     <div id="fb-root"></div>
     <script>

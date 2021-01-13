@@ -14,7 +14,6 @@ use App\Models\Customer_Social;
 use App\Models\Product;
 use App\Models\Sale;
 use App\Models\Slider;
-use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\File;
 use Socialite;
@@ -440,10 +439,10 @@ class HomeController extends Controller
             $name = vn_to_str($request->name);
             $img_name = $name . '-' . 'avatar' . '-' . date('mdYHis') . '.' . $file->getClientOriginalExtension();
             $file->move('uploads/avatar', $img_name);
-            $customer->customer_avatar = url('/').'/uploads/avatar/'.$img_name;
+            $customer->customer_avatar = url('/') . '/uploads/avatar/' . $img_name;
+            Session::put('customer_avatar', url('/') . '/uploads/avatar/' . $img_name);
         }
         $customer->save();
         return redirect()->back();
     }
-
 }

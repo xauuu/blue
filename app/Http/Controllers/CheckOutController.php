@@ -27,6 +27,7 @@ class CheckOutController extends Controller
 {
     public function check_out()
     {
+        if(Cart::content()->isEmpty()) return redirect('/home');
         $contact = Contact::first();
         $category = Category::all();
         $city = City::orderBy('matp', 'asc')->get();

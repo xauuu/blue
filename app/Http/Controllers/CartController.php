@@ -22,10 +22,10 @@ class CartController extends Controller
     {
         $product = Product::find($request->product_id);
         $qty_available = 0;
-        $cart = Cart::search(function ($cartItem, $rowId) use($product) {
+        $cart = Cart::search(function ($cartItem, $rowId) use ($product) {
             return $cartItem->id === $product->product_id;
         });
-        if(!$cart->isEmpty()){
+        if (!$cart->isEmpty()) {
             $qty_available = $cart->first()->qty;
         }
         if ($request->quantity + $qty_available <= $product->product_quantity) {
@@ -66,23 +66,41 @@ class CartController extends Controller
         $category = Category::all();
         return view('pages.cart.show-cart', compact('category', 'contact'));
     }
-    public function delete_item($rowId)
+    public function delete_cart(Request $request)
     {
-        Cart::remove($rowId);
-        return Redirect::to('/cart');
+        Cart::remove($request->rowId);
+        $cart = Cart::content();
+        $total_cost = number_format(Cart::subtotal(0, '', '')) . " VND";
+        echo $total_cost;
     }
-    public function update_cart(Request $request)
+    // public function update_cart(Request $request)
+    // {
+    //     foreach ($request->qty as $rowId => $qty) {
+    //         $check = Cart::get($rowId);
+    //         $product = Product::find($check->id);
+    //         if ($qty < $product->product_quantity) {
+    //             Cart::update($rowId, $qty);
+    //         } else {
+    //             Session::flash('mess', "Số lượng sản phẩm trong kho không đủ");
+    //         }
+    //     }
+    //     return Redirect::to('/cart');
+    // }
+    public function update_cart_test(Request $request)
     {
-        foreach ($request->qty as $rowId => $qty) {
-            $check = Cart::get($rowId);
-            $product = Product::find($check->id);
-            if ($qty < $product->product_quantity) {
-                Cart::update($rowId, $qty);
-            } else {
-                Session::flash('mess', "Số lượng sản phẩm trong kho không đủ");
-            }
+        $check = Cart::get($request->rowId);
+        $product = Product::find($check->id);
+        if ($request->qty < $product->product_quantity) {
+            Cart::update($request->rowId, $request->qty);
+            $cart = Cart::get($request->rowId);
+            $result[] = array(
+                'total_col' => number_format($cart->qty*$cart->price) . " VND",
+                'total_cost' => number_format(Cart::subtotal(0, '', '')) . " VND",
+            );
+            echo json_encode($result);
+        }else{
+            echo 0;
         }
-        return Redirect::to('/cart');
     }
     public function check_coupon(Request $request)
     {

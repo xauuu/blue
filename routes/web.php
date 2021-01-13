@@ -64,13 +64,13 @@ Route::post('/add-post-cmt', [PostController::class, 'add_post_comment']);
 Route::post('/add-cart', [CartController::class, 'add_cart_w_qty']);
 Route::post('/add-cart-ajax', [CartController::class, 'add_cart_ajax']);
 Route::get('/cart', [CartController::class, 'show_cart']);
-Route::get('/delete-item/{rowId}', [CartController::class, 'delete_item']);
-Route::post('/update-cart', [CartController::class, 'update_cart']);
+Route::post('/delete-cart', [CartController::class, 'delete_cart']);
+Route::post('/update-cart', [CartController::class, 'update_cart_test']);
 Route::post('/check-coupon', [CartController::class, 'check_coupon']);
 
 // check-out
 Route::get('/check-out', [CheckOutController::class, 'check_out']);
-Route::post('/save-to-checkout', [CheckOutController::class, 'save_checkout']);
+Route::post('/save-checkout', [CheckOutController::class, 'save_checkout']);
 Route::get('/check-out-success', [CheckOutController::class, 'check_out_success']);
 Route::post('/select', [CheckOutController::class, 'select']);
 
