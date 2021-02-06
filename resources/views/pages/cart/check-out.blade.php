@@ -19,7 +19,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-7 order-2 order-lg-1">
-                    <form action="{{ URL::to('/save-checkout') }}" method="POST" class="checkout-form">
+                    <form action="{{ URL::to('/savecheckout') }}" method="POST" class="checkout-form">
                         @csrf
                         <div class="cf-title">Địa chỉ nhận hàng</div>
                         <div class="row address-inputs">

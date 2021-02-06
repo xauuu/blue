@@ -12,7 +12,6 @@ use App\Http\Controllers\CheckOutController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\CouponController;
 use App\Http\Controllers\GalleryController;
-use App\Http\Controllers\MailController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductDetail;
 use App\Http\Controllers\PageController;
@@ -70,7 +69,7 @@ Route::post('/check-coupon', [CartController::class, 'check_coupon']);
 
 // check-out
 Route::get('/check-out', [CheckOutController::class, 'check_out']);
-Route::post('/save-checkout', [CheckOutController::class, 'save_checkout']);
+Route::post('/savecheckout', 'App\Http\Controllers\CheckOutController@save_checkout');
 Route::get('/check-out-success', [CheckOutController::class, 'check_out_success']);
 Route::post('/select', [CheckOutController::class, 'select']);
 

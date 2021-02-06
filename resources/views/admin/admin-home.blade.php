@@ -22,7 +22,8 @@
                                             <div class="col-auto">
                                                 <div class="avatar">
                                                     <div class="avatar-title rounded-circle bg-primary-light">
-                                                        <i class="align-middle" data-feather="shopping-cart"></i>
+                                                        {{-- <i class="align-middle" data-feather="shopping-cart"></i> --}}
+                                                        Mới
                                                     </div>
                                                 </div>
                                             </div>
@@ -279,7 +280,8 @@
                     '30 ngày trước': [moment().subtract(29, 'days'), moment()],
                     'Tháng này': [moment().startOf('month'), moment().endOf('month')],
                     'Tháng trước': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf(
-                        'month')]
+                        'month')],
+                    'Năm này': [moment().startOf('year'), moment().endOf('year')],
                 }
             },
             function(start, end) {

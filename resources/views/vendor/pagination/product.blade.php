@@ -36,7 +36,7 @@
             <li class="page-item disabled"><a class="page-link">»</a></li>
         @endif
     </ul>
-    <div>
+    {{-- <div>
         <p class="text-sm text-gray-700 leading-5">
             {!! __('Hiển thị') !!}
             <span class="font-medium">{{ $paginator->firstItem() }}</span>
@@ -46,5 +46,5 @@
             <span class="font-medium">{{ $paginator->total() }}</span>
             {!! __('sản phẩm') !!}
         </p>
-    </div>
+    </div> --}}
 @endif

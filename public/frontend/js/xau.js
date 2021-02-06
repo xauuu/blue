@@ -375,7 +375,7 @@ $(document).ready(function () {
     });
 
     $('.dropdown').change(function (e) {
-        var url = $(this).val();
+        var url = $(this).find(":selected").val();
         console.log(url);
         if (url) {
             window.location = url;

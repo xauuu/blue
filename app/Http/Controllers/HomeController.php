@@ -34,7 +34,7 @@ class HomeController extends Controller
     {
         $customer_id = Session::get('customer_id') != null ? Session::get('customer_id') : 0;
         $cook = Cookie::get($customer_id);
-        $page = isset($cook) ? $cook : 6;
+        $page = isset($cook) ? $cook : 12;
         $category = Category::where('category_status', 1)->get();
         $brand = Brand::where('brand_status', 1)->get();
         $contact = Contact::first();
